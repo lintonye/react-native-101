@@ -11,11 +11,27 @@ const Container = styled.View`
   flex-direction: row;
 `;
 
-const Info = styled.View``;
+const Info = styled.View`
+  flex-grow: 1;
+  align-items: center;
+  /* border-color: red;
+  border-width: 1px; */
+`;
 
-const MoreInfo = styled.View``;
+const MoreInfo = styled.View`
+  /* flex-basis: 300px; */
+  /* flex-shrink: 1; */
+`;
 
-const TryItOnMe = () => <Button title="Try it on me" />;
+const RatingContainer = styled.View`
+  align-self: stretch;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+const TryItOnMe = () => (
+  <Button title="Try it on me" onPress={() => alert("say cheese")} />
+);
 
 export default class HatDetail extends Component {
   render() {
@@ -26,16 +42,18 @@ export default class HatDetail extends Component {
       ratingCount,
       soldCount,
       description
-    } = this.props;
+    } = this.props.hat;
     return (
       <Container>
         <Info>
-          <RatingBar
-            count={ratingCount}
-            rating={rating}
-            soldCount={soldCount}
-          />
-          <Price amount={price} />
+          <RatingContainer>
+            <RatingBar
+              ratingCount={ratingCount}
+              rating={rating}
+              soldCount={soldCount}
+            />
+            <Price amount={price} />
+          </RatingContainer>
           <Domo hat={hat} />
         </Info>
         <MoreInfo>
