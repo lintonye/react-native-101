@@ -7,13 +7,13 @@ import Domo from "./Domo";
 import SwipeIndicator from './SwipeIndicator';
 
 const Container = styled.View`
-  padding: 5px;
+  padding: 20px;
   flex-wrap: wrap;
   flex-direction: row;
 `;
 
 const Info = styled.View`
-  flex-grow: 1;
+  flex-grow: 2;
   flex-shrink: 0;
   align-items: center;
   /* border-color: red;
@@ -21,6 +21,8 @@ const Info = styled.View`
 `;
 
 const MoreInfo = styled.View`
+  flex-grow: 1;
+  flex-basis: 200px;
 `;
 
 const RatingContainer = styled.View`
