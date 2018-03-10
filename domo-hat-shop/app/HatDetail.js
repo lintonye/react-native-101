@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { Text, Button } from "react-native";
+import { Text, Button, ScrollView } from "react-native";
 import RatingBar from "./RatingBar";
 import Price from "./Price";
 import Domo from "./Domo";
-import SwipeIndicator from './SwipeIndicator';
+import SwipeIndicator from "./SwipeIndicator";
 
 const Container = styled.View`
   padding: 20px;
@@ -53,24 +53,26 @@ export default class HatDetail extends Component {
       description
     } = this.props.hat;
     return (
-      <Container>
-        <Info>
-          <RatingContainer>
-            <RatingBar
-              ratingCount={ratingCount}
-              rating={rating}
-              soldCount={soldCount}
-            />
-            <Price amount={price} />
-          </RatingContainer>
-          <Domo hat={hatKey} />
-          <StyledSwipeIndicator />
-        </Info>
-        <MoreInfo>
-          <TryItOnMe />
-          <Text>{description}</Text>
-        </MoreInfo>
-      </Container>
+      <ScrollView>
+        <Container>
+          <Info>
+            <RatingContainer>
+              <RatingBar
+                ratingCount={ratingCount}
+                rating={rating}
+                soldCount={soldCount}
+              />
+              <Price amount={price} />
+            </RatingContainer>
+            <Domo hat={hatKey} />
+            <StyledSwipeIndicator />
+          </Info>
+          <MoreInfo>
+            <TryItOnMe />
+            <Text>{description}</Text>
+          </MoreInfo>
+        </Container>
+      </ScrollView>
     );
   }
 }
