@@ -1,5 +1,9 @@
 import React from 'react';
-import { Text } from 'react-native';
+import styled from 'styled-components';
+
+const Text = styled.Text`
+  font-size: 30px;
+`;
 
 export default ({amount}) => {
   return (

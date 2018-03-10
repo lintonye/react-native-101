@@ -13,14 +13,13 @@ const Container = styled.View`
 
 const Info = styled.View`
   flex-grow: 1;
+  flex-shrink: 0;
   align-items: center;
   /* border-color: red;
   border-width: 1px; */
 `;
 
 const MoreInfo = styled.View`
-  /* flex-basis: 300px; */
-  /* flex-shrink: 1; */
 `;
 
 const RatingContainer = styled.View`
@@ -37,7 +36,7 @@ export default class HatDetail extends Component {
   render() {
     const {
       price,
-      hat,
+      hatKey,
       rating,
       ratingCount,
       soldCount,
@@ -54,7 +53,7 @@ export default class HatDetail extends Component {
             />
             <Price amount={price} />
           </RatingContainer>
-          <Domo hat={hat} />
+          <Domo hat={hatKey} />
         </Info>
         <MoreInfo>
           <TryItOnMe />

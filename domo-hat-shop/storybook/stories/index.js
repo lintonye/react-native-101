@@ -24,8 +24,8 @@ const hats = [
   {
     name: `Harry's hat`,
     price: 15,
-    hat: `harry`,
-    rating: 4.5,
+    hatKey: `harry`,
+    rating: 3,
     ratingCount: 42,
     soldCount: 42,
     description: hatDescription
@@ -33,7 +33,7 @@ const hats = [
   {
     name: `Jack's hat`,
     price: 25,
-    hat: `pirate`,
+    hatKey: `pirate`,
     rating: 4,
     ratingCount: 42,
     soldCount: 42,
