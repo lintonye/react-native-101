@@ -4,6 +4,7 @@ import { Text, Button } from "react-native";
 import RatingBar from "./RatingBar";
 import Price from "./Price";
 import Domo from "./Domo";
+import SwipeIndicator from './SwipeIndicator';
 
 const Container = styled.View`
   padding: 5px;
@@ -26,6 +27,13 @@ const RatingContainer = styled.View`
   align-self: stretch;
   flex-direction: row;
   justify-content: space-between;
+`;
+
+const StyledSwipeIndicator = styled(SwipeIndicator)`
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 50%;
 `;
 
 const TryItOnMe = () => (
@@ -54,6 +62,7 @@ export default class HatDetail extends Component {
             <Price amount={price} />
           </RatingContainer>
           <Domo hat={hatKey} />
+          <StyledSwipeIndicator />
         </Info>
         <MoreInfo>
           <TryItOnMe />
