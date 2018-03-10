@@ -19,7 +19,7 @@ const AnimatedHat = ({ progress, source, fromLeft }) => {
   const direction = fromLeft ? -1 : 1;
   const rotate = progress.interpolate({
     inputRange: [0, 1],
-    outputRange: ["-180deg", "0deg"]
+    outputRange: ["-180deg", "360deg"]
   });
   const translateX = progress.interpolate({
     inputRange: [0, 1],
@@ -30,8 +30,8 @@ const AnimatedHat = ({ progress, source, fromLeft }) => {
     outputRange: [-50, 0]
   });
   const opacity = progress.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, 1]
+    inputRange: [0, 0.7, 1],
+    outputRange: [0, 1, 1]
   });
   return (
     <Hat
