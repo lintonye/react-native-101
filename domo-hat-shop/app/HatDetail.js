@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { Text, Button, ScrollView } from "react-native";
+import { Text, Button, ScrollView, Animated } from "react-native";
 import RatingBar from "./RatingBar";
 import Price from "./Price";
 import Domo from "./Domo";
-import SwipeIndicator from "./SwipeIndicator";
 
 const Container = styled.View`
   padding: 20px;
@@ -25,17 +24,10 @@ const MoreInfo = styled.View`
   flex-basis: 200px;
 `;
 
-const RatingContainer = styled.View`
+const RatingContainer = styled(Animated.View)`
   align-self: stretch;
   flex-direction: row;
   justify-content: space-between;
-`;
-
-const StyledSwipeIndicator = styled(SwipeIndicator)`
-  position: absolute;
-  width: 100%;
-  left: 0;
-  top: 50%;
 `;
 
 const TryItOnMe = () => (
@@ -65,10 +57,9 @@ export default class HatDetail extends Component {
               <Price amount={price} />
             </RatingContainer>
             <Domo hat={hatKey} />
-            <StyledSwipeIndicator />
           </Info>
           <MoreInfo>
-            <TryItOnMe />
+            {/* <TryItOnMe /> */}
             <Text>{description}</Text>
           </MoreInfo>
         </Container>
