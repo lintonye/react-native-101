@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import HatDetail from "./HatDetail";
-import { View } from "react-native";
+import { View, Animated } from "react-native";
 import SwipeIndicator from "./SwipeIndicator";
 import styled from "styled-components";
 
@@ -13,13 +13,39 @@ const StyledSwipeIndicator = styled(SwipeIndicator)`
 
 export default class HatSwitcher extends Component {
   state = {
-    index: 0
+    previousIndex: 0,
+    index: 0,
+    transitionProgress: new Animated.Value(0)
   };
   onPreviousClicked = () => {
-    this.setState(prev => ({ index: prev.index - 1 }));
+    this.setState(
+      prev => ({
+        index: prev.index - 1,
+        previousIndex: prev.index,
+      }),
+      () => {
+        this.state.transitionProgress.setValue(0);
+        Animated.timing(this.state.transitionProgress, {
+          toValue: -1,
+          duration: 1000
+        }).start();
+      }
+    );
   };
   onNextClicked = () => {
-    this.setState(prev => ({ index: prev.index + 1 }));
+    this.setState(
+      prev => ({
+        index: prev.index + 1,
+        previousIndex: prev.index
+      }),
+      () => {
+        this.state.transitionProgress.setValue(0);
+        Animated.timing(this.state.transitionProgress, {
+          toValue: 1,
+          duration: 1000
+        }).start();
+      }
+    );
   };
   render() {
     const { hats } = this.props;
@@ -27,7 +53,11 @@ export default class HatSwitcher extends Component {
     const hasNext = this.state.index < hats.length - 1;
     return (
       <View>
-        <HatDetail hat={hats[this.state.index]} />
+        <HatDetail
+          hat={hats[this.state.index]}
+          previousHat={hats[this.state.previousIndex]}
+          transitionProgress={this.state.transitionProgress}
+        />
         <StyledSwipeIndicator
           onPreviousClicked={hasPrevious ? this.onPreviousClicked : null}
           onNextClicked={hasNext ? this.onNextClicked : null}

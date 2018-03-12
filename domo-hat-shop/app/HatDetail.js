@@ -36,9 +36,11 @@ const TryItOnMe = () => (
 
 export default class HatDetail extends Component {
   render() {
+    const { hat, previousHat, transitionProgress } = this.props;
     const {
       price,
       hatKey,
+      hatIndex,
       rating,
       ratingCount,
       soldCount,
@@ -56,7 +58,11 @@ export default class HatDetail extends Component {
               />
               <Price amount={price} />
             </RatingContainer>
-            <Domo hat={hatKey} />
+            <Domo
+              hat={hatKey}
+              previousHat={previousHat.hatKey}
+              transitionProgress={transitionProgress}
+            />
           </Info>
           <MoreInfo>
             {/* <TryItOnMe /> */}

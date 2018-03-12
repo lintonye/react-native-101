@@ -4,34 +4,35 @@ import DomoImg from "./images/domo.png";
 import styled from "styled-components";
 
 const hats = {
-  cap: require("./images/hat_cap.png"),
-  harry: require("./images/hat_harry.png"),
-  pirate: require("./images/hat_pirate.png")
+  cap: require("./images/hat-cap.png"),
+  harry: require("./images/hat-harry.png"),
+  pirate: require("./images/hat-pirate.png"),
+  lepricon: require("./images/hat-lepricon.png"),
+  propeller: require("./images/hat-propeller.png")
 };
 
 const Hat = styled(Animated.Image)`
   position: absolute;
   left: 120px;
-  top: -10px;
+  top: -260px;
 `;
 
-const AnimatedHat = ({ progress, source, fromLeft }) => {
-  const direction = fromLeft ? -1 : 1;
+const AnimatedHat = ({ progress, source }) => {
   const rotate = progress.interpolate({
-    inputRange: [0, 1],
-    outputRange: ["-180deg", "360deg"]
+    inputRange: [-1, 0, 1],
+    outputRange: ['0deg', `-360deg`, `-720deg`]
   });
   const translateX = progress.interpolate({
-    inputRange: [0, 1],
-    outputRange: [200 * direction, 0]
+    inputRange: [-1, -0.0001, 0, 1],
+    outputRange: [0, -200, 200, 0]
   });
   const translateY = progress.interpolate({
-    inputRange: [0, 1],
-    outputRange: [-50, 0]
+    inputRange: [-1, 0, 1],
+    outputRange: [0, -50, 0]
   });
   const opacity = progress.interpolate({
-    inputRange: [0, 0.7, 1],
-    outputRange: [0, 1, 1]
+    inputRange: [-1, -0.7, 0, 0.7, 1],
+    outputRange: [1, 1, 0, 1, 1]
   });
   return (
     <Hat
@@ -44,23 +45,26 @@ const AnimatedHat = ({ progress, source, fromLeft }) => {
   );
 };
 
+// 0 => 1: prev: toLeft, hat: fromRight
+// 1 => 0: prev: toRight, hat: fromLeft
+
 export default class Domo extends PureComponent {
-  state = {
-    progress: new Animated.Value(0)
-  };
-  componentDidMount() {
-    Animated.timing(this.state.progress, {
-      toValue: 1,
-      duration: 1000
-    }).start();
-  }
   render() {
-    const { hat } = this.props;
+    const { previousHat, hat, transitionProgress } = this.props;
+    const previousHatImg = hats[previousHat];
     const hatImg = hats[hat];
+    const prevProgress = transitionProgress.interpolate({
+      inputRange: [-1, 0, 0.001, 1],
+      outputRange: [0, 1, -1, 0]
+    });
+    const thisProgress = transitionProgress;
     return (
       <View>
         <Image source={DomoImg} />
-        <AnimatedHat source={hatImg} progress={this.state.progress} />
+        <View>
+          <AnimatedHat source={previousHatImg} progress={prevProgress} />
+          <AnimatedHat source={hatImg} progress={thisProgress} />
+        </View>
       </View>
     );
   }
