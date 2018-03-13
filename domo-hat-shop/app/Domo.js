@@ -17,20 +17,24 @@ const Hat = styled(Animated.Image)`
   top: -260px;
 `;
 
-const AnimatedHat = ({ progress, source }) => {
-  const rotate = progress.interpolate({
+/**
+ * -1 - 0: hat moving to right left
+ * 0  - 1: hat moving to the right
+ */
+const AnimatedHat = ({ position, source }) => {
+  const rotate = position.interpolate({
     inputRange: [-1, 0, 1],
     outputRange: ["-360deg", `0deg`, `360deg`]
   });
-  const translateX = progress.interpolate({
+  const translateX = position.interpolate({
     inputRange: [-1, 0, 1],
     outputRange: [-200, 0, 200]
   });
-  const translateY = progress.interpolate({
+  const translateY = position.interpolate({
     inputRange: [-1, 0, 1],
     outputRange: [-50, 0, -50]
   });
-  const opacity = progress.interpolate({
+  const opacity = position.interpolate({
     inputRange: [-1, -0.6, 0, 0.6, 1],
     outputRange: [0, 1, 1, 1, 0]
   });
@@ -51,15 +55,15 @@ export default class Domo extends PureComponent {
     const hatLeftImg = hats[hatLeft];
     const hatImg = hats[hat];
     const hatRightImg = hats[hatRight];
-    const hatLeftProgress = transitionProgress.interpolate({
+    const hatLeftPosition = transitionProgress.interpolate({
       inputRange: [-1, 0, 1],
       outputRange: [0, -1, -1]
     });
-    const thisProgress = transitionProgress.interpolate({
+    const thisPosition = transitionProgress.interpolate({
       inputRange: [-1, 0, 1],
       outputRange: [1, 0, -1]
     });
-    const hatRightProgress = transitionProgress.interpolate({
+    const hatRightPosition = transitionProgress.interpolate({
       inputRange: [-1, 0, 1],
       outputRange: [1, 1, 0]
     });
@@ -67,9 +71,9 @@ export default class Domo extends PureComponent {
       <View>
         <Image source={DomoImg} />
         <View>
-          <AnimatedHat source={hatLeftImg} progress={hatLeftProgress} />
-          <AnimatedHat source={hatRightImg} progress={hatRightProgress} />
-          <AnimatedHat source={hatImg} progress={thisProgress} />
+          <AnimatedHat source={hatLeftImg} position={hatLeftPosition} />
+          <AnimatedHat source={hatRightImg} position={hatRightPosition} />
+          <AnimatedHat source={hatImg} position={thisPosition} />
         </View>
       </View>
     );
