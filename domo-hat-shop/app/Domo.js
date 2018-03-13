@@ -20,19 +20,19 @@ const Hat = styled(Animated.Image)`
 const AnimatedHat = ({ progress, source }) => {
   const rotate = progress.interpolate({
     inputRange: [-1, 0, 1],
-    outputRange: ['0deg', `-360deg`, `-720deg`]
+    outputRange: ["-360deg", `0deg`, `360deg`]
   });
   const translateX = progress.interpolate({
-    inputRange: [-1, -0.0001, 0, 1],
-    outputRange: [0, -200, 200, 0]
+    inputRange: [-1, 0, 1],
+    outputRange: [-200, 0, 200]
   });
   const translateY = progress.interpolate({
     inputRange: [-1, 0, 1],
-    outputRange: [0, -50, 0]
+    outputRange: [-50, 0, -50]
   });
   const opacity = progress.interpolate({
-    inputRange: [-1, -0.7, 0, 0.7, 1],
-    outputRange: [1, 1, 0, 1, 1]
+    inputRange: [-1, -0.6, 0, 0.6, 1],
+    outputRange: [0, 1, 1, 1, 0]
   });
   return (
     <Hat
@@ -45,24 +45,30 @@ const AnimatedHat = ({ progress, source }) => {
   );
 };
 
-// 0 => 1: prev: toLeft, hat: fromRight
-// 1 => 0: prev: toRight, hat: fromLeft
-
 export default class Domo extends PureComponent {
   render() {
-    const { previousHat, hat, transitionProgress } = this.props;
-    const previousHatImg = hats[previousHat];
+    const { hatLeft, hat, hatRight, transitionProgress } = this.props;
+    const hatLeftImg = hats[hatLeft];
     const hatImg = hats[hat];
-    const prevProgress = transitionProgress.interpolate({
-      inputRange: [-1, 0, 0.001, 1],
-      outputRange: [0, 1, -1, 0]
+    const hatRightImg = hats[hatRight];
+    const hatLeftProgress = transitionProgress.interpolate({
+      inputRange: [-1, 0, 1],
+      outputRange: [0, -1, -1]
     });
-    const thisProgress = transitionProgress;
+    const thisProgress = transitionProgress.interpolate({
+      inputRange: [-1, 0, 1],
+      outputRange: [1, 0, -1]
+    });
+    const hatRightProgress = transitionProgress.interpolate({
+      inputRange: [-1, 0, 1],
+      outputRange: [1, 1, 0]
+    });
     return (
       <View>
         <Image source={DomoImg} />
         <View>
-          <AnimatedHat source={previousHatImg} progress={prevProgress} />
+          <AnimatedHat source={hatLeftImg} progress={hatLeftProgress} />
+          <AnimatedHat source={hatRightImg} progress={hatRightProgress} />
           <AnimatedHat source={hatImg} progress={thisProgress} />
         </View>
       </View>
