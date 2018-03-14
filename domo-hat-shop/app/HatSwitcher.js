@@ -22,6 +22,7 @@ export default class HatSwitcher extends Component {
       this.state.transitionProgress.setValue(startProgress);
       Animated.spring(this.state.transitionProgress, {
         toValue: direction,
+        useNativeDriver: true,
       }).start(() =>
         this.setState(
           {
@@ -32,7 +33,8 @@ export default class HatSwitcher extends Component {
       );
     } else {
       Animated.spring(this.state.transitionProgress, {
-        toValue: 0
+        toValue: 0,
+        useNativeDriver: true,
       }).start();
     }
   };
