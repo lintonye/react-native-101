@@ -18,7 +18,7 @@ const Hat = styled(Animated.Image)`
 `;
 
 /**
- * -1 - 0: hat moving to right left
+ * -1 - 0: hat moving to the left
  * 0  - 1: hat moving to the right
  */
 const AnimatedHat = ({ position, source }) => {
