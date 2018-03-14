@@ -22,7 +22,7 @@ export default class HatSwitcher extends Component {
       this.state.transitionProgress.setValue(startProgress);
       Animated.spring(this.state.transitionProgress, {
         toValue: direction,
-        useNativeDriver: true,
+        useNativeDriver: true
       }).start(() =>
         this.setState(
           {
@@ -34,7 +34,7 @@ export default class HatSwitcher extends Component {
     } else {
       Animated.spring(this.state.transitionProgress, {
         toValue: 0,
-        useNativeDriver: true,
+        useNativeDriver: true
       }).start();
     }
   };
@@ -54,8 +54,10 @@ export default class HatSwitcher extends Component {
         this.state.transitionProgress.setValue(0.05);
       },
       onPanResponderRelease: (e, gestureState) => {
-        const tp = transitionProgressFromGesture(gestureState);
-        this.switchHat(Math.sign(tp), tp)
+        if (Math.abs(gestureState.dx) > Math.abs(gestureState.dy)) {
+          const tp = transitionProgressFromGesture(gestureState);
+          this.switchHat(Math.sign(tp), tp);
+        }
       },
       onPanResponderMove: (e, gestureState) => {
         if (Math.abs(gestureState.dx) > Math.abs(gestureState.dy)) {
