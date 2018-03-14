@@ -31,6 +31,10 @@ export default class HatSwitcher extends Component {
           () => this.state.transitionProgress.setValue(0)
         )
       );
+    } else {
+      Animated.spring(this.state.transitionProgress, {
+        toValue: 0
+      }).start();
     }
   };
   onPreviousClicked = () => this.switchHat(-1);
@@ -50,13 +54,7 @@ export default class HatSwitcher extends Component {
       },
       onPanResponderRelease: (e, gestureState) => {
         const tp = transitionProgressFromGesture(gestureState);
-        if (Math.abs(tp) >= 0.5) {
-          this.switchHat(Math.sign(tp), tp);
-        } else {
-          Animated.spring(this.state.transitionProgress, {
-            toValue: 0
-          }).start();
-        }
+        this.switchHat(Math.sign(tp), tp)
       },
       onPanResponderMove: (e, gestureState) => {
         if (Math.abs(gestureState.dx) > Math.abs(gestureState.dy)) {
