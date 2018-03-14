@@ -20,9 +20,8 @@ export default class HatSwitcher extends Component {
     const index = this.state.index + direction;
     if (index >= 0 && index < this.props.hats.length) {
       this.state.transitionProgress.setValue(startProgress);
-      Animated.timing(this.state.transitionProgress, {
+      Animated.spring(this.state.transitionProgress, {
         toValue: direction,
-        duration: 500
       }).start(() =>
         this.setState(
           {
