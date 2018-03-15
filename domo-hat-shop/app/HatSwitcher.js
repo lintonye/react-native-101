@@ -43,24 +43,27 @@ export default class HatSwitcher extends Component {
   componentWillMount() {
     const transitionProgressFromGesture = gestureState =>
       -gestureState.dx / Dimensions.get("window").width * 1.5;
+    const isHorizontalScrolling = (evt, gestureState) =>
+      Math.abs(gestureState.dx) > Dimensions.get("window").width / 20 &&
+      Math.abs(gestureState.dx) > Math.abs(gestureState.dy * 1.5);
     this._panResponder = PanResponder.create({
-      onStartShouldSetPanResponder: (evt, gestureState) => true,
-      onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
-      onMoveShouldSetPanResponder: (evt, gestureState) =>
-        Math.abs(gestureState.dx) > Math.abs(gestureState.dy),
-      onMoveShouldSetPanResponderCapture: (evt, gestureState) =>
-        Math.abs(gestureState.dx) > Math.abs(gestureState.dy),
+      onStartShouldSetPanResponder: isHorizontalScrolling,
+      onStartShouldSetPanResponderCapture: isHorizontalScrolling,
+      onMoveShouldSetPanResponder: isHorizontalScrolling,
+      onMoveShouldSetPanResponderCapture: isHorizontalScrolling,
       onPanResponderGrant: () => {
         this.state.transitionProgress.setValue(0.05);
       },
       onPanResponderRelease: (e, gestureState) => {
-        if (Math.abs(gestureState.dx) > Math.abs(gestureState.dy)) {
-          const tp = transitionProgressFromGesture(gestureState);
-          this.switchHat(Math.sign(tp), tp);
-        }
+        // if (isHorizontalScrolling(e, gestureState)) {
+        console.log('dx', gestureState.dx, 'dy', gestureState.dy);
+        
+        const tp = transitionProgressFromGesture(gestureState);
+        this.switchHat(Math.sign(tp), tp);
+        // }
       },
       onPanResponderMove: (e, gestureState) => {
-        if (Math.abs(gestureState.dx) > Math.abs(gestureState.dy)) {
+        if (isHorizontalScrolling(e, gestureState)) {
           const tp = transitionProgressFromGesture(gestureState);
           this.state.transitionProgress.setValue(tp);
         }
