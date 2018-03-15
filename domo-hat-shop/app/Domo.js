@@ -2,16 +2,9 @@ import React, { PureComponent } from "react";
 import { View, Image, Animated } from "react-native";
 import DomoImg from "./images/domo.png";
 import styled from "styled-components";
+import Hat from "./Hat";
 
-const hats = {
-  cap: require("./images/hat-cap.png"),
-  harry: require("./images/hat-harry.png"),
-  pirate: require("./images/hat-pirate.png"),
-  lepricon: require("./images/hat-lepricon.png"),
-  propeller: require("./images/hat-propeller.png")
-};
-
-const Hat = styled(Animated.Image)`
+const StyledHat = styled(Animated.createAnimatedComponent(Hat))`
   position: absolute;
   left: 120px;
   top: -260px;
@@ -21,7 +14,7 @@ const Hat = styled(Animated.Image)`
  * -1 - 0: hat moving to the left
  * 0  - 1: hat moving to the right
  */
-const AnimatedHat = ({ position, source }) => {
+const AnimatedHat = ({ position, type }) => {
   const rotate = position.interpolate({
     inputRange: [-1, 0, 1],
     outputRange: ["-360deg", `0deg`, `360deg`]
@@ -39,8 +32,8 @@ const AnimatedHat = ({ position, source }) => {
     outputRange: [0, 1, 1, 1, 0]
   });
   return (
-    <Hat
-      source={source}
+    <StyledHat
+      type={type}
       style={{
         opacity,
         transform: [{ translateX }, { translateY }, { rotate }]
@@ -52,9 +45,6 @@ const AnimatedHat = ({ position, source }) => {
 export default class Domo extends PureComponent {
   render() {
     const { hatLeft, hat, hatRight, transitionProgress } = this.props;
-    const hatLeftImg = hats[hatLeft];
-    const hatImg = hats[hat];
-    const hatRightImg = hats[hatRight];
     const hatLeftPosition = transitionProgress.interpolate({
       inputRange: [-1, 0, 1],
       outputRange: [0, -1, -1]
@@ -71,9 +61,9 @@ export default class Domo extends PureComponent {
       <View>
         <Image source={DomoImg} />
         <View>
-          <AnimatedHat source={hatLeftImg} position={hatLeftPosition} />
-          <AnimatedHat source={hatRightImg} position={hatRightPosition} />
-          <AnimatedHat source={hatImg} position={thisPosition} />
+          <AnimatedHat type={hatLeft} position={hatLeftPosition} />
+          <AnimatedHat type={hatRight} position={hatRightPosition} />
+          <AnimatedHat type={hat} position={thisPosition} />
         </View>
       </View>
     );
