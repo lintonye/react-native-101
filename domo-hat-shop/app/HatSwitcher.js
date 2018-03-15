@@ -14,6 +14,7 @@ const StyledSwipeIndicator = styled(SwipeIndicator)`
 export default class HatSwitcher extends Component {
   state = {
     index: 0,
+    direction: 1,
     transitionProgress: new Animated.Value(0)
   };
   switchHat = (direction, startProgress = 0) => {
@@ -26,7 +27,8 @@ export default class HatSwitcher extends Component {
       }).start(() =>
         this.setState(
           {
-            index
+            index,
+            direction
           },
           () => this.state.transitionProgress.setValue(0)
         )
@@ -81,6 +83,7 @@ export default class HatSwitcher extends Component {
           hatLeft={hats[this.state.index - 1]}
           hat={hats[this.state.index]}
           hatRight={hats[this.state.index + 1]}
+          transitionDirection={this.state.direction}
           transitionProgress={this.state.transitionProgress}
         />
         <StyledSwipeIndicator

@@ -19,7 +19,7 @@ const Info = styled.View`
   border-width: 1px; */
 `;
 
-const MoreInfo = styled.View`
+const MoreInfo = styled(Animated.View)`
   flex-grow: 1;
   flex-basis: 200px;
 `;
@@ -35,6 +35,16 @@ const TryItOnMe = () => (
 );
 
 export default class HatDetail extends Component {
+  _afterUpdateAnimatedValue = new Animated.Value(0);
+  componentDidUpdate() {
+    this._afterUpdateAnimatedValue.setValue(
+      -2 * this.props.transitionDirection
+    );
+    Animated.spring(this._afterUpdateAnimatedValue, {
+      toValue: 0,
+      useNativeDriver: true
+    }).start(() => this._afterUpdateAnimatedValue.setValue(0));
+  }
   render() {
     const { hatLeft, hat, hatRight, transitionProgress } = this.props;
     const {
@@ -46,11 +56,24 @@ export default class HatDetail extends Component {
       soldCount,
       description
     } = this.props.hat;
+    const transitionPosition = Animated.add(
+      transitionProgress,
+      this._afterUpdateAnimatedValue
+    );
+    const opacity = transitionPosition.interpolate({
+      inputRange: [-1, 0, 1],
+      outputRange: [0, 1, 0]
+    });
+    const translateX = transitionPosition.interpolate({
+      inputRange: [-1, 0, 1],
+      outputRange: [100, 0, -100]
+    });
+    const animatedStyle = { opacity, transform: [{ translateX }] };
     return (
       <ScrollView>
         <Container>
           <Info>
-            <RatingContainer>
+            <RatingContainer style={animatedStyle}>
               <RatingBar
                 ratingCount={ratingCount}
                 rating={rating}
@@ -65,7 +88,7 @@ export default class HatDetail extends Component {
               transitionProgress={transitionProgress}
             />
           </Info>
-          <MoreInfo>
+          <MoreInfo style={animatedStyle}>
             {/* <TryItOnMe /> */}
             <Text>{description}</Text>
           </MoreInfo>

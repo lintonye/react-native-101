@@ -41,14 +41,14 @@ const hats = [
     name: `Lepricon`,
     price: 35,
     hatKey: `lepricon`,
-    rating: 3,
+    rating: 5,
     ratingCount: 42,
     soldCount: 42,
     description: hatDescription
   },
   {
     name: `Propeller`,
-    price: 35,
+    price: 45,
     hatKey: `propeller`,
     rating: 3,
     ratingCount: 42,
