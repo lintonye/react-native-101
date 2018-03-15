@@ -7,6 +7,7 @@ import { linkTo } from "@storybook/addon-links";
 
 import HatDetail from "../../app/HatDetail";
 import HatSwitcher from '../../app/HatSwitcher';
+import HatList from '../../app/HatList';
 
 const hatDescription = `
 Let’s give DOM a nickname… ummm what about Domo? Domo works as a model at the studio “Web Browser”. His job is to pose in front of the artist who paints a portrait (or perhaps millions of portraits).
@@ -59,5 +60,6 @@ const hats = [
 
 storiesOf("Hat Shop", module)
   .add("Hat switcher", () => <HatSwitcher hats={hats} />)
+  .add("Hat list", () => <HatList hats={hats} />)
   .add("Hat details", () => <HatDetail hat={hats[0]} />)
   .add("Hat details - Jack", () => <HatDetail hat={hats[1]} />);
