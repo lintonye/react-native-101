@@ -21,15 +21,16 @@ export default ({ style, onPreviousClicked, onNextClicked }) => {
     onPreviousClicked && onNextClicked
       ? "both"
       : onPreviousClicked ? "left" : "right";
+  const hitSlop = {left: 10, top: 10, right: 10, bottom: 10};
   return (
     <View style={style} controls={controls}>
       {onPreviousClicked && (
-        <TouchableOpacity onPress={onPreviousClicked}>
+        <TouchableOpacity onPress={onPreviousClicked} hitSlop={hitSlop}>
           <Text>⟨</Text>
         </TouchableOpacity>
       )}
       {onNextClicked && (
-        <TouchableOpacity onPress={onNextClicked}>
+        <TouchableOpacity onPress={onNextClicked} hitSlop={hitSlop}>
           <Text>⟩</Text>
         </TouchableOpacity>
       )}
