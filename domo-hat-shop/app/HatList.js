@@ -14,10 +14,14 @@ const ItemContainer = styled.View`
 
 const NameContainer = styled.View`
   align-items: flex-start;
+  flex: 2;
+  justify-content: space-around;
+  flex-direction: row;
+  flex-wrap: wrap;
 `;
 
 const Name = styled.Text`
-  font-size: 20px;
+  font-size: 23px;
 `
 
 const StyledPrice = styled(Price)`
@@ -41,7 +45,7 @@ const HatListItem = ({ hat }) => (
 
 export default class HatList extends Component {
   _renderItem = ({ item }) => <HatListItem hat={item} />;
-  _keyExtractor = (item, index) => item.hatKey;
+  _keyExtractor = (item, index) => index;
   render() {
     const { hats } = this.props;
     return (

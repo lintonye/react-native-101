@@ -39,6 +39,15 @@ const hats = [
     description: hatDescription
   },
   {
+    name: `Propeller really long name long name`,
+    price: 45,
+    hatKey: `propeller`,
+    rating: 3,
+    ratingCount: 42,
+    soldCount: 42,
+    description: hatDescription
+  },
+  {
     name: `Lepricon`,
     price: 35,
     hatKey: `lepricon`,
