@@ -9,7 +9,10 @@ const ItemContainer = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  margin: 8px 16px 8px 16px;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.12);
   padding: 16px;
+  background-color: white;
 `;
 
 const NameContainer = styled.View`
@@ -23,7 +26,7 @@ const NameContainer = styled.View`
 `;
 
 const Name = styled.Text`
-  font-size: 20px;
+  font-size: 18px;
   max-width: 200px;
 `
 
@@ -31,8 +34,12 @@ const StyledPrice = styled(Price)`
   font-size: 25px;
 `
 
+const StyledFlatList = styled(FlatList)`
+  background-color: #eee;
+`
+
 const HatListItem = ({ hat }) => (
-  <ItemContainer>
+  <ItemContainer elevation={2}>
     <Hat type={hat.hatKey} />
     <NameContainer>
       <Name>{hat.name}</Name>
@@ -52,7 +59,7 @@ export default class HatList extends Component {
   render() {
     const { hats } = this.props;
     return (
-      <FlatList
+      <StyledFlatList
         data={hats}
         renderItem={this._renderItem}
         keyExtractor={this._keyExtractor}

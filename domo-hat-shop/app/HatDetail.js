@@ -42,7 +42,7 @@ export default class HatDetail extends Component {
     );
     Animated.spring(this._afterUpdateAnimatedValue, {
       toValue: 0,
-      useNativeDriver: true
+      // useNativeDriver: true
     }).start(() => this._afterUpdateAnimatedValue.setValue(0));
   }
   render() {
