@@ -18,14 +18,17 @@ const NameContainer = styled.View`
   justify-content: space-around;
   flex-direction: row;
   flex-wrap: wrap;
+  margin-left: 16px;
+  margin-right: 16px;
 `;
 
 const Name = styled.Text`
-  font-size: 23px;
+  font-size: 20px;
+  max-width: 200px;
 `
 
 const StyledPrice = styled(Price)`
-  font-size: 35px;
+  font-size: 25px;
 `
 
 const HatListItem = ({ hat }) => (
