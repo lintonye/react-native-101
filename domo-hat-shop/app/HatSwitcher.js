@@ -103,3 +103,7 @@ export const HatSwitcherScreen = ({ navigation }) => {
   const { hats, index } = params || { hats: [], index: 0 };
   return <HatSwitcher hats={hats} index={index} />;
 };
+
+HatSwitcherScreen.navigationOptions = {
+  title: "Hat detail"
+};

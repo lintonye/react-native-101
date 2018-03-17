@@ -90,3 +90,8 @@ export const HatListScreen = ({ navigation }) => {
     />
   );
 };
+
+HatListScreen.navigationOptions = {
+  title: "Domo's Hat Shop",
+  tabBarLabel: "Hats"
+};

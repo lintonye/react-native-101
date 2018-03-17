@@ -155,3 +155,8 @@ export const HatGridScreen = ({ navigation }) => {
     />
   );
 };
+
+HatGridScreen.navigationOptions = {
+  title: "Domo's Hat Shop",
+  tabBarLabel: "Hats"
+};
