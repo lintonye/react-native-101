@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, FlatList } from "react-native";
+import { View, Text, FlatList, Dimensions } from "react-native";
 import Hat from "./Hat";
 import RatingBar from "./RatingBar";
 import Price from "./Price";
@@ -90,7 +90,7 @@ class ListBasedHatGrid extends Component {
 export default class HatGrid extends Component {
   render() {
     const { hats } = this.props;
-    const cols = 2;
+    const cols = Math.floor(Dimensions.get('window').width / 170);
     return <ListBasedHatGrid hats={hats} columns={cols} />;
   }
 }
