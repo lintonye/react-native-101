@@ -38,8 +38,8 @@ export default class HatSwitcher extends Component {
       );
     } else {
       Animated.spring(this.state.transitionProgress, {
-        toValue: 0,
-        useNativeDriver: true
+        toValue: 0
+        // useNativeDriver: true
       }).start();
     }
   };

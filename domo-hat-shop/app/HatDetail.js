@@ -22,12 +22,19 @@ const Info = styled.View`
 const MoreInfo = styled(Animated.View)`
   flex-grow: 1;
   flex-basis: 200px;
+  align-items: center;
 `;
 
-const RatingContainer = styled(Animated.View)`
+const NameContainer = styled(Animated.View)`
   align-self: stretch;
   flex-direction: row;
   justify-content: space-between;
+`;
+
+const Name = styled.Text`
+  font-size: 25px;
+  flex: 1;
+  margin-right: 16px;
 `;
 
 const TryItOnMe = () => (
@@ -54,7 +61,8 @@ export default class HatDetail extends Component {
       rating,
       ratingCount,
       soldCount,
-      description
+      description,
+      name
     } = this.props.hat;
     const transitionPosition = transitionProgress
       ? Animated.add(transitionProgress, this._afterUpdateAnimatedValue)
@@ -72,22 +80,25 @@ export default class HatDetail extends Component {
       <ScrollView>
         <Container>
           <Info>
-            <RatingContainer style={animatedStyle}>
-              <RatingBar
-                ratingCount={ratingCount}
-                rating={rating}
-                soldCount={soldCount}
-              />
+            <NameContainer style={animatedStyle}>
+              <Name>{name}</Name>
               <Price amount={price} />
-            </RatingContainer>
+            </NameContainer>
             <Domo
               hatLeft={hatLeft && hatLeft.hatKey}
               hat={hatKey}
               hatRight={hatRight && hatRight.hatKey}
-              transitionProgress={transitionProgress || this._afterUpdateAnimatedValue}
+              transitionProgress={
+                transitionProgress || this._afterUpdateAnimatedValue
+              }
             />
           </Info>
           <MoreInfo style={animatedStyle}>
+            <RatingBar
+              ratingCount={ratingCount}
+              rating={rating}
+              soldCount={soldCount}
+            />
             {/* <TryItOnMe /> */}
             <Text>{description}</Text>
           </MoreInfo>
