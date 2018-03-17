@@ -41,7 +41,7 @@ export default class HatDetail extends Component {
       -2 * this.props.transitionDirection
     );
     Animated.spring(this._afterUpdateAnimatedValue, {
-      toValue: 0,
+      toValue: 0
       // useNativeDriver: true
     }).start(() => this._afterUpdateAnimatedValue.setValue(0));
   }
@@ -56,10 +56,9 @@ export default class HatDetail extends Component {
       soldCount,
       description
     } = this.props.hat;
-    const transitionPosition = Animated.add(
-      transitionProgress,
-      this._afterUpdateAnimatedValue
-    );
+    const transitionPosition = transitionProgress
+      ? Animated.add(transitionProgress, this._afterUpdateAnimatedValue)
+      : this._afterUpdateAnimatedValue;
     const opacity = transitionPosition.interpolate({
       inputRange: [-1, 0, 1],
       outputRange: [0, 1, 0]
@@ -85,7 +84,7 @@ export default class HatDetail extends Component {
               hatLeft={hatLeft && hatLeft.hatKey}
               hat={hatKey}
               hatRight={hatRight && hatRight.hatKey}
-              transitionProgress={transitionProgress}
+              transitionProgress={transitionProgress || this._afterUpdateAnimatedValue}
             />
           </Info>
           <MoreInfo style={animatedStyle}>
