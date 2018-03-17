@@ -1,5 +1,11 @@
 import React, { Component } from "react";
-import { View, Text, FlatList, Dimensions } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  Dimensions,
+  TouchableOpacity
+} from "react-native";
 import Hat from "./Hat";
 import RatingBar from "./RatingBar";
 import Price from "./Price";
@@ -9,11 +15,13 @@ import { LinearGradient } from "expo";
 
 const ItemContainer = styled.View`
   flex: 1;
-  justify-content: space-between;
-  align-items: center;
   margin: 0 8px 0 0;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12);
   background-color: white;
+`;
+
+const StyledTouchable = styled(TouchableOpacity)`
+  align-items: center;
 `;
 
 const NameContainer = styled.View`
@@ -63,25 +71,27 @@ const gradients = [
   ["#4c669f", "#3b5998", "#192f6a"],
   ["#a8c0ff", "#3f2b96"],
   ["#dd1818", "#333333"],
-  ["#ffb75e", "#ed8f03", "#ed8f03","#2d2f03"]
+  ["#ffb75e", "#ed8f03", "#ed8f03", "#2d2f03"]
 ];
 
-const HatGridItem = ({ hat, index }) => (
+const HatGridItem = ({ ihat: { hat, index }, onPress }) => (
   <ItemContainer elevation={2}>
-    <CardTop colors={gradients[Math.floor(Math.random() * gradients.length)]}>
-      <Hat type={hat.hatKey} />
-      <NameContainer>
-        <Name numberOfLines={1}>{hat.name}</Name>
-        <StyledPrice amount={hat.price} />
-      </NameContainer>
-    </CardTop>
-    <CardBottom>
-      <RatingBar
-        rating={hat.rating}
-        ratingCount={hat.ratingCount}
-        soldCount={hat.soldCount}
-      />
-    </CardBottom>
+    <StyledTouchable onPress={onPress}>
+      <CardTop colors={gradients[index % gradients.length]}>
+        <Hat type={hat.hatKey} />
+        <NameContainer>
+          <Name numberOfLines={1}>{hat.name}</Name>
+          <StyledPrice amount={hat.price} />
+        </NameContainer>
+      </CardTop>
+      <CardBottom>
+        <RatingBar
+          rating={hat.rating}
+          ratingCount={hat.ratingCount}
+          soldCount={hat.soldCount}
+        />
+      </CardBottom>
+    </StyledTouchable>
   </ItemContainer>
 );
 
@@ -90,20 +100,27 @@ const RowContainer = styled.View`
   margin-left: 8px;
 `;
 
-const HatRow = ({ hats }) => (
+const HatRow = ({ hats, onItemPress }) => (
   <RowContainer>
-    {hats.map((hat, index) => (
-      <HatGridItem hat={hat} key={index} index={index} />
+    {hats.map(ihat => (
+      <HatGridItem
+        ihat={ihat}
+        key={ihat.index}
+        onPress={onItemPress(ihat.index)}
+      />
     ))}
   </RowContainer>
 );
 
 class ListBasedHatGrid extends Component {
-  _renderRow = ({ item }) => <HatRow hats={item} />;
+  _renderRow = ({ item }) => (
+    <HatRow hats={item} onItemPress={this.props.onItemPress} />
+  );
   _keyExtractor = (item, index) => index;
   render() {
     const { hats, columns } = this.props;
-    const hatRows = _.chunk(hats, columns);
+    const indexedHats = hats.map((hat, index) => ({ hat, index }));
+    const hatRows = _.chunk(indexedHats, columns);
     return (
       <StyledFlatList
         data={hatRows}
@@ -119,8 +136,22 @@ class ListBasedHatGrid extends Component {
 
 export default class HatGrid extends Component {
   render() {
-    const { hats } = this.props;
+    const { hats, onItemPress } = this.props;
     const cols = Math.floor(Dimensions.get("window").width / 170);
-    return <ListBasedHatGrid hats={hats} columns={cols} />;
+    return (
+      <ListBasedHatGrid hats={hats} columns={cols} onItemPress={onItemPress} />
+    );
   }
 }
+
+export const HatGridScreen = ({ navigation }) => {
+  const { params } = navigation.state;
+  const hats = params ? params.hats : [];
+  return (
+    <HatGrid
+      hats={hats}
+      onItemPress={index => () =>
+        navigation.navigate("HatDetail", { hats, index })}
+    />
+  );
+};

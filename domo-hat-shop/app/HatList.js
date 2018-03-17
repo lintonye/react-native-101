@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, FlatList } from "react-native";
+import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import Hat from "./Hat";
 import RatingBar from "./RatingBar";
 import Price from "./Price";
@@ -42,23 +42,27 @@ const Spacer = styled.View`
   height: ${props => props.height}px;
 `;
 
-const HatListItem = ({ hat }) => (
-  <ItemContainer elevation={2}>
-    <Hat type={hat.hatKey} />
-    <NameContainer>
-      <Name>{hat.name}</Name>
-      <RatingBar
-        rating={hat.rating}
-        ratingCount={hat.ratingCount}
-        soldCount={hat.soldCount}
-      />
-    </NameContainer>
-    <StyledPrice amount={hat.price} />
-  </ItemContainer>
+const HatListItem = ({ hat, onPress }) => (
+  <TouchableOpacity onPress={onPress}>
+    <ItemContainer elevation={2}>
+      <Hat type={hat.hatKey} />
+      <NameContainer>
+        <Name>{hat.name}</Name>
+        <RatingBar
+          rating={hat.rating}
+          ratingCount={hat.ratingCount}
+          soldCount={hat.soldCount}
+        />
+      </NameContainer>
+      <StyledPrice amount={hat.price} />
+    </ItemContainer>
+  </TouchableOpacity>
 );
 
 export default class HatList extends Component {
-  _renderItem = ({ item }) => <HatListItem hat={item} />;
+  _renderItem = ({ item, index }) => (
+    <HatListItem hat={item} onPress={this.props.onItemPress(index)} />
+  );
   _keyExtractor = (item, index) => index;
   render() {
     const { hats } = this.props;
@@ -74,3 +78,15 @@ export default class HatList extends Component {
     );
   }
 }
+
+export const HatListScreen = ({ navigation }) => {
+  const { params } = navigation.state;
+  const hats = params ? params.hats : [];
+  return (
+    <HatList
+      hats={hats}
+      onItemPress={index => () =>
+        navigation.navigate("HatDetail", { hats, index })}
+    />
+  );
+};

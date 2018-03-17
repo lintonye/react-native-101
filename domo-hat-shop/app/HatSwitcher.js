@@ -12,17 +12,20 @@ const StyledSwipeIndicator = styled(SwipeIndicator)`
 `;
 
 export default class HatSwitcher extends Component {
-  state = {
-    index: 0,
-    direction: 1,
-    transitionProgress: new Animated.Value(0)
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      index: props.index,
+      direction: 1,
+      transitionProgress: new Animated.Value(0)
+    };
+  }
   switchHat = (direction, startProgress = 0) => {
     const index = this.state.index + direction;
     if (index >= 0 && index < this.props.hats.length) {
       this.state.transitionProgress.setValue(startProgress);
       Animated.spring(this.state.transitionProgress, {
-        toValue: direction,
+        toValue: direction
         // useNativeDriver: true
       }).start(() =>
         this.setState(
@@ -58,8 +61,8 @@ export default class HatSwitcher extends Component {
       },
       onPanResponderRelease: (e, gestureState) => {
         // if (isHorizontalScrolling(e, gestureState)) {
-        console.log('dx', gestureState.dx, 'dy', gestureState.dy);
-        
+        // console.log("dx", gestureState.dx, "dy", gestureState.dy);
+
         const tp = transitionProgressFromGesture(gestureState);
         this.switchHat(Math.sign(tp), tp);
         // }
@@ -94,3 +97,9 @@ export default class HatSwitcher extends Component {
     );
   }
 }
+
+export const HatSwitcherScreen = ({ navigation }) => {
+  const { params } = navigation.state;
+  const { hats, index } = params || { hats: [], index: 0 };
+  return <HatSwitcher hats={hats} index={index} />;
+};
