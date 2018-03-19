@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   SafeAreaView
 } from "react-native";
+// import SafeAreaView from "react-native-safe-area-view";
 import Hat from "./Hat";
 import RatingBar from "./RatingBar";
 import Price from "./Price";
@@ -123,7 +124,7 @@ class ListBasedHatGrid extends Component {
     const indexedHats = hats.map((hat, index) => ({ hat, index }));
     const hatRows = _.chunk(indexedHats, columns);
     return (
-      <SafeAreaView>
+      <SafeAreaView forceInset={{ right: "always" }}>
         <StyledFlatList
           data={hatRows}
           renderItem={this._renderRow}
