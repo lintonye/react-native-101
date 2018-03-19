@@ -135,9 +135,17 @@ class ListBasedHatGrid extends Component {
 }
 
 export default class HatGrid extends Component {
+  state = {
+    windowWidth: Dimensions.get("window").width
+  };
+  componentDidMount() {
+    Dimensions.addEventListener("change", ({ window, screen }) => {
+      this.setState({ windowWidth: window.width });
+    });
+  }
   render() {
     const { hats, onItemPress } = this.props;
-    const cols = Math.floor(Dimensions.get("window").width / 170);
+    const cols = Math.floor(this.state.windowWidth / 170);
     return (
       <ListBasedHatGrid hats={hats} columns={cols} onItemPress={onItemPress} />
     );
