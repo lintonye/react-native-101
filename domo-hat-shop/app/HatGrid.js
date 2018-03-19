@@ -4,7 +4,8 @@ import {
   Text,
   FlatList,
   Dimensions,
-  TouchableOpacity
+  TouchableOpacity,
+  SafeAreaView
 } from "react-native";
 import Hat from "./Hat";
 import RatingBar from "./RatingBar";
@@ -122,14 +123,16 @@ class ListBasedHatGrid extends Component {
     const indexedHats = hats.map((hat, index) => ({ hat, index }));
     const hatRows = _.chunk(indexedHats, columns);
     return (
-      <StyledFlatList
-        data={hatRows}
-        renderItem={this._renderRow}
-        keyExtractor={this._keyExtractor}
-        ItemSeparatorComponent={() => <Spacer height={8} />}
-        ListHeaderComponent={() => <Spacer height={8} />}
-        ListFooterComponent={() => <Spacer height={8} />}
-      />
+      <SafeAreaView>
+        <StyledFlatList
+          data={hatRows}
+          renderItem={this._renderRow}
+          keyExtractor={this._keyExtractor}
+          ItemSeparatorComponent={() => <Spacer height={8} />}
+          ListHeaderComponent={() => <Spacer height={8} />}
+          ListFooterComponent={() => <Spacer height={8} />}
+        />
+      </SafeAreaView>
     );
   }
 }
