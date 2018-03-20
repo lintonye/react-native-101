@@ -78,9 +78,9 @@ export default class App extends Component {
     };
     return (
       <View style={styles.app}>
+        <DomoWithHat hat={this.state.hat} />
         <Text style={styles.text}>Choose a hat:</Text>
         <HatSwitcher onHatPressed={this.onHatPressed} />
-        <DomoWithHat hat={this.state.hat} />
       </View>
     );
   }
