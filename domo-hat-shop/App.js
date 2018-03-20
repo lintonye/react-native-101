@@ -54,7 +54,7 @@ const DomoWithHat = ({ hat }) => (
 
 const TouchableHat = ({ type, onPress }) => (
   <TouchableOpacity style={styles.hatTouchable} onPress={() => onPress(type)}>
-    <Hat type={type} />
+    <Hat type={type} style={{ width: 80, height: 80 }} />
   </TouchableOpacity>
 );
 
@@ -94,17 +94,17 @@ const styles = StyleSheet.create({
     margin: 20
   },
   Domo: {
-    height: 200,
-    width: 200
+    height: 300,
+    width: 300
   },
   hat: {
-    height: 70,
-    width: 80
+    height: 120,
+    width: 120
   },
   hatOnDomo: {
     position: "absolute",
     top: 0,
-    left: 100
+    left: 150
   },
   hatTouchable: {
     borderWidth: 1,
