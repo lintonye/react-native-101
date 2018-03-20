@@ -105,5 +105,6 @@ export const HatSwitcherScreen = ({ navigation }) => {
 };
 
 HatSwitcherScreen.navigationOptions = {
-  title: "Try Hat"
+  title: "Domo's Hat Shop",
+  tabBarLabel: "Try Hat"
 };

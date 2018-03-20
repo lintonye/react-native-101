@@ -1,39 +1,19 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { Text, Button, ScrollView, Animated } from "react-native";
-import RatingBar from "./RatingBar";
-import Price from "./Price";
+import { Text, Button, Animated } from "react-native";
 import Domo from "./Domo";
 
 const Container = styled.View`
-  padding: 20px;
-  flex-wrap: wrap;
-  flex-direction: row;
-`;
-
-const Info = styled.View`
-  flex-grow: 2;
-  flex-shrink: 0;
-  align-items: center;
-  /* border-color: red;
-  border-width: 1px; */
-`;
-
-const MoreInfo = styled(Animated.View)`
-  flex-grow: 1;
-  flex-basis: 200px;
+  padding: 16px;
   align-items: center;
 `;
 
 const NameContainer = styled(Animated.View)`
-  align-self: stretch;
-  flex-direction: row;
-  justify-content: space-between;
+  margin: 16px;
 `;
 
 const Name = styled.Text`
   font-size: 25px;
-  flex: 1;
   margin-right: 16px;
 `;
 
@@ -77,33 +57,20 @@ export default class HatDetail extends Component {
     });
     const animatedStyle = { opacity, transform: [{ translateX }] };
     return (
-      <ScrollView>
-        <Container>
-          <Info>
-            <NameContainer style={animatedStyle}>
-              <Name>{name}</Name>
-              <Price amount={price} />
-            </NameContainer>
-            <Domo
-              hatLeft={hatLeft && hatLeft.hatKey}
-              hat={hatKey}
-              hatRight={hatRight && hatRight.hatKey}
-              transitionProgress={
-                transitionProgress || this._afterUpdateAnimatedValue
-              }
-            />
-          </Info>
-          <MoreInfo style={animatedStyle}>
-            <RatingBar
-              ratingCount={ratingCount}
-              rating={rating}
-              soldCount={soldCount}
-            />
-            {/* <TryItOnMe /> */}
-            <Text>{description}</Text>
-          </MoreInfo>
-        </Container>
-      </ScrollView>
+      <Container>
+        <NameContainer style={animatedStyle}>
+          <Name>{name}</Name>
+        </NameContainer>
+        <Domo
+          hatLeft={hatLeft && hatLeft.hatKey}
+          hat={hatKey}
+          hatRight={hatRight && hatRight.hatKey}
+          transitionProgress={
+            transitionProgress || this._afterUpdateAnimatedValue
+          }
+        />
+        <TryItOnMe />
+      </Container>
     );
   }
 }
