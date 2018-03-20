@@ -105,5 +105,5 @@ export const HatSwitcherScreen = ({ navigation }) => {
 };
 
 HatSwitcherScreen.navigationOptions = {
-  title: "Hat detail"
+  title: "Try Hat"
 };

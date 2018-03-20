@@ -3,26 +3,29 @@ import { TabNavigator, StackNavigator } from "react-navigation";
 import { HatListScreen } from "./HatList";
 import { HatGridScreen } from "./HatGrid";
 import { HatSwitcherScreen } from "./HatSwitcher";
-import ShopMap from "./ShopMap";
-import ShoppingCart from "./ShoppingCart";
+import { MyShotsScreen } from "./MyShots";
+import About from "./About";
 import { manyHats } from "../Data";
 
 const HomeTabs = TabNavigator(
   {
-    Hats: {
+    TryHat: {
+      screen: HatSwitcherScreen
+    },
+    AllHats: {
       screen: HatGridScreen
       // screen: HatListScreen,
     },
-    Map: {
-      screen: ShopMap
+    MyShots: {
+      screen: MyShotsScreen
     },
-    ShoppingCart: {
-      screen: ShoppingCart
+    About: {
+      screen: About
     }
   },
   {
-    initialRouteName: "Hats",
-    initialRouteParams: { hats: manyHats }
+    initialRouteName: "TryHat",
+    initialRouteParams: { hats: manyHats, index: 0 }
   }
 );
 
