@@ -1,13 +1,20 @@
 import React, { PureComponent } from "react";
 import { View, Image, Animated } from "react-native";
-import DomoImg from "./images/domo.png";
+import DomoPng from "./images/domo.png";
 import styled from "styled-components";
 import Hat from "./Hat";
 
 const StyledHat = styled(Animated.createAnimatedComponent(Hat))`
   position: absolute;
-  left: 120px;
-  top: -260px;
+  left: 150px;
+  top: -305px;
+  width: 120px;
+  height: 120px;
+`;
+
+const DomoImage = styled.Image`
+  width: 300px;
+  height: 300px;
 `;
 
 /**
@@ -59,7 +66,7 @@ export default class Domo extends PureComponent {
     });
     return (
       <View>
-        <Image source={DomoImg} />
+        <DomoImage source={DomoPng} />
         <View>
           <AnimatedHat type={hatLeft} position={hatLeftPosition} />
           <AnimatedHat type={hatRight} position={hatRightPosition} />
