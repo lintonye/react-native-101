@@ -73,7 +73,7 @@ export default class HatSwitcher extends Component {
   };
   // onPreviousClicked = () => this.switchHat(-1);
   // onNextClicked = () => this.switchHat(1);
-  componentWillMount() {
+  initPanResponder = () => {
     const positionFromGesture = gestureState =>
       -gestureState.dx / Dimensions.get("window").width * 1.5;
     const isHorizontalScrolling = (evt, gestureState) =>
@@ -113,7 +113,21 @@ export default class HatSwitcher extends Component {
         }
       }
     });
+  };
+  componentWillMount() {
+    this.initPanResponder();
   }
+  componentDidMount = () => {
+    const { position, posePosition } = this.state;
+    const { index, poseIndex } = this.props;
+    posePosition.setValue(poseIndex - 0.7);
+    position.setValue(index - 0.9);
+    Animated.stagger(400, [
+      Animated.spring(posePosition, { toValue: poseIndex }),
+      Animated.spring(position, { toValue: index })
+    ]).start();
+  };
+
   render() {
     const { hats, poses } = this.props;
     const hasPrevious = this.state.index > 0;
