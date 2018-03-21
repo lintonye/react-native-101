@@ -20,19 +20,29 @@ export default class HatSwitcher extends Component {
       position: new Animated.Value(props.index)
     };
   }
-  switchHat = (direction, startPosition = this.state.index) => {
-    const index = this.state.index + direction;
-    if (index >= 0 && index < this.props.hats.length) {
+  componentWillReceiveProps = nextProps => {
+    if (nextProps.index !== this.props.index) {
+      const direction = Math.sign(this.props.index - nextProps.index);
+      this.switchHat(
+        direction,
+        nextProps.index + 0.5 * direction,
+        nextProps.index
+      );
+    }
+  };
+
+  switchHat = (
+    direction,
+    startPosition = this.state.index,
+    targetIndex = this.state.index + direction
+  ) => {
+    if (targetIndex >= 0 && targetIndex < this.props.hats.length) {
+      this.setState({ index: targetIndex });
       this.state.position.setValue(startPosition);
       Animated.spring(this.state.position, {
-        toValue: index
+        toValue: targetIndex
         // useNativeDriver: true
-      }).start(() =>
-        this.setState({
-          index,
-          direction
-        })
-      );
+      }).start();
     } else {
       Animated.spring(this.state.position, {
         toValue: this.state.index
