@@ -25,7 +25,9 @@ const HomeTabs = TabNavigator(
   },
   {
     initialRouteName: "TryHat",
-    initialRouteParams: { hats: manyHats, index: 0 }
+    initialRouteParams: { hats: manyHats, index: 0 },
+    swipeEnabled: false,
+    animationEnabled: false
   }
 );
 
