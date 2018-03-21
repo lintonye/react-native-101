@@ -6,8 +6,8 @@ import Hat from "./Hat";
 
 const StyledHat = styled(Animated.createAnimatedComponent(Hat))`
   position: absolute;
-  left: 50%;
-  top: -610px;
+  left: 40%;
+  top: 0;
   width: ${props => props.size || 120}px;
   height: ${props => props.size || 120}px;
 `;
@@ -84,19 +84,13 @@ export default class Domo extends PureComponent {
     return (
       <View>
         <DomoImage source={DomoPng} size={domoSize} />
-        <View>
-          <AnimatedHat
-            type={hatLeft}
-            position={hatLeftPosition}
-            size={hatSize}
-          />
-          <AnimatedHat
-            type={hatRight}
-            position={hatRightPosition}
-            size={hatSize}
-          />
-          <AnimatedHat type={hat} position={thisPosition} size={hatSize} />
-        </View>
+        <AnimatedHat type={hatLeft} position={hatLeftPosition} size={hatSize} />
+        <AnimatedHat
+          type={hatRight}
+          position={hatRightPosition}
+          size={hatSize}
+        />
+        <AnimatedHat type={hat} position={thisPosition} size={hatSize} />
       </View>
     );
   }
