@@ -52,6 +52,25 @@ export default class HatSwitcher extends Component {
       }).start();
     }
   };
+  switchPose = (
+    direction,
+    startPosition = this.state.poseIndex,
+    targetIndex = this.state.poseIndex + direction
+  ) => {
+    if (targetIndex >= 0 && targetIndex < this.props.poses.length) {
+      this.setState({ poseIndex: targetIndex });
+      this.state.posePosition.setValue(startPosition);
+      Animated.spring(this.state.posePosition, {
+        toValue: targetIndex
+        // useNativeDriver: true
+      }).start();
+    } else {
+      Animated.spring(this.state.posePosition, {
+        toValue: this.state.poseIndex
+        // useNativeDriver: true
+      }).start();
+    }
+  };
   // onPreviousClicked = () => this.switchHat(-1);
   // onNextClicked = () => this.switchHat(1);
   componentWillMount() {
@@ -60,6 +79,8 @@ export default class HatSwitcher extends Component {
     const isHorizontalScrolling = (evt, gestureState) =>
       Math.abs(gestureState.dx) > Dimensions.get("window").width / 20 &&
       Math.abs(gestureState.dx) > Math.abs(gestureState.dy * 1.5);
+    const isScrollingHat = gestureState =>
+      gestureState.y0 < Dimensions.get("window").height / 2;
     this._panResponder = PanResponder.create({
       onStartShouldSetPanResponder: isHorizontalScrolling,
       onStartShouldSetPanResponderCapture: isHorizontalScrolling,
@@ -74,13 +95,21 @@ export default class HatSwitcher extends Component {
 
         const delta = positionFromGesture(gestureState);
         const direction = Math.sign(delta);
-        this.switchHat(direction, this.state.index + delta);
+        if (isScrollingHat(gestureState)) {
+          this.switchHat(direction, this.state.index + delta);
+        } else {
+          this.switchPose(direction, this.state.poseIndex + delta);
+        }
         // }
       },
       onPanResponderMove: (e, gestureState) => {
         if (isHorizontalScrolling(e, gestureState)) {
           const delta = positionFromGesture(gestureState);
-          this.state.position.setValue(this.state.index + delta);
+          if (isScrollingHat(gestureState)) {
+            this.state.position.setValue(this.state.index + delta);
+          } else {
+            this.state.posePosition.setValue(this.state.poseIndex + delta);
+          }
         }
       }
     });
@@ -90,7 +119,6 @@ export default class HatSwitcher extends Component {
     const hasPrevious = this.state.index > 0;
     const hasNext = this.state.index < hats.length - 1;
     return (
-      //{...this._panResponder.panHandlers}
       <View {...this._panResponder.panHandlers}>
         <HatDetail
           hats={hats}

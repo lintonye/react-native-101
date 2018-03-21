@@ -7,12 +7,18 @@ import Hat from "./Hat";
 const StyledHat = styled(Animated.createAnimatedComponent(Hat))`
   position: absolute;
   left: ${props => props.size * 1.4}px;
-  top: 0;
+  top: 20px;
   width: ${props => props.size || 120}px;
   height: ${props => props.size || 120}px;
 `;
 
 const DomoImage = styled(Animated.Image)`
+  position: absolute;
+  width: ${props => props.size || 200}px;
+  height: ${props => props.size || 200}px;
+`;
+
+const Container = styled.View`
   width: ${props => props.size || 200}px;
   height: ${props => props.size || 200}px;
 `;
@@ -46,7 +52,7 @@ const AnimatedHat = ({ position, type, size, index }) => {
   );
 };
 
-const AnimatedDomo = ({ position, source, size, index }) => {
+const AnimatedDomo = ({ position, source, size, index, style }) => {
   const translateX = position.interpolate({
     inputRange: [index - 1, index, index + 1],
     outputRange: [2 * size, 0, -2 * size]
@@ -59,10 +65,13 @@ const AnimatedDomo = ({ position, source, size, index }) => {
     <DomoImage
       source={source}
       size={size}
-      style={{
-        opacity,
-        transform: [{ translateX }]
-      }}
+      style={[
+        {
+          opacity,
+          transform: [{ translateX }]
+        },
+        style
+      ]}
     />
   );
 };
@@ -93,8 +102,11 @@ export default class Domo extends PureComponent {
     } = this.props;
     const domoSize = this.state.windowSmallerSide * 0.8;
     const hatSize = this.state.windowSmallerSide * 0.3;
+    const containerSize = domoSize * 1.1;
+    const domoLeft = (containerSize - domoSize) / 2;
+    const domoTop = domoLeft;
     return (
-      <View>
+      <Container size={containerSize}>
         {poses.map(
           (pose, idx) =>
             Math.abs(poseIndex - idx) > 1 ? null : (
@@ -104,6 +116,7 @@ export default class Domo extends PureComponent {
                 source={pose.image}
                 position={posePosition}
                 size={domoSize}
+                style={{ left: domoLeft, top: domoTop }}
               />
             )
         )}
@@ -119,7 +132,7 @@ export default class Domo extends PureComponent {
               />
             )
         )}
-      </View>
+      </Container>
     );
   }
 }
