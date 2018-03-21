@@ -13,7 +13,7 @@ const HomeTabs = TabNavigator(
       screen: HatSwitcherScreen
     },
     AllHats: {
-      screen: HatGridScreen
+      screen: props => <HatGridScreen hats={manyHats} {...props} />
       // screen: HatListScreen,
     },
     MyShots: {
