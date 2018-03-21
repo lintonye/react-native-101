@@ -33,26 +33,18 @@ export default class HatDetail extends Component {
     }).start(() => this._afterUpdateAnimatedValue.setValue(0));
   }
   render() {
-    const { hatLeft, hat, hatRight, transitionProgress } = this.props;
-    const {
-      price,
-      hatKey,
-      hatIndex,
-      rating,
-      ratingCount,
-      soldCount,
-      description,
-      name
-    } = this.props.hat;
+    const { hats, index, transitionProgress } = this.props;
+    const hat = hats[index];
+    const { name } = hat;
     const transitionPosition = transitionProgress
       ? Animated.add(transitionProgress, this._afterUpdateAnimatedValue)
       : this._afterUpdateAnimatedValue;
     const opacity = transitionPosition.interpolate({
-      inputRange: [-1, 0, 1],
+      inputRange: [index - 1, index, index + 1],
       outputRange: [0, 1, 0]
     });
     const translateX = transitionPosition.interpolate({
-      inputRange: [-1, 0, 1],
+      inputRange: [index - 1, index, index + 1],
       outputRange: [100, 0, -100]
     });
     const animatedStyle = { opacity, transform: [{ translateX }] };
@@ -62,9 +54,8 @@ export default class HatDetail extends Component {
           <Name>{name}</Name>
         </NameContainer>
         <Domo
-          hatLeft={hatLeft && hatLeft.hatKey}
-          hat={hatKey}
-          hatRight={hatRight && hatRight.hatKey}
+          hats={hats}
+          index={index}
           transitionProgress={
             transitionProgress || this._afterUpdateAnimatedValue
           }

@@ -17,25 +17,21 @@ const DomoImage = styled.Image`
   height: ${props => props.size || 200}px;
 `;
 
-/**
- * -1 - 0: hat moving to the left
- * 0  - 1: hat moving to the right
- */
-const AnimatedHat = ({ position, type, size }) => {
+const AnimatedHat = ({ position, type, size, index }) => {
   const rotate = position.interpolate({
-    inputRange: [-1, 0, 1],
-    outputRange: ["-360deg", `0deg`, `360deg`]
+    inputRange: [index - 1, index, index + 1],
+    outputRange: ["360deg", `0deg`, `-360deg`]
   });
   const translateX = position.interpolate({
-    inputRange: [-1, 0, 1],
-    outputRange: [-2 * size, 0, 2 * size]
+    inputRange: [index - 1, index, index + 1],
+    outputRange: [2 * size, 0, -2 * size]
   });
   const translateY = position.interpolate({
-    inputRange: [-1, 0, 1],
+    inputRange: [index - 1, index, index + 1],
     outputRange: [-0.8 * size, 0, -0.8 * size]
   });
   const opacity = position.interpolate({
-    inputRange: [-1, -0.6, 0, 0.6, 1],
+    inputRange: [index - 1, index - 0.6, index, index + 0.6, index + 1],
     outputRange: [0, 1, 1, 1, 0]
   });
   return (
@@ -66,31 +62,24 @@ export default class Domo extends PureComponent {
     Dimensions.removeEventListener("change", this.dimensionHandler);
   };
   render() {
-    const { hatLeft, hat, hatRight, transitionProgress } = this.props;
-    const hatLeftPosition = transitionProgress.interpolate({
-      inputRange: [-1, 0, 1],
-      outputRange: [0, -1, -1]
-    });
-    const thisPosition = transitionProgress.interpolate({
-      inputRange: [-1, 0, 1],
-      outputRange: [1, 0, -1]
-    });
-    const hatRightPosition = transitionProgress.interpolate({
-      inputRange: [-1, 0, 1],
-      outputRange: [1, 1, 0]
-    });
+    const { hats, index, transitionProgress } = this.props;
     const domoSize = this.state.windowSmallerSide * 0.8;
     const hatSize = this.state.windowSmallerSide * 0.3;
     return (
       <View>
         <DomoImage source={DomoPng} size={domoSize} />
-        <AnimatedHat type={hatLeft} position={hatLeftPosition} size={hatSize} />
-        <AnimatedHat
-          type={hatRight}
-          position={hatRightPosition}
-          size={hatSize}
-        />
-        <AnimatedHat type={hat} position={thisPosition} size={hatSize} />
+        {hats.map(
+          (hat, hatIdx) =>
+            Math.abs(index - hatIdx) > 1 ? null : (
+              <AnimatedHat
+                index={hatIdx}
+                key={hatIdx}
+                type={hat.hatKey}
+                position={transitionProgress}
+                size={hatSize}
+              />
+            )
+        )}
       </View>
     );
   }
