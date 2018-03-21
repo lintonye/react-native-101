@@ -33,7 +33,14 @@ export default class HatDetail extends Component {
     }).start(() => this._afterUpdateAnimatedValue.setValue(0));
   }
   render() {
-    const { hats, index, position } = this.props;
+    const {
+      hats,
+      index,
+      position,
+      poses,
+      poseIndex,
+      posePosition
+    } = this.props;
     const hat = hats[index];
     const { name } = hat;
     const transitionPosition = position
@@ -57,6 +64,9 @@ export default class HatDetail extends Component {
           hats={hats}
           index={index}
           position={position || this._afterUpdateAnimatedValue}
+          poses={poses}
+          poseIndex={poseIndex}
+          posePosition={posePosition}
         />
         <TryItOnMe />
       </Container>

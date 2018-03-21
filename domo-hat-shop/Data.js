@@ -56,6 +56,25 @@ export const hats = [
   }
 ];
 
+export const poses = [
+  {
+    name: "0",
+    image: require("./app/images/domo.png")
+  },
+  {
+    name: "1",
+    image: require("./app/images/domo.1.png")
+  },
+  {
+    name: "2",
+    image: require("./app/images/domo.2.png")
+  },
+  {
+    name: "3",
+    image: require("./app/images/domo.3.png")
+  }
+];
+
 export const manyHats = hats
   .concat(hats)
   .concat(hats)

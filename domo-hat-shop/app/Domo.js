@@ -12,7 +12,7 @@ const StyledHat = styled(Animated.createAnimatedComponent(Hat))`
   height: ${props => props.size || 120}px;
 `;
 
-const DomoImage = styled.Image`
+const DomoImage = styled(Animated.Image)`
   width: ${props => props.size || 200}px;
   height: ${props => props.size || 200}px;
 `;
@@ -46,6 +46,27 @@ const AnimatedHat = ({ position, type, size, index }) => {
   );
 };
 
+const AnimatedDomo = ({ position, source, size, index }) => {
+  const translateX = position.interpolate({
+    inputRange: [index - 1, index, index + 1],
+    outputRange: [2 * size, 0, -2 * size]
+  });
+  const opacity = position.interpolate({
+    inputRange: [index - 1, index - 0.6, index, index + 0.6, index + 1],
+    outputRange: [0, 1, 1, 1, 0]
+  });
+  return (
+    <DomoImage
+      source={source}
+      size={size}
+      style={{
+        opacity,
+        transform: [{ translateX }]
+      }}
+    />
+  );
+};
+
 export default class Domo extends PureComponent {
   state = {
     windowSmallerSide: Math.min(
@@ -62,12 +83,30 @@ export default class Domo extends PureComponent {
     Dimensions.removeEventListener("change", this.dimensionHandler);
   };
   render() {
-    const { hats, index, position } = this.props;
+    const {
+      hats,
+      index,
+      position,
+      poses,
+      poseIndex,
+      posePosition
+    } = this.props;
     const domoSize = this.state.windowSmallerSide * 0.8;
     const hatSize = this.state.windowSmallerSide * 0.3;
     return (
       <View>
-        <DomoImage source={DomoPng} size={domoSize} />
+        {poses.map(
+          (pose, idx) =>
+            Math.abs(poseIndex - idx) > 1 ? null : (
+              <AnimatedDomo
+                index={idx}
+                key={idx}
+                source={pose.image}
+                position={posePosition}
+                size={domoSize}
+              />
+            )
+        )}
         {hats.map(
           (hat, hatIdx) =>
             Math.abs(index - hatIdx) > 1 ? null : (

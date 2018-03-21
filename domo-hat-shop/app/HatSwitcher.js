@@ -17,7 +17,9 @@ export default class HatSwitcher extends Component {
     this.state = {
       index: props.index,
       direction: 1,
-      position: new Animated.Value(props.index)
+      position: new Animated.Value(props.index),
+      poseIndex: props.poseIndex,
+      posePosition: new Animated.Value(props.poseIndex)
     };
   }
   componentWillReceiveProps = nextProps => {
@@ -84,7 +86,7 @@ export default class HatSwitcher extends Component {
     });
   }
   render() {
-    const { hats } = this.props;
+    const { hats, poses } = this.props;
     const hasPrevious = this.state.index > 0;
     const hasNext = this.state.index < hats.length - 1;
     return (
@@ -95,6 +97,9 @@ export default class HatSwitcher extends Component {
           index={this.state.index}
           transitionDirection={this.state.direction}
           position={this.state.position}
+          poses={poses}
+          poseIndex={this.state.poseIndex}
+          posePosition={this.state.posePosition}
         />
         {/* <StyledSwipeIndicator
           onPreviousClicked={hasPrevious ? this.onPreviousClicked : null}
@@ -107,8 +112,20 @@ export default class HatSwitcher extends Component {
 
 export const HatSwitcherScreen = ({ navigation }) => {
   const { params } = navigation.state;
-  const { hats, index } = params || { hats: [], index: 0 };
-  return <HatSwitcher hats={hats} index={index} />;
+  const { hats, index, poses, poseIndex } = params || {
+    hats: [],
+    index: 0,
+    poses: [],
+    poseIndex: 0
+  };
+  return (
+    <HatSwitcher
+      hats={hats}
+      index={index}
+      poses={poses}
+      poseIndex={poseIndex}
+    />
+  );
 };
 
 HatSwitcherScreen.navigationOptions = {
