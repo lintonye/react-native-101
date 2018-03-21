@@ -58,7 +58,7 @@ export default class HatDetail extends Component {
     return (
       <Container>
         <NameContainer style={animatedStyle}>
-          <Name>{name}</Name>
+          <Name numberOfLines={1}>{name}</Name>
         </NameContainer>
         <Domo
           hats={hats}
