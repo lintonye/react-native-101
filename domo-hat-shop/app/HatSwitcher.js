@@ -80,7 +80,7 @@ export default class HatSwitcher extends Component {
       Math.abs(gestureState.dx) > Dimensions.get("window").width / 20 &&
       Math.abs(gestureState.dx) > Math.abs(gestureState.dy * 1.5);
     const isScrollingHat = gestureState =>
-      gestureState.y0 < Dimensions.get("window").height / 2;
+      gestureState.y0 < Dimensions.get("window").height / 3;
     this._panResponder = PanResponder.create({
       onStartShouldSetPanResponder: isHorizontalScrolling,
       onStartShouldSetPanResponderCapture: isHorizontalScrolling,
