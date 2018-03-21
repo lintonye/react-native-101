@@ -6,7 +6,7 @@ import Hat from "./Hat";
 
 const StyledHat = styled(Animated.createAnimatedComponent(Hat))`
   position: absolute;
-  left: 40%;
+  left: ${props => props.size * 1.4}px;
   top: 0;
   width: ${props => props.size || 120}px;
   height: ${props => props.size || 120}px;
