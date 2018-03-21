@@ -17,14 +17,14 @@ export default class HatSwitcher extends Component {
     this.state = {
       index: props.index,
       direction: 1,
-      transitionProgress: new Animated.Value(props.index)
+      position: new Animated.Value(props.index)
     };
   }
-  switchHat = (direction, startProgress = 0) => {
+  switchHat = (direction, startPosition = this.state.index) => {
     const index = this.state.index + direction;
     if (index >= 0 && index < this.props.hats.length) {
-      this.state.transitionProgress.setValue(startProgress);
-      Animated.spring(this.state.transitionProgress, {
+      this.state.position.setValue(startPosition);
+      Animated.spring(this.state.position, {
         toValue: index
         // useNativeDriver: true
       }).start(() =>
@@ -34,7 +34,7 @@ export default class HatSwitcher extends Component {
         })
       );
     } else {
-      Animated.spring(this.state.transitionProgress, {
+      Animated.spring(this.state.position, {
         toValue: this.state.index
         // useNativeDriver: true
       }).start();
@@ -43,7 +43,7 @@ export default class HatSwitcher extends Component {
   // onPreviousClicked = () => this.switchHat(-1);
   // onNextClicked = () => this.switchHat(1);
   componentWillMount() {
-    const transitionProgressFromGesture = gestureState =>
+    const positionFromGesture = gestureState =>
       -gestureState.dx / Dimensions.get("window").width * 1.5;
     const isHorizontalScrolling = (evt, gestureState) =>
       Math.abs(gestureState.dx) > Dimensions.get("window").width / 20 &&
@@ -54,21 +54,21 @@ export default class HatSwitcher extends Component {
       onMoveShouldSetPanResponder: isHorizontalScrolling,
       onMoveShouldSetPanResponderCapture: isHorizontalScrolling,
       onPanResponderGrant: () => {
-        // this.state.transitionProgress.setValue(0.05);
+        // this.state.position.setValue(0.05);
       },
       onPanResponderRelease: (e, gestureState) => {
         // if (isHorizontalScrolling(e, gestureState)) {
         // console.log("dx", gestureState.dx, "dy", gestureState.dy);
 
-        const delta = transitionProgressFromGesture(gestureState);
+        const delta = positionFromGesture(gestureState);
         const direction = Math.sign(delta);
         this.switchHat(direction, this.state.index + delta);
         // }
       },
       onPanResponderMove: (e, gestureState) => {
         if (isHorizontalScrolling(e, gestureState)) {
-          const delta = transitionProgressFromGesture(gestureState);
-          this.state.transitionProgress.setValue(this.state.index + delta);
+          const delta = positionFromGesture(gestureState);
+          this.state.position.setValue(this.state.index + delta);
         }
       }
     });
@@ -84,7 +84,7 @@ export default class HatSwitcher extends Component {
           hats={hats}
           index={this.state.index}
           transitionDirection={this.state.direction}
-          transitionProgress={this.state.transitionProgress}
+          position={this.state.position}
         />
         {/* <StyledSwipeIndicator
           onPreviousClicked={hasPrevious ? this.onPreviousClicked : null}

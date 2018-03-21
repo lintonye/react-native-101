@@ -62,7 +62,7 @@ export default class Domo extends PureComponent {
     Dimensions.removeEventListener("change", this.dimensionHandler);
   };
   render() {
-    const { hats, index, transitionProgress } = this.props;
+    const { hats, index, position } = this.props;
     const domoSize = this.state.windowSmallerSide * 0.8;
     const hatSize = this.state.windowSmallerSide * 0.3;
     return (
@@ -75,7 +75,7 @@ export default class Domo extends PureComponent {
                 index={hatIdx}
                 key={hatIdx}
                 type={hat.hatKey}
-                position={transitionProgress}
+                position={position}
                 size={hatSize}
               />
             )
