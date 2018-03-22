@@ -3,6 +3,7 @@ import HatDetail from "./HatDetail";
 import { View, Animated, PanResponder, Dimensions } from "react-native";
 import SwipeIndicator from "./SwipeIndicator";
 import styled from "styled-components";
+import { withViewBounds } from "./withViewBounds";
 
 const StyledSwipeIndicator = styled(SwipeIndicator)`
   position: absolute;
@@ -75,12 +76,13 @@ export default class HatSwitcher extends Component {
   // onNextClicked = () => this.switchHat(1);
   initPanResponder = () => {
     const positionFromGesture = gestureState =>
-      -gestureState.dx / Dimensions.get("window").width * 1.5;
+      -gestureState.dx / this.props.viewBounds.width * 1.5;
     const isHorizontalScrolling = (evt, gestureState) =>
-      Math.abs(gestureState.dx) > Dimensions.get("window").width / 20 &&
+      Math.abs(gestureState.dx) > this.props.viewBounds.width / 20 &&
       Math.abs(gestureState.dx) > Math.abs(gestureState.dy * 1.5);
     const isScrollingHat = gestureState =>
-      gestureState.y0 < Dimensions.get("window").height / 3;
+      gestureState.y0 - this.props.viewBounds.top <
+      this.props.viewBounds.height / 2.5;
     this._panResponder = PanResponder.create({
       onStartShouldSetPanResponder: isHorizontalScrolling,
       onStartShouldSetPanResponderCapture: isHorizontalScrolling,
@@ -133,7 +135,7 @@ export default class HatSwitcher extends Component {
     const hasPrevious = this.state.index > 0;
     const hasNext = this.state.index < hats.length - 1;
     return (
-      <View {...this._panResponder.panHandlers}>
+      <View {...this._panResponder.panHandlers} {...this.props}>
         <HatDetail
           hats={hats}
           index={this.state.index}
@@ -160,13 +162,9 @@ export const HatSwitcherScreen = ({ navigation }) => {
     poses: [],
     poseIndex: 0
   };
+  const Switcher = withViewBounds(HatSwitcher);
   return (
-    <HatSwitcher
-      hats={hats}
-      index={index}
-      poses={poses}
-      poseIndex={poseIndex}
-    />
+    <Switcher hats={hats} index={index} poses={poses} poseIndex={poseIndex} />
   );
 };
 
