@@ -15,6 +15,9 @@ import styled from "styled-components";
 import _ from "lodash";
 import { LinearGradient } from "expo";
 
+import { connect } from "react-redux";
+import { switchHat } from "./actions";
+
 const ItemContainer = styled.View`
   flex: 1;
   margin: 0 8px 0 0;
@@ -156,17 +159,21 @@ export default class HatGrid extends Component {
   }
 }
 
-export const HatGridScreen = props => {
-  const { params } = props.navigation.state;
-  const hats = props.hats || (params ? params.hats : []);
+const InnerHatGridScreen = props => {
   return (
     <HatGrid
-      hats={hats}
-      onItemPress={index => () =>
-        props.navigation.navigate("TryHat", { hats, index })}
+      onItemPress={index => () => {
+        props.navigation.navigate("TryHat");
+        props.dispatch(switchHat(index));
+      }}
+      {...props}
     />
   );
 };
+
+export const HatGridScreen = connect(state => ({ hats: state.hats }))(
+  InnerHatGridScreen
+);
 
 HatGridScreen.navigationOptions = {
   title: "Domo's Hat Shop",

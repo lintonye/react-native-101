@@ -5,7 +5,7 @@ import { HatGridScreen } from "./HatGrid";
 import { HatSwitcherScreen } from "./HatSwitcher";
 import { MyShotsScreen } from "./MyShots";
 import About from "./About";
-import { manyHats, poses } from "../Data";
+// import { manyHats, poses } from "../Data";
 
 const HomeTabs = TabNavigator(
   {
@@ -13,7 +13,7 @@ const HomeTabs = TabNavigator(
       screen: HatSwitcherScreen
     },
     AllHats: {
-      screen: props => <HatGridScreen hats={manyHats} {...props} />
+      screen: HatGridScreen
       // screen: HatListScreen,
     },
     MyShots: {
@@ -25,7 +25,7 @@ const HomeTabs = TabNavigator(
   },
   {
     initialRouteName: "TryHat",
-    initialRouteParams: { hats: manyHats, index: 0, poses, poseIndex: 0 },
+    // initialRouteParams: { hats: manyHats, index: 0, poses, poseIndex: 0 },
     swipeEnabled: false,
     animationEnabled: false
   }

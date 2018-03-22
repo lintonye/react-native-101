@@ -5,6 +5,9 @@ import SwipeIndicator from "./SwipeIndicator";
 import styled from "styled-components";
 import { withViewBounds } from "./withViewBounds";
 
+import { connect } from "react-redux";
+import { switchHat, switchPose } from "./actions";
+
 const StyledSwipeIndicator = styled(SwipeIndicator)`
   position: absolute;
   width: 100%;
@@ -16,58 +19,64 @@ export default class HatSwitcher extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      index: props.index,
-      direction: 1,
       position: new Animated.Value(props.index),
-      poseIndex: props.poseIndex,
       posePosition: new Animated.Value(props.poseIndex)
     };
   }
-  componentWillReceiveProps = nextProps => {
-    if (nextProps.index !== this.props.index) {
-      const direction = Math.sign(this.props.index - nextProps.index);
-      this.switchHat(
-        direction,
-        nextProps.index + 0.5 * direction,
-        nextProps.index
-      );
+  // componentWillReceiveProps = nextProps => {
+  //   if (nextProps.index !== this.props.index) {
+  //     const direction = Math.sign(this.props.index - nextProps.index);
+  //     this.switchHat(
+  //       direction,
+  //       nextProps.index + 0.5 * direction,
+  //       nextProps.index
+  //     );
+  //   }
+  // };
+
+  componentDidUpdate = (prevProps, prevState) => {
+    if (prevProps.index !== this.props.index) {
+      this.state.position.setValue(this.props.index);
     }
   };
 
   switchHat = (
     direction,
-    startPosition = this.state.index,
-    targetIndex = this.state.index + direction
+    startPosition = this.props.index,
+    targetIndex = this.props.index + direction
   ) => {
     if (targetIndex >= 0 && targetIndex < this.props.hats.length) {
-      this.setState({ index: targetIndex });
+      // this.setState({ index: targetIndex });
       this.state.position.setValue(startPosition);
       Animated.spring(this.state.position, {
         toValue: targetIndex
         // useNativeDriver: true
-      }).start();
+      }).start(() => {
+        this.props.dispatch(switchHat(targetIndex));
+      });
     } else {
       Animated.spring(this.state.position, {
-        toValue: this.state.index
+        toValue: this.props.index
         // useNativeDriver: true
       }).start();
     }
   };
   switchPose = (
     direction,
-    startPosition = this.state.poseIndex,
-    targetIndex = this.state.poseIndex + direction
+    startPosition = this.props.poseIndex,
+    targetIndex = this.props.poseIndex + direction
   ) => {
     if (targetIndex >= 0 && targetIndex < this.props.poses.length) {
-      this.setState({ poseIndex: targetIndex });
       this.state.posePosition.setValue(startPosition);
       Animated.spring(this.state.posePosition, {
         toValue: targetIndex
         // useNativeDriver: true
-      }).start();
+      }).start(() => {
+        this.props.dispatch(switchPose(targetIndex));
+      });
     } else {
       Animated.spring(this.state.posePosition, {
-        toValue: this.state.poseIndex
+        toValue: this.props.poseIndex
         // useNativeDriver: true
       }).start();
     }
@@ -98,9 +107,9 @@ export default class HatSwitcher extends Component {
         const delta = positionFromGesture(gestureState);
         const direction = Math.sign(delta);
         if (isScrollingHat(gestureState)) {
-          this.switchHat(direction, this.state.index + delta);
+          this.switchHat(direction, this.props.index + delta);
         } else {
-          this.switchPose(direction, this.state.poseIndex + delta);
+          this.switchPose(direction, this.props.poseIndex + delta);
         }
         // }
       },
@@ -108,9 +117,9 @@ export default class HatSwitcher extends Component {
         if (isHorizontalScrolling(e, gestureState)) {
           const delta = positionFromGesture(gestureState);
           if (isScrollingHat(gestureState)) {
-            this.state.position.setValue(this.state.index + delta);
+            this.state.position.setValue(this.props.index + delta);
           } else {
-            this.state.posePosition.setValue(this.state.poseIndex + delta);
+            this.state.posePosition.setValue(this.props.poseIndex + delta);
           }
         }
       }
@@ -132,17 +141,17 @@ export default class HatSwitcher extends Component {
 
   render() {
     const { hats, poses } = this.props;
-    const hasPrevious = this.state.index > 0;
-    const hasNext = this.state.index < hats.length - 1;
+    const hasPrevious = this.props.index > 0;
+    const hasNext = this.props.index < hats.length - 1;
     return (
       <View {...this._panResponder.panHandlers} {...this.props}>
         <HatDetail
           hats={hats}
-          index={this.state.index}
-          transitionDirection={this.state.direction}
+          index={this.props.index}
+          transitionDirection={-1}
           position={this.state.position}
           poses={poses}
-          poseIndex={this.state.poseIndex}
+          poseIndex={this.props.poseIndex}
           posePosition={this.state.posePosition}
         />
         {/* <StyledSwipeIndicator
@@ -154,19 +163,9 @@ export default class HatSwitcher extends Component {
   }
 }
 
-export const HatSwitcherScreen = ({ navigation }) => {
-  const { params } = navigation.state;
-  const { hats, index, poses, poseIndex } = params || {
-    hats: [],
-    index: 0,
-    poses: [],
-    poseIndex: 0
-  };
-  const Switcher = withViewBounds(HatSwitcher);
-  return (
-    <Switcher hats={hats} index={index} poses={poses} poseIndex={poseIndex} />
-  );
-};
+export const HatSwitcherScreen = connect(
+  ({ hats, index, poses, poseIndex }) => ({ hats, index, poses, poseIndex })
+)(withViewBounds(HatSwitcher));
 
 HatSwitcherScreen.navigationOptions = {
   title: "Domo's Hat Shop",
