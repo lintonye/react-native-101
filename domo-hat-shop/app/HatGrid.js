@@ -156,14 +156,16 @@ export default class HatGrid extends Component {
   }
 }
 
-export const HatGridScreen = props => {
-  const { params } = props.navigation.state;
-  const hats = props.hats || (params ? params.hats : []);
+export const HatGridScreen = ({ navigation, screenProps }) => {
+  // const { params } = props.navigation.state;
+  const { hats = [], setIndices } = screenProps;
   return (
     <HatGrid
       hats={hats}
-      onItemPress={index => () =>
-        props.navigation.navigate("TryHat", { hats, index })}
+      onItemPress={index => () => {
+        setIndices({ index });
+        navigation.navigate("TryHat", { index });
+      }}
     />
   );
 };
