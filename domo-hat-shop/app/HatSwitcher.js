@@ -153,6 +153,8 @@ export default class HatSwitcher extends Component {
   }
 }
 
+const HatSwitcherWithViewBounds = withViewBounds(HatSwitcher);
+
 export const HatSwitcherScreen = ({ navigation, screenProps }) => {
   const {
     hats = [],
@@ -161,9 +163,8 @@ export const HatSwitcherScreen = ({ navigation, screenProps }) => {
     poseIndex = 0,
     setIndices
   } = screenProps;
-  const Switcher = withViewBounds(HatSwitcher);
   return (
-    <Switcher
+    <HatSwitcherWithViewBounds
       hats={hats}
       index={index}
       poses={poses}
