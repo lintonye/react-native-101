@@ -171,7 +171,7 @@ const InnerHatGridScreen = props => {
   );
 };
 
-export const HatGridScreen = connect(state => ({ hats: state.hats }))(
+export const HatGridScreen = connect(state => ({ hats: state.core.hats }))(
   InnerHatGridScreen
 );
 

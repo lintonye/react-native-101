@@ -183,7 +183,12 @@ class InnerHatSwitcherScreen extends Component {
 }
 
 export const HatSwitcherScreen = connect(
-  ({ hats, index, poses, poseIndex }) => ({ hats, index, poses, poseIndex })
+  ({ core: { hats, index, poses, poseIndex } }) => ({
+    hats,
+    index,
+    poses,
+    poseIndex
+  })
 )(InnerHatSwitcherScreen);
 
 HatSwitcherScreen.navigationOptions = {
