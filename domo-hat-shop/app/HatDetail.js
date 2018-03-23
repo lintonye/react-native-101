@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import { Text, Button, Animated } from "react-native";
 import Domo from "./Domo";
+import { connectActionSheet } from "@expo/react-native-action-sheet";
 
 const Container = styled.View`
   padding: 16px;
@@ -17,10 +18,11 @@ const Name = styled.Text`
   margin-right: 16px;
 `;
 
-const TryItOnMe = () => (
-  <Button title="Try it on me" onPress={() => alert("say cheese")} />
+const TryItOnMe = ({ onPress }) => (
+  <Button title="Try it on me" onPress={onPress} />
 );
 
+@connectActionSheet
 export default class HatDetail extends Component {
   _afterUpdateAnimatedValue = new Animated.Value(0);
   componentDidUpdate() {
@@ -32,6 +34,30 @@ export default class HatDetail extends Component {
       // useNativeDriver: true
     }).start(() => this._afterUpdateAnimatedValue.setValue(0));
   }
+  onTryOnMePressed = () => {
+    let options = ["Pick from album", "Take a photo", "Cancel"];
+    // let destructiveButtonIndex = 0;
+    let cancelButtonIndex = 2;
+
+    const { showActionSheetWithOptions, onPickImage, onTakePhoto } = this.props;
+    showActionSheetWithOptions(
+      {
+        options,
+        cancelButtonIndex
+        // destructiveButtonIndex
+      },
+      buttonIndex => {
+        switch (buttonIndex) {
+          case 0:
+            onPickImage();
+            break;
+          case 1:
+            onTakePhoto();
+            break;
+        }
+      }
+    );
+  };
   render() {
     const {
       hats,
@@ -68,7 +94,7 @@ export default class HatDetail extends Component {
           poseIndex={poseIndex}
           posePosition={posePosition}
         />
-        <TryItOnMe />
+        <TryItOnMe onPress={this.onTryOnMePressed} />
       </Container>
     );
   }

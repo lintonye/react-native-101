@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { withViewBounds } from "./withViewBounds";
 
 import { connect } from "react-redux";
-import { switchHat, switchPose } from "./actions";
+import { switchHat, switchPose, pickImage, takePhoto } from "./actions";
 
 const StyledSwipeIndicator = styled(SwipeIndicator)`
   position: absolute;
@@ -153,6 +153,8 @@ export default class HatSwitcher extends Component {
           poses={poses}
           poseIndex={this.props.poseIndex}
           posePosition={this.state.posePosition}
+          onPickImage={this.props.onPickImage}
+          onTakePhoto={this.props.onTakePhoto}
         />
         {/* <StyledSwipeIndicator
           onPreviousClicked={hasPrevious ? this.onPreviousClicked : null}
@@ -173,6 +175,8 @@ class InnerHatSwitcherScreen extends Component {
         {...this.props}
         onSwitchHat={index => dispatch(switchHat(index))}
         onSwitchPose={index => dispatch(switchPose(index))}
+        onPickImage={() => dispatch(pickImage())}
+        onTakePhoto={() => dispatch(takePhoto())}
       />
     );
   }

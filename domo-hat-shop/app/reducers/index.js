@@ -7,6 +7,10 @@ const initialState = {
   poseIndex: 0
 };
 
+const createPose = action => {
+  return { name: "photo", image: action.uri };
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case "SWITCH_HAT":
@@ -14,6 +18,10 @@ const reducer = (state = initialState, action) => {
       break;
     case "SWITCH_POSE":
       state = { ...state, poseIndex: action.index };
+      break;
+    case "IMAGE_PICKED":
+    case "PHOTO_TAKEN":
+      state = { ...state, poses: [createPose(action), ...state.poses] };
       break;
   }
   return state;

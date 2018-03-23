@@ -6,6 +6,7 @@ import { HatSwitcherScreen } from "./HatSwitcher";
 import { MyShotsScreen } from "./MyShots";
 import About from "./About";
 // import { manyHats, poses } from "../Data";
+import { ActionSheetProvider } from "@expo/react-native-action-sheet";
 
 const HomeTabs = TabNavigator(
   {
@@ -31,7 +32,7 @@ const HomeTabs = TabNavigator(
   }
 );
 
-export default StackNavigator({
+const Route = StackNavigator({
   HomeTabs: {
     screen: HomeTabs
   },
@@ -39,3 +40,9 @@ export default StackNavigator({
     screen: HatSwitcherScreen
   }
 });
+
+export default props => (
+  <ActionSheetProvider>
+    <Route {...props} />
+  </ActionSheetProvider>
+);
