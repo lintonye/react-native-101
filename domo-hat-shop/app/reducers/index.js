@@ -8,7 +8,7 @@ const initialState = {
 };
 
 const createPose = action => {
-  return { name: "photo", image: action.uri };
+  return { name: "photo", uri: action.uri };
 };
 
 const reducer = (state = initialState, action) => {

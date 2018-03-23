@@ -107,19 +107,19 @@ export default class Domo extends PureComponent {
     const domoTop = domoLeft;
     return (
       <Container size={containerSize}>
-        {poses.map(
-          (pose, idx) =>
-            Math.abs(poseIndex - idx) > 1 ? null : (
-              <AnimatedDomo
-                index={idx}
-                key={idx}
-                source={pose.image}
-                position={posePosition}
-                size={domoSize}
-                style={{ left: domoLeft, top: domoTop }}
-              />
-            )
-        )}
+        {poses.map((pose, idx) => {
+          const source = pose.image || { uri: pose.uri };
+          return Math.abs(poseIndex - idx) > 1 ? null : (
+            <AnimatedDomo
+              index={idx}
+              key={idx}
+              source={source}
+              position={posePosition}
+              size={domoSize}
+              style={{ left: domoLeft, top: domoTop }}
+            />
+          );
+        })}
         {hats.map(
           (hat, hatIdx) =>
             Math.abs(index - hatIdx) > 1 ? null : (
