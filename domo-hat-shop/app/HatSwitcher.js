@@ -52,7 +52,7 @@ export default class HatSwitcher extends Component {
         toValue: targetIndex
         // useNativeDriver: true
       }).start(() => {
-        this.props.dispatch(switchHat(targetIndex));
+        this.props.onSwitchHat(targetIndex);
       });
     } else {
       Animated.spring(this.state.position, {
@@ -72,7 +72,7 @@ export default class HatSwitcher extends Component {
         toValue: targetIndex
         // useNativeDriver: true
       }).start(() => {
-        this.props.dispatch(switchPose(targetIndex));
+        this.props.onSwitchPose(targetIndex);
       });
     } else {
       Animated.spring(this.state.posePosition, {
@@ -163,9 +163,22 @@ export default class HatSwitcher extends Component {
   }
 }
 
+class InnerHatSwitcherScreen extends Component {
+  render() {
+    const { navigation, dispatch } = this.props;
+    return (
+      <HatSwitcher
+        {...this.props}
+        onSwitchHat={index => dispatch(switchHat(index))}
+        onSwitchPose={index => dispatch(switchPose(index))}
+      />
+    );
+  }
+}
+
 export const HatSwitcherScreen = connect(
   ({ hats, index, poses, poseIndex }) => ({ hats, index, poses, poseIndex })
-)(withViewBounds(HatSwitcher));
+)(withViewBounds(InnerHatSwitcherScreen));
 
 HatSwitcherScreen.navigationOptions = {
   title: "Domo's Hat Shop",
