@@ -1,16 +1,18 @@
 import React, { Component } from "react";
+import hoistStatics from "hoist-non-react-statics";
+
 import { UIManager, findNodeHandle } from "react-native";
 
-export const withViewBounds = C => {
-  const measure = nativeHandle => {
-    return new Promise((resolve, reject) => {
-      UIManager.measureInWindow(nativeHandle, (x, y, width, height) => {
-        resolve({ left: x, top: y, width, height });
-      });
+const measure = nativeHandle => {
+  return new Promise((resolve, reject) => {
+    UIManager.measureInWindow(nativeHandle, (x, y, width, height) => {
+      resolve({ left: x, top: y, width, height });
     });
-  };
+  });
+};
 
-  return class WithViewBounds extends Component {
+export const withViewBounds = C => {
+  class ComponentWithViewBounds extends Component {
     state = {
       viewBounds: undefined
     };
@@ -31,5 +33,8 @@ export const withViewBounds = C => {
         />
       );
     }
-  };
+  }
+
+  // Copies non-react specific statics
+  return hoistStatics(ComponentWithViewBounds, C);
 };
