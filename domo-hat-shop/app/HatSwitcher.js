@@ -163,11 +163,13 @@ export default class HatSwitcher extends Component {
   }
 }
 
+const HatSwitcherWithViewBounds = withViewBounds(HatSwitcher);
+
 class InnerHatSwitcherScreen extends Component {
   render() {
     const { navigation, dispatch } = this.props;
     return (
-      <HatSwitcher
+      <HatSwitcherWithViewBounds
         {...this.props}
         onSwitchHat={index => dispatch(switchHat(index))}
         onSwitchPose={index => dispatch(switchPose(index))}
@@ -178,7 +180,7 @@ class InnerHatSwitcherScreen extends Component {
 
 export const HatSwitcherScreen = connect(
   ({ hats, index, poses, poseIndex }) => ({ hats, index, poses, poseIndex })
-)(withViewBounds(InnerHatSwitcherScreen));
+)(InnerHatSwitcherScreen);
 
 HatSwitcherScreen.navigationOptions = {
   title: "Domo's Hat Shop",
