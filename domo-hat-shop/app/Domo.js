@@ -11,7 +11,7 @@ const StyledHat = styled(Animated.createAnimatedComponent(Hat))`
 
 const HatContainer = styled(Animated.View)`
   position: absolute;
-  left: 20px;
+  left: ${props => props.size * 1.4}px;
   top: 20px;
 `;
 
@@ -45,6 +45,7 @@ const AnimatedHat = ({ position, type, size, index, innerStyle }) => {
   });
   return (
     <HatContainer
+      size={size}
       style={{
         opacity,
         transform: [{ translateX }, { translateY }, { rotate }]
@@ -114,7 +115,12 @@ export default class Domo extends PureComponent {
       if (editedHatStyle) {
         const { translateX, translateY, scale, rotate } = editedHatStyle;
         return {
-          transform: [{ translateX }, { translateY }, { scale }, { rotate }]
+          transform: [
+            { translateX },
+            { translateY },
+            { scale },
+            { rotate: `${rotate}deg` }
+          ]
         };
       } else return null;
     };

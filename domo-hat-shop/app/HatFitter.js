@@ -167,16 +167,15 @@ export class HatFitter extends Component {
 
 const HatFitterScreen = props => {
   const { params } = props.navigation.state;
-  const { uri, width, height } = params;
+  const { pose } = params;
   return (
     <HatFitter
       {...props}
-      poseUri={uri}
-      poseWidth={width}
-      poseHeight={height}
-      onConfirm={(pose, transform) =>
-        props.dispatch(confirmHatFitting(pose, transform))
-      }
+      pose={pose}
+      onConfirm={(pose, hatStyle) => {
+        props.dispatch(confirmHatFitting(pose, hatStyle));
+        NavigationService.navigate("HatSwitcher");
+      }}
       onCancel={() => NavigationService.navigate("HatSwitcher")}
     />
   );

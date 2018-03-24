@@ -11,6 +11,14 @@ const createPose = action => {
   return { name: "photo", uri: action.uri };
 };
 
+const clonePosesWithHatStyle = (poses, poseToUpdate, hatStyle) =>
+  poses.map(pose => {
+    // TODO: maybe should use id of pose
+    if (pose.uri === poseToUpdate.uri) {
+      return { ...pose, hatStyle };
+    } else return pose;
+  });
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case "SWITCH_HAT":
@@ -23,6 +31,11 @@ const reducer = (state = initialState, action) => {
     case "PHOTO_TAKEN":
       state = { ...state, poses: [createPose(action), ...state.poses] };
       break;
+    case "CONFIRM_HAT_FITTING":
+      state = {
+        ...state,
+        poses: clonePosesWithHatStyle(state.poses, action.pose, action.hatStyle)
+      };
   }
   return state;
 };

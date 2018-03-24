@@ -20,7 +20,7 @@ export const pickImage = () => async (dispatch, getState) => {
         : { type: "IMAGE_PICKED", uri, width, height }
     );
     if (!cancelled) {
-      NavigationService.navigate("HatFitter", { uri, width, height });
+      NavigationService.navigate("HatFitter", { pose: { uri, width, height } });
     }
   } catch (error) {
     dispatch({ type: "IMAGE_PICKER_ERROR", error });
@@ -41,7 +41,16 @@ export const takePhoto = () => async (dispatch, getState) => {
         ? { type: "PHOTO_TAKER_CANCELED" }
         : { type: "PHOTO_TAKEN", uri, width, height }
     );
+    if (!cancelled) {
+      NavigationService.navigate("HatFitter", { pose: { uri, width, height } });
+    }
   } catch (error) {
     dispatch({ type: "IMAGE_PICKER_ERROR", error });
   }
 };
+
+export const confirmHatFitting = (pose, hatStyle) => ({
+  type: "CONFIRM_HAT_FITTING",
+  pose,
+  hatStyle
+});
