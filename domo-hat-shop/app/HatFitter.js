@@ -18,6 +18,10 @@ const Container = styled.View`
   align-items: center;
 `;
 
+const Title = styled.Text`
+  font-size: 30px;
+`;
+
 function calcDistance(x1, y1, x2, y2) {
   const dx = x1 - x2;
   const dy = y1 - y2;
@@ -148,6 +152,7 @@ export class HatFitter extends Component {
     };
     return (
       <Container>
+        <Title>Fit the hat</Title>
         <View {...this._panResponder.panHandlers}>
           <Domo
             hats={[hat]}
