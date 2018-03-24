@@ -5,11 +5,14 @@ import styled from "styled-components";
 import Hat from "./Hat";
 
 const StyledHat = styled(Animated.createAnimatedComponent(Hat))`
-  position: absolute;
-  left: ${props => props.size * 1.4}px;
-  top: 20px;
   width: ${props => props.size || 120}px;
   height: ${props => props.size || 120}px;
+`;
+
+const HatContainer = styled(Animated.View)`
+  position: absolute;
+  left: 20px;
+  top: 20px;
 `;
 
 const DomoImage = styled(Animated.Image)`
@@ -23,7 +26,7 @@ const Container = styled.View`
   height: ${props => props.size || 200}px;
 `;
 
-const AnimatedHat = ({ position, type, size, index }) => {
+const AnimatedHat = ({ position, type, size, index, innerStyle }) => {
   const rotate = position.interpolate({
     inputRange: [index - 1, index, index + 1],
     outputRange: ["360deg", `0deg`, `-360deg`]
@@ -41,14 +44,14 @@ const AnimatedHat = ({ position, type, size, index }) => {
     outputRange: [0, 1, 1, 1, 0]
   });
   return (
-    <StyledHat
-      type={type}
-      size={size}
+    <HatContainer
       style={{
         opacity,
         transform: [{ translateX }, { translateY }, { rotate }]
       }}
-    />
+    >
+      <StyledHat type={type} size={size} style={innerStyle} />
+    </HatContainer>
   );
 };
 
@@ -98,13 +101,24 @@ export default class Domo extends PureComponent {
       position = new Animated.Value(0),
       poses,
       poseIndex,
-      posePosition = new Animated.Value(0)
+      posePosition = new Animated.Value(0),
+      hatStyle
     } = this.props;
     const domoSize = this.state.windowSmallerSide * 0.8;
     const hatSize = this.state.windowSmallerSide * 0.3;
     const containerSize = domoSize * 1.1;
     const domoLeft = (containerSize - domoSize) / 2;
     const domoTop = domoLeft;
+    const getEditedHatStyle = pose => {
+      const editedHatStyle = pose.hatStyle;
+      if (editedHatStyle) {
+        const { translateX, translateY, scale, rotate } = editedHatStyle;
+        return {
+          transform: [{ translateX }, { translateY }, { scale }, { rotate }]
+        };
+      } else return null;
+    };
+    const hatInnerStyle = [getEditedHatStyle(poses[poseIndex]), hatStyle];
     return (
       <Container size={containerSize}>
         {poses.map((pose, idx) => {
@@ -129,6 +143,7 @@ export default class Domo extends PureComponent {
                 type={hat.hatKey}
                 position={position}
                 size={hatSize}
+                innerStyle={hatInnerStyle}
               />
             )
         )}
