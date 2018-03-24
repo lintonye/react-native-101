@@ -1,17 +1,32 @@
 import React from "react";
-import { TabNavigator, StackNavigator } from "react-navigation";
+import {
+  TabNavigator,
+  StackNavigator,
+  SwitchNavigator
+} from "react-navigation";
 import { HatListScreen } from "./HatList";
 import { HatGridScreen } from "./HatGrid";
 import { HatSwitcherScreen } from "./HatSwitcher";
 import { MyShotsScreen } from "./MyShots";
+import HatFitter from "./HatFitter";
 import About from "./About";
 // import { manyHats, poses } from "../Data";
 import { ActionSheetProvider } from "@expo/react-native-action-sheet";
+import NavigationService from "./NavigationService";
+
+const TryHat = SwitchNavigator({
+  HatSwitcher: {
+    screen: HatSwitcherScreen
+  },
+  HatFitter: {
+    screen: HatFitter
+  }
+});
 
 const HomeTabs = TabNavigator(
   {
     TryHat: {
-      screen: HatSwitcherScreen
+      screen: TryHat
     },
     AllHats: {
       screen: HatGridScreen
@@ -43,6 +58,9 @@ const Route = StackNavigator({
 
 export default props => (
   <ActionSheetProvider>
-    <Route {...props} />
+    <Route
+      {...props}
+      ref={ref => NavigationService.setTopLevelNavigator(ref)}
+    />
   </ActionSheetProvider>
 );

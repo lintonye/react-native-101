@@ -1,4 +1,5 @@
 import { ImagePicker } from "expo";
+import NavigationService from "../NavigationService";
 
 export const switchHat = index => ({ type: "SWITCH_HAT", index });
 
@@ -18,6 +19,9 @@ export const pickImage = () => async (dispatch, getState) => {
         ? { type: "IMAGE_PICKER_CANCELED" }
         : { type: "IMAGE_PICKED", uri, width, height }
     );
+    if (!cancelled) {
+      NavigationService.navigate("HatFitter", { uri, width, height });
+    }
   } catch (error) {
     dispatch({ type: "IMAGE_PICKER_ERROR", error });
   }
