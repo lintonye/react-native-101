@@ -95,10 +95,10 @@ export default class Domo extends PureComponent {
     const {
       hats,
       index,
-      position,
+      position = new Animated.Value(0),
       poses,
       poseIndex,
-      posePosition
+      posePosition = new Animated.Value(0)
     } = this.props;
     const domoSize = this.state.windowSmallerSide * 0.8;
     const hatSize = this.state.windowSmallerSide * 0.3;
