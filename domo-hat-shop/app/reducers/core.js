@@ -19,6 +19,12 @@ const clonePosesWithHatStyle = (poses, poseToUpdate, hatStyle) =>
     } else return pose;
   });
 
+const cloneWithInsert = (array, index, itemToInsert) => [
+  ...array.slice(0, index),
+  itemToInsert,
+  ...array.slice(index)
+];
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case "SWITCH_HAT":
@@ -29,7 +35,10 @@ const reducer = (state = initialState, action) => {
       break;
     case "IMAGE_PICKED":
     case "PHOTO_TAKEN":
-      state = { ...state, poses: [createPose(action), ...state.poses] };
+      state = {
+        ...state,
+        poses: cloneWithInsert(state.poses, state.poseIndex, createPose(action))
+      };
       break;
     case "CONFIRM_HAT_FITTING":
       state = {
