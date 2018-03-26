@@ -112,7 +112,7 @@ export class HatFitter extends Component {
         const committedValues = {
           translateX: this.state.translateXY.x._value,
           translateY: this.state.translateXY.y._value,
-          rotate: this.state.rotate._value,
+          rotate: `${this.state.rotate._value}deg`,
           scale: this.state.scale._value
         };
         this.setState({ zooming: false, committedValues });
@@ -145,10 +145,13 @@ export class HatFitter extends Component {
   render() {
     const { hat, pose } = this.props;
     const hatStyle = {
-      transform: [
-        ...this.state.translateXY.getTranslateTransform(),
-        { scale: this.state.scale }
-      ]
+      translateX: this.state.translateXY.x,
+      translateY: this.state.translateXY.y,
+      scale: this.state.scale,
+      rotate: this.state.rotate.interpolate({
+        inputRange: [0, 360],
+        outputRange: ["0deg", "360deg"]
+      })
     };
     return (
       <Container>
@@ -159,7 +162,7 @@ export class HatFitter extends Component {
             index={0}
             poses={[pose]}
             poseIndex={0}
-            hatStyle={hatStyle}
+            hatStyleInEdit={hatStyle}
           />
         </View>
         <Button title="Looks good" onPress={this.onConfirmPressed} />
