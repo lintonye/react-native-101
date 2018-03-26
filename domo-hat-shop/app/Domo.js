@@ -45,13 +45,19 @@ const AnimatedHat = ({ position, type, size, index, editedStyle }) => {
   const scaledSize = editedStyle
     ? Animated.multiply(size, editedStyle.scale)
     : size;
+  const halfSizeDelta = Animated.multiply(
+    Animated.divide(Animated.add(scaledSize, -size), 2),
+    -1
+  );
+  // Need to move left/top according to scaled size to make sure it's
+  // scaled from the center of the hat, not top/left corner
   const containerLeft = Animated.add(
-    Animated.multiply(scaledSize, 1.4),
-    editedStyle ? editedStyle.translateX : 0
+    size * 1.4,
+    editedStyle ? Animated.add(editedStyle.translateX, halfSizeDelta) : 0
   );
   const containerTop = Animated.add(
     20,
-    editedStyle ? editedStyle.translateY : 0
+    editedStyle ? Animated.add(editedStyle.translateY, halfSizeDelta) : 0
   );
   return (
     <HatContainer
