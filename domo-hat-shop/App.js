@@ -1,11 +1,11 @@
 import React from "react";
-import { Image, View, Text } from "react-native";
+import { Image, View, Text, ScrollView } from "react-native";
 
 import domoImage from "./images/domo.png";
 import domoYogaImage from "./images/domo-yoga.png";
 
 const App = () => (
-  <View style={{ padding: 16 }}>
+  <ScrollView style={{ padding: 16 }} maximumZoomScale={5}>
     <Image source={domoImage} />
     <Text style={{ fontSize: 20 }}>
       The UI built with React is
@@ -19,7 +19,15 @@ const App = () => (
       about updating the DOM, React does it for you automatically. The idea of
       reactive UI greatly simplifies UI development.
     </Text>
-  </View>
+    <Image source={domoYogaImage} />
+    <Text style={{ fontSize: 20 }}>
+      So, DOM is a … tree? Yup a tree! Oddly enough, a lot of things in your
+      computer look like a tree1. Let’s give DOM a nickname… ummm what about
+      Domo? Domo works as a model at the studio “Web Browser”. His job is to
+      pose in front of the artist who paints a portrait (or perhaps millions of
+      portraits).
+    </Text>
+  </ScrollView>
 );
 
 export default App;
