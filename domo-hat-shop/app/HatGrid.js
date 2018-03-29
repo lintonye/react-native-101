@@ -123,8 +123,13 @@ const HatRow = ({ hats, onItemPress }) => (
 );
 
 class ListBasedHatGrid extends Component {
-  _renderRow = ({ item }) => (
-    <HatRow hats={item} onItemPress={this.props.onItemPress} />
+  _renderRow = ({ item, index }) => (
+    <HatRow
+      hats={item}
+      onItemPress={() =>
+        this.props.onItemPress && this.props.onItemPress(index)
+      }
+    />
   );
   _keyExtractor = (item, index) => index;
   render() {
@@ -167,7 +172,7 @@ export default class HatGrid extends Component {
 const InnerHatGridScreen = props => {
   return (
     <HatGrid
-      onItemPress={index => () => {
+      onItemPress={index => {
         props.navigation.navigate("TryHat");
         props.dispatch(switchHat(index));
       }}

@@ -66,7 +66,10 @@ const HatListItem = ({ hat, onPress }) => (
 
 export default class HatList extends Component {
   _renderItem = ({ item, index }) => (
-    <HatListItem hat={item} onPress={this.props.onItemPress(index)} />
+    <HatListItem
+      hat={item}
+      onPress={() => this.props.onItemPress && this.props.onItemPress(index)}
+    />
   );
   _keyExtractor = (item, index) => index;
   render() {
@@ -87,7 +90,7 @@ export default class HatList extends Component {
 const InnerHatListScreen = props => {
   return (
     <HatList
-      onItemPress={index => () => {
+      onItemPress={index => {
         props.navigation.navigate("TryHat");
         props.dispatch(switchHat(index));
       }}
