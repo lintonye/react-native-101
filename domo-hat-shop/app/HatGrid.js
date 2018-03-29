@@ -8,7 +8,6 @@ import {
   SafeAreaView
 } from "react-native";
 // import SafeAreaView from "react-native-safe-area-view";
-import Hat from "./Hat";
 import RatingBar from "./RatingBar";
 import Price from "./Price";
 import styled from "styled-components";
@@ -83,7 +82,7 @@ const HatGridItem = ({ ihat: { hat, index }, onPress }) => (
   <ItemContainer elevation={2}>
     <StyledTouchable onPress={onPress}>
       <CardTop colors={gradients[index % gradients.length]}>
-        <Hat type={hat.hatKey} />
+        <Image source={hat.image} />
         <NameContainer>
           <Name numberOfLines={1}>{hat.name}</Name>
           <StyledPrice amount={hat.price} />

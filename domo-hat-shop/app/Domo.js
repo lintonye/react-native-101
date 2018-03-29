@@ -2,9 +2,6 @@ import React, { PureComponent } from "react";
 import { View, Image, Animated, Dimensions } from "react-native";
 import DomoPng from "./images/domo.png";
 import styled from "styled-components";
-import Hat from "./Hat";
-
-const StyledHat = styled(Animated.createAnimatedComponent(Hat))``;
 
 const HatContainer = styled(Animated.View)`
   position: absolute;
@@ -22,7 +19,7 @@ const Container = styled.View`
   height: ${props => props.size || 200}px;
 `;
 
-const AnimatedHat = ({ position, type, size, index, editedStyle }) => {
+const AnimatedHat = ({ position, hatImage, size, index, editedStyle }) => {
   const rotate = position.interpolate({
     inputRange: [index - 1, index, index + 1],
     outputRange: ["360deg", `0deg`, `-360deg`]
@@ -52,11 +49,11 @@ const AnimatedHat = ({ position, type, size, index, editedStyle }) => {
   // Need to move left/top according to scaled size to make sure it's
   // scaled from the center of the hat, not top/left corner
   const containerLeft = Animated.add(
-    size * 1.4,
+    size * 1,
     editedStyle ? Animated.add(editedStyle.translateX, halfSizeDelta) : 0
   );
   const containerTop = Animated.add(
-    20,
+    -25,
     editedStyle ? Animated.add(editedStyle.translateY, halfSizeDelta) : 0
   );
   return (
@@ -68,9 +65,8 @@ const AnimatedHat = ({ position, type, size, index, editedStyle }) => {
         transform: [{ translateX }, { translateY }, { rotate }]
       }}
     >
-      <StyledHat
-        type={type}
-        size={size}
+      <Animated.Image
+        source={hatImage}
         style={[
           {
             width: scaledSize,
@@ -163,7 +159,7 @@ export default class Domo extends PureComponent {
               <AnimatedHat
                 index={hatIdx}
                 key={hatIdx}
-                type={hat.hatKey}
+                hatImage={hat.image}
                 position={position}
                 size={hatSize}
                 editedStyle={hatStyleInEdit || poses[poseIndex].hatStyle}

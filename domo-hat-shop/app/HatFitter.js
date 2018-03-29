@@ -8,7 +8,6 @@ import {
   Animated
 } from "react-native";
 import { connect } from "react-redux";
-import Hat from "./Hat";
 import Domo from "./Domo";
 import NavigationService from "./NavigationService";
 import styled from "styled-components";

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
-import Hat from "./Hat";
 import RatingBar from "./RatingBar";
 import Price from "./Price";
 import styled from "styled-components";
@@ -45,7 +44,7 @@ const Spacer = styled.View`
 const HatListItem = ({ hat, onPress }) => (
   <TouchableOpacity onPress={onPress}>
     <ItemContainer elevation={2}>
-      <Hat type={hat.hatKey} />
+      <Image source={hat.image} />
       <NameContainer>
         <Name>{hat.name}</Name>
         <RatingBar

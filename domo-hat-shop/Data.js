@@ -16,6 +16,7 @@ export const hats = [
     rating: 3,
     ratingCount: 42,
     soldCount: 42,
+    image: require("./app/images/hat_harry.png"),
     description: hatDescription
   },
   {
@@ -25,6 +26,7 @@ export const hats = [
     rating: 4,
     ratingCount: 42,
     soldCount: 42,
+    image: require("./app/images/hat_pirate.png"),
     description: hatDescription
   },
   {
@@ -34,24 +36,37 @@ export const hats = [
     rating: 3,
     ratingCount: 42,
     soldCount: 42,
+    image: require("./app/images/hat_propeller.png"),
     description: hatDescription
   },
   {
-    name: `Lepricon`,
+    name: `Leprechaun`,
     price: 35,
     hatKey: `lepricon`,
     rating: 5,
     ratingCount: 42,
     soldCount: 42,
+    image: require("./app/images/hat_leprechaun.png"),
     description: hatDescription
   },
   {
-    name: `Propeller`,
+    name: `Ball`,
     price: 45,
     hatKey: `propeller`,
     rating: 3,
     ratingCount: 42,
     soldCount: 42,
+    image: require("./app/images/hat_ball.png"),
+    description: hatDescription
+  },
+  {
+    name: `Cap`,
+    price: 45,
+    hatKey: `propeller`,
+    rating: 3,
+    ratingCount: 42,
+    soldCount: 42,
+    image: require("./app/images/hat_cap.png"),
     description: hatDescription
   }
 ];
@@ -59,19 +74,27 @@ export const hats = [
 export const poses = [
   {
     name: "0",
-    image: require("./app/images/domo.png")
+    image: require("./app/images/tree_thinker.png")
   },
   {
     name: "1",
-    image: require("./app/images/domo.1.png")
+    image: require("./app/images/tree_stand.png")
   },
   {
     name: "2",
-    image: require("./app/images/domo.2.png")
+    image: require("./app/images/tree_point.png")
   },
   {
     name: "3",
-    image: require("./app/images/domo.3.png")
+    image: require("./app/images/tree_pine.png")
+  },
+  {
+    name: "3",
+    image: require("./app/images/tree_little_girl.png")
+  },
+  {
+    name: "3",
+    image: require("./app/images/tree_hold.png")
   }
 ];
 
