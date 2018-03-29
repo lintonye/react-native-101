@@ -2,6 +2,10 @@ import React from "react";
 import { View, Text } from "react-native";
 import styled from "styled-components";
 
+const RootContainer = styled.View`
+  align-items: center;
+`;
+
 const StarContainer = styled.View`
   flex-direction: row;
   margin-top: -10px; /* offset the top margin of the star chars */
@@ -31,11 +35,9 @@ const RatingStars = ({ rating }) => {
 
 export default ({ rating, ratingCount, soldCount }) => {
   return (
-    <View>
+    <RootContainer>
       <RatingStars rating={rating} />
-      <Text>
-        {ratingCount} ratings | {soldCount} sold
-      </Text>
-    </View>
+      <Text>{ratingCount} ratings</Text>
+    </RootContainer>
   );
 };
