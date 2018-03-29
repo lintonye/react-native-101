@@ -29,8 +29,8 @@ const HomeTabs = TabNavigator(
       screen: TryHat
     },
     AllHats: {
-      screen: HatGridScreen
-      // screen: HatListScreen,
+      // screen: HatGridScreen
+      screen: HatListScreen
     },
     MyShots: {
       screen: MyShotsScreen

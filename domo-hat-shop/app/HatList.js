@@ -3,6 +3,7 @@ import { View, Text, FlatList, TouchableOpacity, Image } from "react-native";
 import RatingBar from "./RatingBar";
 import Price from "./Price";
 import styled from "styled-components";
+import { connect } from "react-redux";
 
 const ItemContainer = styled.View`
   flex-direction: row;
@@ -83,17 +84,21 @@ export default class HatList extends Component {
   }
 }
 
-export const HatListScreen = ({ navigation }) => {
-  const { params } = navigation.state;
-  const hats = params ? params.hats : [];
+const InnerHatListScreen = props => {
   return (
     <HatList
-      hats={hats}
-      onItemPress={index => () =>
-        navigation.navigate("HatDetail", { hats, index })}
+      onItemPress={index => () => {
+        props.navigation.navigate("TryHat");
+        props.dispatch(switchHat(index));
+      }}
+      {...props}
     />
   );
 };
+
+export const HatListScreen = connect(state => ({ hats: state.core.hats }))(
+  InnerHatListScreen
+);
 
 HatListScreen.navigationOptions = {
   title: "Domo's Hat Shop",
