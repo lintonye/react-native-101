@@ -12,7 +12,6 @@ export const hats = [
   {
     name: `Harry's hat`,
     price: 15,
-    hatKey: `harry`,
     rating: 3,
     ratingCount: 42,
     soldCount: 42,
@@ -22,7 +21,6 @@ export const hats = [
   {
     name: `Jack's hat`,
     price: 25,
-    hatKey: `pirate`,
     rating: 4,
     ratingCount: 42,
     soldCount: 42,
@@ -32,7 +30,6 @@ export const hats = [
   {
     name: `Propeller really long name long name`,
     price: 45,
-    hatKey: `propeller`,
     rating: 3,
     ratingCount: 42,
     soldCount: 42,
@@ -42,7 +39,6 @@ export const hats = [
   {
     name: `Leprechaun`,
     price: 35,
-    hatKey: `lepricon`,
     rating: 5,
     ratingCount: 42,
     soldCount: 42,
@@ -52,7 +48,6 @@ export const hats = [
   {
     name: `Ball`,
     price: 45,
-    hatKey: `propeller`,
     rating: 3,
     ratingCount: 42,
     soldCount: 42,
@@ -62,11 +57,64 @@ export const hats = [
   {
     name: `Cap`,
     price: 45,
-    hatKey: `propeller`,
     rating: 3,
     ratingCount: 42,
     soldCount: 42,
     image: require("./app/images/hat_cap.png"),
+    description: hatDescription
+  },
+  {
+    name: `Chef`,
+    price: 45,
+    rating: 3,
+    ratingCount: 42,
+    soldCount: 42,
+    image: require("./app/images/hat_chef.png"),
+    description: hatDescription
+  },
+  {
+    name: `Elegant`,
+    price: 45,
+    rating: 3,
+    ratingCount: 42,
+    soldCount: 42,
+    image: require("./app/images/hat_elegant.png"),
+    description: hatDescription
+  },
+  {
+    name: `Lady Flower`,
+    price: 45,
+    rating: 3,
+    ratingCount: 42,
+    soldCount: 42,
+    image: require("./app/images/hat_ladyFlower.png"),
+    description: hatDescription
+  },
+  {
+    name: `Police`,
+    price: 45,
+    rating: 3,
+    ratingCount: 42,
+    soldCount: 42,
+    image: require("./app/images/hat_police.png"),
+    description: hatDescription
+  },
+  {
+    name: `Wool`,
+    price: 45,
+    rating: 3,
+    ratingCount: 42,
+    soldCount: 42,
+    image: require("./app/images/hat_wool.png"),
+    description: hatDescription
+  },
+  {
+    name: `Christmas`,
+    price: 45,
+    rating: 3,
+    ratingCount: 42,
+    soldCount: 42,
+    image: require("./app/images/hat_xmas.png"),
     description: hatDescription
   }
 ];
