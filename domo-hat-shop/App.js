@@ -1,10 +1,10 @@
 import React from "react";
-import { Image, View, Text, FlatList } from "react-native";
+import { Image, View, Text, FlatList, ScrollView } from "react-native";
 
 import { manyHats } from "./Data";
 
 function renderItem(itemInfo) {
-  return <Image source={itemInfo.item.image} />;
+  return <Image source={itemInfo.item.image} key={itemInfo.item.key} />;
 }
 
 const Separator = () => (
@@ -26,7 +26,7 @@ const Header = () => (
   </View>
 );
 
-const App = () => (
+const List = () => (
   <FlatList
     data={manyHats}
     renderItem={renderItem}
@@ -35,4 +35,12 @@ const App = () => (
   />
 );
 
-export default App;
+const SV = () => (
+  <ScrollView>
+    <Header />
+    {manyHats.map(h => renderItem({ item: h }))}
+  </ScrollView>
+);
+
+// export default SV;
+export default List;
