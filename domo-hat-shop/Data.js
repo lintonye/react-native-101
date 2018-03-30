@@ -1,3 +1,4 @@
+import _ from "lodash";
 import hatCap from "./images/hat-cap.png";
 import hatHarry from "./images/hat-harry.png";
 import hatLeprechaun from "./images/hat-leprechaun.png";
@@ -27,9 +28,12 @@ export const hats = [
   }
 ];
 
-export const manyHats = hats
-  .concat(hats)
-  .concat(hats)
-  .concat(hats)
-  .concat(hats)
-  .map((h, idx) => ({ ...h, key: idx }));
+export const manyHats = hatsByCount(1000);
+
+function hatsByCount(count) {
+  return _.flatten(
+    Array(count / hats.length)
+      .fill(0)
+      .map(_ => hats)
+  ).map((h, idx) => ({ ...h, key: idx }));
+}
