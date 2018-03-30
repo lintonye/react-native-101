@@ -116,20 +116,15 @@ const HatRow = ({ hats, onItemPress }) => (
       <HatGridItem
         ihat={ihat}
         key={ihat.index}
-        onPress={onItemPress(ihat.index)}
+        onPress={() => onItemPress(ihat.index)}
       />
     ))}
   </RowContainer>
 );
 
 class ListBasedHatGrid extends Component {
-  _renderRow = ({ item, index }) => (
-    <HatRow
-      hats={item}
-      onItemPress={() =>
-        this.props.onItemPress && this.props.onItemPress(index)
-      }
-    />
+  _renderRow = ({ item }) => (
+    <HatRow hats={item} onItemPress={this.props.onItemPress} />
   );
   _keyExtractor = (item, index) => index;
   render() {
