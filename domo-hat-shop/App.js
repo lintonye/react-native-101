@@ -9,10 +9,6 @@ class App extends React.Component {
   state = {
     hat: "harry"
   };
-  changeHat = () => {
-    if (this.state.hat === "harry") this.setState({ hat: "pirate" });
-    else this.setState({ hat: "harry" });
-  };
   render() {
     const hatImg = this.state.hat === "harry" ? hatHarry : hatPirate;
     return (
