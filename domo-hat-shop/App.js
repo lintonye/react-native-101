@@ -15,13 +15,19 @@ const styles = StyleSheet.create({
     marginTop: 60
   },
   hat: {
-    position: "absolute",
-    left: 130,
-    top: 38,
     width: 120,
     height: 120
+  },
+  hatOnTree: {
+    position: "absolute",
+    left: 130,
+    top: 38
   }
 });
+
+const Hat = ({ image, style }) => (
+  <Image source={image} style={[styles.hat, style]} />
+);
 
 class App extends React.Component {
   state = {
@@ -35,7 +41,8 @@ class App extends React.Component {
     return (
       <View style={styles.container}>
         <Image source={domoImage} style={styles.domo} />
-        <Image source={hatImg} style={styles.hat} />
+        <Hat image={hatImg} style={styles.hatOnTree} />
+        <Hat image={hatPirate} />
       </View>
     );
   }
