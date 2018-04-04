@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Image,
-  View,
-  Button,
-  TouchableNativeFeedback,
-  TouchableOpacity,
-  StyleSheet
-} from "react-native";
+import { Image, View, StyleSheet } from "react-native";
 
 import domoImage from "./images/tree_point.png";
 import hatHarry from "./images/hat-harry.png";
@@ -43,11 +36,6 @@ class App extends React.Component {
       <View style={styles.container}>
         <Image source={domoImage} style={styles.domo} />
         <Image source={hatImg} style={styles.hat} />
-        <Button
-          title="Change to pirate hat"
-          onPress={() => this.setState({ hat: "pirate" })}
-          color="purple"
-        />
       </View>
     );
   }
