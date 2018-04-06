@@ -4,24 +4,26 @@ import { Image, View, StyleSheet } from "react-native";
 import domoImage from "./images/tree_point.png";
 import hatHarry from "./images/hat-harry.png";
 import hatPirate from "./images/hat-pirate.png";
+import styled from "styled-components";
 
-const styles = StyleSheet.create({
-  container: {
-    padding: 16
-  },
-  domo: {
-    width: 350,
-    height: 350,
-    marginTop: 60
-  },
-  hat: {
-    position: "absolute",
-    left: 130,
-    top: 38,
-    width: 120,
-    height: 120
-  }
-});
+const Container = styled.View`
+  padding: 16px;
+`;
+
+const Domo = styled.Image`
+  width: 350px;
+  height: 350px;
+  margin-top: 60px;
+  background: ${props => props.background};
+`;
+
+const Hat = styled.Image`
+  position: absolute;
+  left: 130px;
+  top: 38px;
+  width: 120px;
+  height: 120px;
+`;
 
 class App extends React.Component {
   state = {
@@ -33,10 +35,10 @@ class App extends React.Component {
   render() {
     const hatImg = this.state.hat === "harry" ? hatHarry : hatPirate;
     return (
-      <View style={styles.container}>
-        <Image source={domoImage} style={styles.domo} />
-        <Image source={hatImg} style={styles.hat} />
-      </View>
+      <Container>
+        <Domo source={domoImage} background="orange" />
+        <Hat source={hatImg} />
+      </Container>
     );
   }
 }
