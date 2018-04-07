@@ -27,24 +27,24 @@ export const hats = [
     image: require("./app/images/hat_pirate.png"),
     description: hatDescription
   },
-  {
-    name: `Propeller really long name long name`,
-    price: 45,
-    rating: 3,
-    ratingCount: 42,
-    soldCount: 42,
-    image: require("./app/images/hat_propeller.png"),
-    description: hatDescription
-  },
-  {
-    name: `Leprechaun`,
-    price: 35,
-    rating: 5,
-    ratingCount: 42,
-    soldCount: 42,
-    image: require("./app/images/hat_leprechaun.png"),
-    description: hatDescription
-  },
+  // {
+  //   name: `Propeller really long name long name`,
+  //   price: 45,
+  //   rating: 3,
+  //   ratingCount: 42,
+  //   soldCount: 42,
+  //   image: require("./app/images/hat_propeller.png"),
+  //   description: hatDescription
+  // },
+  // {
+  //   name: `Leprechaun`,
+  //   price: 35,
+  //   rating: 5,
+  //   ratingCount: 42,
+  //   soldCount: 42,
+  //   image: require("./app/images/hat_leprechaun.png"),
+  //   description: hatDescription
+  // },
   {
     name: `Ball`,
     price: 45,
