@@ -13,7 +13,11 @@ const StarContainer = styled.View`
 
 const Star = styled.Text`
   color: limegreen;
-  font-size: 30px;
+  font-size: 25px;
+`;
+
+const RatingText = styled.Text`
+  font-size: 12px;
 `;
 
 const stars = (type, count) =>
@@ -37,7 +41,7 @@ export default ({ rating, ratingCount, soldCount }) => {
   return (
     <RootContainer>
       <RatingStars rating={rating} />
-      <Text>{ratingCount} ratings</Text>
+      <RatingText>{ratingCount} ratings</RatingText>
     </RootContainer>
   );
 };
