@@ -16,7 +16,7 @@ const ItemContainer = styled.View`
 `;
 
 const NameContainer = styled.View`
-  align-items: flex-start;
+  align-items: center;
   flex: 2;
   justify-content: space-around;
   flex-direction: row;
@@ -28,6 +28,8 @@ const NameContainer = styled.View`
 const Name = styled.Text`
   font-size: 18px;
   max-width: 200px;
+  margin-top: 8px;
+  margin-bottom: 8px;
 `;
 
 const StyledPrice = styled(Price)`
