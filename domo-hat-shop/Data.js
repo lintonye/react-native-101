@@ -10,7 +10,7 @@ The portraits are what we see in the web browser when visiting a website. A deve
 
 export const hats = [
   {
-    name: `Harry's hat`,
+    name: `Harry Potter`,
     price: 15,
     rating: 3,
     ratingCount: 42,
@@ -19,7 +19,7 @@ export const hats = [
     description: hatDescription
   },
   {
-    name: `Jack's hat`,
+    name: `Pirate`,
     price: 25,
     rating: 4,
     ratingCount: 42,
@@ -46,7 +46,7 @@ export const hats = [
   //   description: hatDescription
   // },
   {
-    name: `Ball`,
+    name: `Pom pom`,
     price: 45,
     rating: 3,
     ratingCount: 42,
@@ -73,7 +73,7 @@ export const hats = [
     description: hatDescription
   },
   {
-    name: `Elegant`,
+    name: `Sun hat`,
     price: 45,
     rating: 3,
     ratingCount: 42,
@@ -100,7 +100,7 @@ export const hats = [
     description: hatDescription
   },
   {
-    name: `Wool`,
+    name: `Winter`,
     price: 45,
     rating: 3,
     ratingCount: 42,
