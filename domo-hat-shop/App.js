@@ -1,9 +1,6 @@
 import React from "react";
 import { Image, View, ScrollView, Text, StyleSheet } from "react-native";
 
-import domoImage from "./images/tree_point.png";
-import hatHarry from "./images/hat-harry.png";
-import hatPirate from "./images/hat-pirate.png";
 import hatWinter from "./images/hat-winter.png";
 import RatingBar from "./RatingBar";
 import Price from "./Price";
