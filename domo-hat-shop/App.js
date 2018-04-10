@@ -22,7 +22,8 @@ const styles = StyleSheet.create({
   hat: {
     width: 300,
     height: 300
-  }
+  },
+  description: {}
 });
 
 class App extends React.Component {
@@ -35,7 +36,7 @@ class App extends React.Component {
         </View>
         <Image source={hatWinter} style={styles.hat} />
         <RatingBar rating={5} ratingCount={200} />
-        <Text>{hatDescription}</Text>
+        <Text style={styles.description}>{hatDescription}</Text>
       </View>
     );
   }
