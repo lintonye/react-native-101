@@ -5,11 +5,39 @@ import hatWinter from "./images/hat-winter.png";
 import RatingBar from "./RatingBar";
 import Price from "./Price";
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    marginTop: 40,
+    padding: 16,
+    alignItems: "center"
+  },
+  nameContainer: {
+    alignSelf: "stretch",
+    flexDirection: "row",
+    justifyContent: "space-between"
+  },
+  name: {
+    fontSize: 28
+  },
+  hat: {
+    width: 300,
+    height: 300
+  }
+});
 
 class App extends React.Component {
   render() {
-    return <View />;
+    return (
+      <View style={styles.container}>
+        <View style={styles.nameContainer}>
+          <Text style={styles.name}>Winter</Text>
+          <Price amount={45} />
+        </View>
+        <Image source={hatWinter} style={styles.hat} />
+        <RatingBar rating={5} ratingCount={200} />
+        <Text>{hatDescription}</Text>
+      </View>
+    );
   }
 }
 
