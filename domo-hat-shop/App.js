@@ -7,7 +7,6 @@ import Price from "./Price";
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     marginTop: 40,
     padding: 16,
     alignItems: "center"
