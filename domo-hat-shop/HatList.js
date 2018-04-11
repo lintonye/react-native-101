@@ -1,5 +1,13 @@
 import React, { Component } from "react";
-import { View, Text, FlatList, TouchableOpacity, Image } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  TouchableOpacity,
+  TouchableNativeFeedback,
+  Image,
+  Platform
+} from "react-native";
 import RatingBar from "./RatingBar";
 import Price from "./Price";
 import styled from "styled-components";
@@ -46,8 +54,11 @@ const HatImage = styled.Image`
   height: 120px;
 `;
 
+const Touchable =
+  Platform.OS === "android" ? TouchableNativeFeedback : TouchableOpacity;
+
 const HatListItem = ({ hat, onPress }) => (
-  <TouchableOpacity onPress={onPress}>
+  <Touchable onPress={onPress}>
     <ItemContainer elevation={2}>
       <HatImage source={hat.image} />
       <NameContainer>
@@ -60,7 +71,7 @@ const HatListItem = ({ hat, onPress }) => (
       </NameContainer>
       <StyledPrice amount={hat.price} />
     </ItemContainer>
-  </TouchableOpacity>
+  </Touchable>
 );
 
 export default class HatList extends Component {
