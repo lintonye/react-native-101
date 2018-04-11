@@ -6,7 +6,8 @@ import {
   TouchableHighlight,
   TouchableNativeFeedback,
   Image,
-  Platform
+  Platform,
+  SafeAreaView
 } from "react-native";
 import RatingBar from "./RatingBar";
 import Price from "./Price";
@@ -17,7 +18,7 @@ const ItemContainer = styled.View`
   justify-content: space-between;
   align-items: center;
   margin: ${Platform.OS === "android" ? "0 16px 0 16px" : 0};
-  padding: 16px;
+  padding: 8px 16px 8px 16px;
   background-color: white;
 `;
 
@@ -82,20 +83,22 @@ export default class HatList extends Component {
   render() {
     const { hats } = this.props;
     return (
-      <StyledFlatList
-        data={hats}
-        ItemSeparatorComponent={() => (
-          <Spacer height={Platform.OS === "android" ? 16 : 1} />
-        )}
-        ListHeaderComponent={() => (
-          <Spacer height={Platform.OS === "android" ? 16 : 1} />
-        )}
-        ListFooterComponent={() => (
-          <Spacer height={Platform.OS === "android" ? 16 : 1} />
-        )}
-        renderItem={this._renderItem}
-        keyExtractor={this._keyExtractor}
-      />
+      <SafeAreaView>
+        <StyledFlatList
+          data={hats}
+          ItemSeparatorComponent={() => (
+            <Spacer height={Platform.OS === "android" ? 16 : 1} />
+          )}
+          ListHeaderComponent={() => (
+            <Spacer height={Platform.OS === "android" ? 16 : 1} />
+          )}
+          ListFooterComponent={() => (
+            <Spacer height={Platform.OS === "android" ? 16 : 1} />
+          )}
+          renderItem={this._renderItem}
+          keyExtractor={this._keyExtractor}
+        />
+      </SafeAreaView>
     );
   }
 }
