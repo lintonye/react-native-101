@@ -85,7 +85,7 @@ const HatGridItem = ({ ihat: { hat, index }, onPress }) => (
         <HatImage source={hat.image} />
         <NameContainer>
           <Name numberOfLines={1}>{hat.name}</Name>
-          <StyledPrice amount={hat.price} />
+          <Price amount={hat.price} white small />
         </NameContainer>
       </CardTop>
       <CardBottom>
