@@ -20,9 +20,9 @@ const Image = styled.Image`
 
 export default ({ amount, style }) => {
   return (
-    <View>
+    <View style={style}>
       <Image source={treeDollar} />
-      <Text style={style}>{amount}</Text>
+      <Text>{amount}</Text>
     </View>
   );
 };
