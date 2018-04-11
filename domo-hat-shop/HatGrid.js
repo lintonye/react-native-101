@@ -43,8 +43,6 @@ const Name = styled.Text`
   color: white;
 `;
 
-const StyledPrice = styled(Price)``;
-
 const StyledFlatList = styled(FlatList)`
   background-color: #eee;
 `;

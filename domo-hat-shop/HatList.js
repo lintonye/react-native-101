@@ -39,8 +39,6 @@ const Name = styled.Text`
   margin-bottom: 8px;
 `;
 
-const StyledPrice = styled(Price)``;
-
 const StyledFlatList = styled(FlatList)`
   background-color: #eee;
 `;
@@ -69,7 +67,7 @@ const HatListItem = ({ hat, onPress }) => (
           soldCount={hat.soldCount}
         />
       </NameContainer>
-      <StyledPrice amount={hat.price} />
+      <Price amount={hat.price} />
     </ItemContainer>
   </Touchable>
 );
