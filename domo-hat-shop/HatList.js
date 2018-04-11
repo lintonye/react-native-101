@@ -3,7 +3,7 @@ import {
   View,
   Text,
   FlatList,
-  TouchableOpacity,
+  TouchableHighlight,
   TouchableNativeFeedback,
   Image,
   Platform
@@ -16,8 +16,7 @@ const ItemContainer = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin: 0 16px 0 16px;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12);
+  margin: ${Platform.OS === "android" ? "0 16px 0 16px" : 0};
   padding: 16px;
   background-color: white;
 `;
@@ -53,7 +52,7 @@ const HatImage = styled.Image`
 `;
 
 const Touchable =
-  Platform.OS === "android" ? TouchableNativeFeedback : TouchableOpacity;
+  Platform.OS === "android" ? TouchableNativeFeedback : TouchableHighlight;
 
 const HatListItem = ({ hat, onPress }) => (
   <Touchable onPress={onPress}>
@@ -85,9 +84,15 @@ export default class HatList extends Component {
     return (
       <StyledFlatList
         data={hats}
-        ItemSeparatorComponent={() => <Spacer height={16} />}
-        ListHeaderComponent={() => <Spacer height={16} />}
-        ListFooterComponent={() => <Spacer height={16} />}
+        ItemSeparatorComponent={() => (
+          <Spacer height={Platform.OS === "android" ? 16 : 1} />
+        )}
+        ListHeaderComponent={() => (
+          <Spacer height={Platform.OS === "android" ? 16 : 1} />
+        )}
+        ListFooterComponent={() => (
+          <Spacer height={Platform.OS === "android" ? 16 : 1} />
+        )}
         renderItem={this._renderItem}
         keyExtractor={this._keyExtractor}
       />
