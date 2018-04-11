@@ -15,10 +15,18 @@ const styles = StyleSheet.create({
   nameContainer: {
     alignSelf: "stretch",
     flexDirection: "row",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    borderWidth: 1,
+    borderColor: "blue"
   },
   name: {
-    fontSize: 28
+    fontSize: 28,
+    width: 50,
+    flex: 1,
+    backgroundColor: "red"
+  },
+  price: {
+    // flex: 1
   },
   hat: {
     width: 300,
@@ -32,8 +40,8 @@ class App extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.nameContainer}>
-          <Text style={styles.name}>Winter</Text>
-          <Price amount={45} />
+          <Text style={styles.name}>Winter Hat With Ear Covers</Text>
+          <Price amount={45} style={styles.price} />
         </View>
         <Image source={hatWinter} style={styles.hat} />
         <RatingBar rating={5} ratingCount={200} />
