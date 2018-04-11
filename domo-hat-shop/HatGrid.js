@@ -142,11 +142,16 @@ export default class HatGrid extends Component {
   state = {
     windowWidth: Dimensions.get("window").width
   };
-  componentDidMount() {
-    Dimensions.addEventListener("change", ({ window, screen }) => {
-      this.setState({ windowWidth: window.width });
-    });
-  }
+  handleDimChange = ({ window, screen }) => {
+    this.setState({ windowWidth: window.width });
+  };
+  componentDidMount = () => {
+    Dimensions.addEventListener("change", this.handleDimChange);
+  };
+  componentWillUnmount = () => {
+    Dimensions.removeEventListener("change", this.handleDimChange);
+  };
+
   render() {
     const { hats, onItemPress } = this.props;
     const cols = Math.floor(this.state.windowWidth / 170);
