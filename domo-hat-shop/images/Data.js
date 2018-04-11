@@ -15,7 +15,7 @@ export const hats = [
     rating: 3,
     ratingCount: 42,
     soldCount: 42,
-    image: require("./images/hat_harry.png"),
+    image: require("./app/images/hat_harry.png"),
     description: hatDescription
   },
   {
@@ -24,7 +24,7 @@ export const hats = [
     rating: 4,
     ratingCount: 42,
     soldCount: 42,
-    image: require("./images/hat_pirate.png"),
+    image: require("./app/images/hat_pirate.png"),
     description: hatDescription
   },
   // {
@@ -33,7 +33,7 @@ export const hats = [
   //   rating: 3,
   //   ratingCount: 42,
   //   soldCount: 42,
-  //   image: require("./images/hat_propeller.png"),
+  //   image: require("./app/images/hat_propeller.png"),
   //   description: hatDescription
   // },
   // {
@@ -42,7 +42,7 @@ export const hats = [
   //   rating: 5,
   //   ratingCount: 42,
   //   soldCount: 42,
-  //   image: require("./images/hat_leprechaun.png"),
+  //   image: require("./app/images/hat_leprechaun.png"),
   //   description: hatDescription
   // },
   {
@@ -51,7 +51,7 @@ export const hats = [
     rating: 3,
     ratingCount: 42,
     soldCount: 42,
-    image: require("./images/hat_ball.png"),
+    image: require("./app/images/hat_ball.png"),
     description: hatDescription
   },
   {
@@ -60,7 +60,7 @@ export const hats = [
     rating: 3,
     ratingCount: 42,
     soldCount: 42,
-    image: require("./images/hat_cap.png"),
+    image: require("./app/images/hat_cap.png"),
     description: hatDescription
   },
   {
@@ -69,7 +69,7 @@ export const hats = [
     rating: 3,
     ratingCount: 42,
     soldCount: 42,
-    image: require("./images/hat_chef.png"),
+    image: require("./app/images/hat_chef.png"),
     description: hatDescription
   },
   {
@@ -78,7 +78,7 @@ export const hats = [
     rating: 3,
     ratingCount: 42,
     soldCount: 42,
-    image: require("./images/hat_elegant.png"),
+    image: require("./app/images/hat_elegant.png"),
     description: hatDescription
   },
   {
@@ -87,7 +87,7 @@ export const hats = [
     rating: 3,
     ratingCount: 42,
     soldCount: 42,
-    image: require("./images/hat_ladyFlower.png"),
+    image: require("./app/images/hat_ladyFlower.png"),
     description: hatDescription
   },
   {
@@ -96,7 +96,7 @@ export const hats = [
     rating: 3,
     ratingCount: 42,
     soldCount: 42,
-    image: require("./images/hat_police.png"),
+    image: require("./app/images/hat_police.png"),
     description: hatDescription
   },
   {
@@ -105,7 +105,7 @@ export const hats = [
     rating: 3,
     ratingCount: 42,
     soldCount: 42,
-    image: require("./images/hat_wool.png"),
+    image: require("./app/images/hat_wool.png"),
     description: hatDescription
   },
   {
@@ -114,8 +114,35 @@ export const hats = [
     rating: 3,
     ratingCount: 42,
     soldCount: 42,
-    image: require("./images/hat_xmas.png"),
+    image: require("./app/images/hat_xmas.png"),
     description: hatDescription
+  }
+];
+
+export const poses = [
+  {
+    name: "0",
+    image: require("./app/images/tree_thinker.png")
+  },
+  {
+    name: "1",
+    image: require("./app/images/tree_stand.png")
+  },
+  {
+    name: "2",
+    image: require("./app/images/tree_point.png")
+  },
+  {
+    name: "3",
+    image: require("./app/images/tree_pine.png")
+  },
+  {
+    name: "3",
+    image: require("./app/images/tree_little_girl.png")
+  },
+  {
+    name: "3",
+    image: require("./app/images/tree_hold.png")
   }
 ];
 
