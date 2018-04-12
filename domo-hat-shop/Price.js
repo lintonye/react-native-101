@@ -19,9 +19,9 @@ const Image = styled.Image`
   margin-right: 4px;
 `;
 
-export default ({ amount, white, small }) => {
+export default ({ amount, white, small, style }) => {
   return (
-    <View>
+    <View style={style}>
       <Image source={white ? treeDollarWhite : treeDollar} small={small} />
       <Text white={white} small={small}>
         {amount}
