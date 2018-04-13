@@ -23,8 +23,6 @@ const HatImage = styled.Image`
 
 const NameContainer = styled.View`
   align-items: center;
-  flex: 2;
-  justify-content: center;
   margin-left: 16px;
   margin-right: 16px;
 `;
@@ -37,7 +35,6 @@ const Name = styled.Text`
 `;
 
 const StyledPrice = styled(Price)`
-  flex: 1;
   justify-content: center;
 `;
 
