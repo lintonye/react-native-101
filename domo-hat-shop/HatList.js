@@ -22,6 +22,10 @@ const HatImage = styled.Image`
 `;
 
 const NameContainer = styled.View`
+  flex-direction: row;
+  flex-wrap: wrap;
+  flex: 1;
+  justify-content: space-around;
   align-items: center;
   margin-left: 16px;
   margin-right: 16px;
