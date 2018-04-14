@@ -1,0 +1,101 @@
+import React, { Component } from "react";
+import styled from "styled-components";
+import { Text, Button, Animated } from "react-native";
+import Domo from "./Domo";
+import { connectActionSheet } from "@expo/react-native-action-sheet";
+
+const Container = styled.View`
+  padding: 16px;
+  align-items: center;
+`;
+
+const NameContainer = styled(Animated.View)`
+  margin: 16px;
+`;
+
+const Name = styled.Text`
+  font-size: 25px;
+  margin-right: 16px;
+`;
+
+const TryItOnMe = ({ onPress }) => (
+  <Button title="Try it on me" onPress={onPress} />
+);
+
+@connectActionSheet
+export default class HatDetail extends Component {
+  _afterUpdateAnimatedValue = new Animated.Value(0);
+  componentDidUpdate() {
+    this._afterUpdateAnimatedValue.setValue(
+      -2 * this.props.transitionDirection
+    );
+    Animated.spring(this._afterUpdateAnimatedValue, {
+      toValue: 0
+      // useNativeDriver: true
+    }).start(() => this._afterUpdateAnimatedValue.setValue(0));
+  }
+  onTryOnMePressed = () => {
+    let options = ["Pick from album", "Take a photo", "Cancel"];
+    // let destructiveButtonIndex = 0;
+    let cancelButtonIndex = 2;
+
+    const { showActionSheetWithOptions, onPickImage, onTakePhoto } = this.props;
+    showActionSheetWithOptions(
+      {
+        options,
+        cancelButtonIndex
+        // destructiveButtonIndex
+      },
+      buttonIndex => {
+        switch (buttonIndex) {
+          case 0:
+            onPickImage();
+            break;
+          case 1:
+            onTakePhoto();
+            break;
+        }
+      }
+    );
+  };
+  render() {
+    const {
+      hats,
+      index,
+      position,
+      poses,
+      poseIndex,
+      posePosition
+    } = this.props;
+    const hat = hats[index];
+    const { name } = hat;
+    const transitionPosition = position
+      ? Animated.add(position, this._afterUpdateAnimatedValue)
+      : this._afterUpdateAnimatedValue;
+    const opacity = transitionPosition.interpolate({
+      inputRange: [index - 1, index, index + 1],
+      outputRange: [0, 1, 0]
+    });
+    const translateX = transitionPosition.interpolate({
+      inputRange: [index - 1, index, index + 1],
+      outputRange: [100, 0, -100]
+    });
+    const animatedStyle = { opacity, transform: [{ translateX }] };
+    return (
+      <Container>
+        <NameContainer style={animatedStyle}>
+          <Name numberOfLines={1}>{name}</Name>
+        </NameContainer>
+        <Domo
+          hats={hats}
+          index={index}
+          position={position || this._afterUpdateAnimatedValue}
+          poses={poses}
+          poseIndex={poseIndex}
+          posePosition={posePosition}
+        />
+        <TryItOnMe onPress={this.onTryOnMePressed} />
+      </Container>
+    );
+  }
+}
