@@ -1,5 +1,12 @@
 import React from "react";
-import { Image, View, ScrollView, Text, StyleSheet } from "react-native";
+import {
+  Image,
+  View,
+  ScrollView,
+  Text,
+  StyleSheet,
+  TouchableHighlight
+} from "react-native";
 
 import hatWinter from "./images/hat-winter.png";
 import RatingBar from "./RatingBar";
@@ -14,7 +21,8 @@ const styles = StyleSheet.create({
   nameContainer: {
     alignSelf: "stretch",
     flexDirection: "row",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    alignItems: "center"
   },
   name: {
     fontSize: 28
@@ -23,8 +31,17 @@ const styles = StyleSheet.create({
     width: 300,
     height: 300
   },
-  description: {}
+  description: {},
+  backButtonText: {
+    color: "blue"
+  }
 });
+
+const BackButton = ({ onPress }) => (
+  <TouchableHighlight onPress={onPress}>
+    <Text style={styles.backButtonText}>&lt; Back</Text>
+  </TouchableHighlight>
+);
 
 class HatDetail extends React.Component {
   render() {
@@ -40,6 +57,7 @@ class HatDetail extends React.Component {
       <ScrollView>
         <View style={styles.container}>
           <View style={styles.nameContainer}>
+            <BackButton onPress={this.props.onBack} />
             <Text style={styles.name}>{name}</Text>
             <Price amount={price} />
           </View>

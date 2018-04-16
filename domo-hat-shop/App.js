@@ -14,11 +14,14 @@ class App extends React.Component {
   };
   onItemPress = hat =>
     this.setState({ currentHat: hat, currentScreen: "detail" });
+  returnToList = () => this.setState({ currentScreen: "list" });
   render() {
     if (this.state.currentScreen === "list") {
       return <HatList hats={manyHats} onItemPress={this.onItemPress} />;
     } else {
-      return <HatDetail hat={this.state.currentHat} />;
+      return (
+        <HatDetail hat={this.state.currentHat} onBack={this.returnToList} />
+      );
     }
   }
 }
