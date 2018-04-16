@@ -3,6 +3,7 @@ import HatList from "./HatList";
 import HatDetail from "./HatDetail";
 import HatGrid from "./HatGrid";
 import { manyHats } from "./Data";
+import SafeAreaView from "react-native-safe-area-view";
 
 // const App = () => <HatList hats={manyHats} />;
 // const App = () => <HatGrid hats={manyHats} />;
@@ -25,4 +26,8 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default () => (
+  <SafeAreaView forceInset={{ bottom: "never" }}>
+    <App />
+  </SafeAreaView>
+);

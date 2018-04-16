@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { View, Text, FlatList, TouchableHighlight, Image } from "react-native";
-import SafeAreaView from "react-native-safe-area-view";
 import RatingBar from "./RatingBar";
 import Price from "./Price";
 import styled from "styled-components";
@@ -77,16 +76,14 @@ export default class HatList extends Component {
   render() {
     const { hats } = this.props;
     return (
-      <SafeAreaView forceInset={{ bottom: "never" }}>
-        <StyledFlatList
-          data={hats}
-          ItemSeparatorComponent={() => <Spacer height={1} />}
-          ListHeaderComponent={() => <Spacer height={1} />}
-          ListFooterComponent={() => <Spacer height={1} />}
-          renderItem={this._renderItem}
-          keyExtractor={this._keyExtractor}
-        />
-      </SafeAreaView>
+      <StyledFlatList
+        data={hats}
+        ItemSeparatorComponent={() => <Spacer height={1} />}
+        ListHeaderComponent={() => <Spacer height={1} />}
+        ListFooterComponent={() => <Spacer height={1} />}
+        renderItem={this._renderItem}
+        keyExtractor={this._keyExtractor}
+      />
     );
   }
 }
