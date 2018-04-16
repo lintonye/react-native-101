@@ -68,7 +68,9 @@ export default class HatList extends Component {
   _renderItem = ({ item, index }) => (
     <HatListItem
       hat={item}
-      onPress={() => this.props.onItemPress && this.props.onItemPress(item)}
+      onPress={() =>
+        this.props.onItemPress && this.props.onItemPress(item, index)
+      }
     />
   );
   _keyExtractor = (item, index) => index;

@@ -9,19 +9,18 @@ import { manyHats } from "./Data";
 
 class App extends React.Component {
   state = {
-    currentHat: null,
+    currentHatIndex: 0,
     currentScreen: "list"
   };
-  onItemPress = hat =>
-    this.setState({ currentHat: hat, currentScreen: "detail" });
+  onItemPress = (_, index) =>
+    this.setState({ currentHatIndex: index, currentScreen: "detail" });
   returnToList = () => this.setState({ currentScreen: "list" });
   render() {
     if (this.state.currentScreen === "list") {
       return <HatList hats={manyHats} onItemPress={this.onItemPress} />;
     } else {
-      return (
-        <HatDetail hat={this.state.currentHat} onBack={this.returnToList} />
-      );
+      const hat = manyHats[this.state.currentHatIndex];
+      return <HatDetail hat={hat} onBack={this.returnToList} />;
     }
   }
 }
