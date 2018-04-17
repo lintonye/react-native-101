@@ -113,7 +113,7 @@ const HatRow = ({ hats, onItemPress }) => (
   </RowContainer>
 );
 
-class ListBasedHatGrid extends Component {
+export default class HatGrid extends Component {
   _renderRow = ({ item }) => (
     <HatRow hats={item} onItemPress={this.props.onItemPress} />
   );
@@ -123,39 +123,14 @@ class ListBasedHatGrid extends Component {
     const indexedHats = hats.map((hat, index) => ({ hat, index }));
     const hatRows = _.chunk(indexedHats, columns);
     return (
-      <SafeAreaView forceInset={{ bottom: "never" }}>
-        <StyledFlatList
-          data={hatRows}
-          renderItem={this._renderRow}
-          keyExtractor={this._keyExtractor}
-          ItemSeparatorComponent={() => <Spacer height={8} />}
-          ListHeaderComponent={() => <Spacer height={8} />}
-          ListFooterComponent={() => <Spacer height={8} />}
-        />
-      </SafeAreaView>
-    );
-  }
-}
-
-export default class HatGrid extends Component {
-  state = {
-    windowWidth: Dimensions.get("window").width
-  };
-  handleDimChange = ({ window, screen }) => {
-    this.setState({ windowWidth: window.width });
-  };
-  componentDidMount = () => {
-    Dimensions.addEventListener("change", this.handleDimChange);
-  };
-  componentWillUnmount = () => {
-    Dimensions.removeEventListener("change", this.handleDimChange);
-  };
-
-  render() {
-    const { hats, onItemPress } = this.props;
-    const cols = Math.floor(this.state.windowWidth / 170);
-    return (
-      <ListBasedHatGrid hats={hats} columns={cols} onItemPress={onItemPress} />
+      <StyledFlatList
+        data={hatRows}
+        renderItem={this._renderRow}
+        keyExtractor={this._keyExtractor}
+        ItemSeparatorComponent={() => <Spacer height={8} />}
+        ListHeaderComponent={() => <Spacer height={8} />}
+        ListFooterComponent={() => <Spacer height={8} />}
+      />
     );
   }
 }
