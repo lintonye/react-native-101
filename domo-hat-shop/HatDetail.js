@@ -56,7 +56,7 @@ class HatDetail extends React.Component {
       <ScrollView>
         <View style={styles.container}>
           <View style={styles.nameContainer}>
-            <BackButton onPress={this.props.onBack} />
+            {this.props.onBack && <BackButton onPress={this.props.onBack} />}
             <Text style={styles.name}>{name}</Text>
             <Price amount={price} />
           </View>
