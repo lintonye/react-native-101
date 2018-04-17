@@ -35,7 +35,7 @@ class App extends React.Component {
             hideNameAndRatings
             selectedHatIndex={this.state.currentHatIndex}
           />
-          <HatDetail hat={hat} onBack={this.returnToList} />
+          <HatDetail hat={hat} />
         </View>
       );
     } else {
