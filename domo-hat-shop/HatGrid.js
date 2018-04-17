@@ -11,13 +11,12 @@ import SafeAreaView from "react-native-safe-area-view";
 import RatingBar from "./RatingBar";
 import Price from "./Price";
 import styled from "styled-components";
-import _ from "lodash";
 import { LinearGradient } from "expo";
 
 const ItemContainer = styled.View`
-  flex: 1;
   margin: 0 8px 0 0;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12);
+  elevation: 2;
   background-color: white;
 `;
 
@@ -75,8 +74,8 @@ const gradients = [
   ["#ffb75e", "#ed8f03", "#ed8f03", "#2d2f03"]
 ];
 
-const HatGridItem = ({ ihat: { hat, index }, onPress }) => (
-  <ItemContainer elevation={2}>
+const HatGridItem = ({ hat, index, onPress }) => (
+  <ItemContainer>
     <StyledTouchable onPress={onPress}>
       <CardTop colors={gradients[index % gradients.length]}>
         <HatImage source={hat.image} />
@@ -101,31 +100,17 @@ const RowContainer = styled.View`
   margin-left: 8px;
 `;
 
-const HatRow = ({ hats, onItemPress }) => (
-  <RowContainer>
-    {hats.map(ihat => (
-      <HatGridItem
-        ihat={ihat}
-        key={ihat.index}
-        onPress={() => onItemPress(ihat.index)}
-      />
-    ))}
-  </RowContainer>
-);
-
 export default class HatGrid extends Component {
-  _renderRow = ({ item }) => (
-    <HatRow hats={item} onItemPress={this.props.onItemPress} />
+  _renderItem = ({ item, index }) => (
+    <HatGridItem hat={item} index={index} onPress={this.props.onItemPress} />
   );
   _keyExtractor = (item, index) => index;
   render() {
     const { hats, columns } = this.props;
-    const indexedHats = hats.map((hat, index) => ({ hat, index }));
-    const hatRows = _.chunk(indexedHats, columns);
     return (
       <StyledFlatList
-        data={hatRows}
-        renderItem={this._renderRow}
+        data={hats}
+        renderItem={this._renderItem}
         keyExtractor={this._keyExtractor}
         ItemSeparatorComponent={() => <Spacer height={8} />}
         ListHeaderComponent={() => <Spacer height={8} />}
