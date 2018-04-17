@@ -10,8 +10,8 @@ import SafeAreaView from "react-native-safe-area-view";
 
 class App extends React.Component {
   state = {
-    currentHatIndex: 0,
-    currentScreen: "list"
+    currentScreen: "list",
+    currentHatIndex: 0
   };
   onItemPress = (_, index) =>
     this.setState({ currentHatIndex: index, currentScreen: "detail" });
