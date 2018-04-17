@@ -13,7 +13,7 @@ const ItemContainer = styled.View`
   justify-content: space-between;
   align-items: center;
   padding: 8px 16px 8px 16px;
-  background-color: white;
+  background-color: ${props => (props.selected ? "#eee" : "white")};
 `;
 
 const HatImage = styled.Image`
@@ -46,18 +46,20 @@ const Spacer = styled.View`
   height: ${props => props.height}px;
 `;
 
-const HatListItem = ({ hat, onPress }) => (
+const HatListItem = ({ hat, onPress, hideNameAndRatings, selected }) => (
   <TouchableHighlight onPress={onPress}>
-    <ItemContainer elevation={2}>
+    <ItemContainer elevation={2} selected={selected}>
       <HatImage source={hat.image} />
-      <NameContainer>
-        <Name>{hat.name}</Name>
-        <RatingBar
-          rating={hat.rating}
-          ratingCount={hat.ratingCount}
-          soldCount={hat.soldCount}
-        />
-      </NameContainer>
+      {!!!hideNameAndRatings && (
+        <NameContainer>
+          <Name>{hat.name}</Name>
+          <RatingBar
+            rating={hat.rating}
+            ratingCount={hat.ratingCount}
+            soldCount={hat.soldCount}
+          />
+        </NameContainer>
+      )}
       <StyledPrice amount={hat.price} />
     </ItemContainer>
   </TouchableHighlight>
@@ -67,6 +69,8 @@ export default class HatList extends Component {
   _renderItem = ({ item, index }) => (
     <HatListItem
       hat={item}
+      hideNameAndRatings={this.props.hideNameAndRatings}
+      selected={index === this.props.selectedHatIndex}
       onPress={() =>
         this.props.onItemPress && this.props.onItemPress(item, index)
       }
