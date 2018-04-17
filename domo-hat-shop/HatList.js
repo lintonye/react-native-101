@@ -80,14 +80,17 @@ export default class HatList extends Component {
   render() {
     const { hats } = this.props;
     return (
-      <StyledFlatList
-        data={hats}
-        ItemSeparatorComponent={() => <Spacer height={1} />}
-        ListHeaderComponent={() => <Spacer height={1} />}
-        ListFooterComponent={() => <Spacer height={1} />}
-        renderItem={this._renderItem}
-        keyExtractor={this._keyExtractor}
-      />
+      // Wrap the FlatList with a View to make it to measure its width properly.
+      <View>
+        <StyledFlatList
+          data={hats}
+          ItemSeparatorComponent={() => <Spacer height={1} />}
+          ListHeaderComponent={() => <Spacer height={1} />}
+          ListFooterComponent={() => <Spacer height={1} />}
+          renderItem={this._renderItem}
+          keyExtractor={this._keyExtractor}
+        />
+      </View>
     );
   }
 }
