@@ -8,7 +8,12 @@ import { View, StyleSheet, Dimensions, LayoutAnimation } from "react-native";
 
 class App extends React.Component {
   render() {
-    return <HatGrid hats={manyHats} />;
+    const cardWidth = 170;
+    const columns = Math.max(
+      1,
+      Math.floor(Dimensions.get("window").width / cardWidth)
+    );
+    return <HatGrid hats={manyHats} columns={columns} />;
   }
 }
 

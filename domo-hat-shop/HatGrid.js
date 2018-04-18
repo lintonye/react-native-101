@@ -14,7 +14,8 @@ import styled from "styled-components";
 import { LinearGradient } from "expo";
 
 const ItemContainer = styled.View`
-  margin: 0 8px 0 0;
+  flex: 1;
+  margin: 0 8px 0 ${props => (props.leftEdge ? 8 : 0)}px;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12);
   elevation: 2;
   background-color: white;
@@ -74,8 +75,8 @@ const gradients = [
   ["#ffb75e", "#ed8f03", "#ed8f03", "#2d2f03"]
 ];
 
-const HatGridItem = ({ hat, index, onPress }) => (
-  <ItemContainer>
+const HatGridItem = ({ hat, index, columns, onPress }) => (
+  <ItemContainer leftEdge={index % columns === 0}>
     <StyledTouchable onPress={onPress}>
       <CardTop colors={gradients[index % gradients.length]}>
         <HatImage source={hat.image} />
@@ -102,7 +103,12 @@ const RowContainer = styled.View`
 
 export default class HatGrid extends Component {
   _renderItem = ({ item, index }) => (
-    <HatGridItem hat={item} index={index} onPress={this.props.onItemPress} />
+    <HatGridItem
+      hat={item}
+      index={index}
+      columns={this.props.columns}
+      onPress={this.props.onItemPress}
+    />
   );
   _keyExtractor = (item, index) => index;
   render() {
@@ -110,6 +116,7 @@ export default class HatGrid extends Component {
     return (
       <StyledFlatList
         data={hats}
+        numColumns={columns}
         renderItem={this._renderItem}
         keyExtractor={this._keyExtractor}
         ItemSeparatorComponent={() => <Spacer height={8} />}
