@@ -106,7 +106,7 @@ export default class HatGrid extends Component {
   );
   _keyExtractor = (item, index) => index;
   render() {
-    const { hats, columns } = this.props;
+    const { hats } = this.props;
     return (
       <StyledFlatList
         data={hats}
