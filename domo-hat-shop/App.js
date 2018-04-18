@@ -7,28 +7,37 @@ import SafeAreaView from "react-native-safe-area-view";
 import { View, StyleSheet, Dimensions, LayoutAnimation } from "react-native";
 
 class App extends React.Component {
-  handleDimChange = () => {
-    this.forceUpdate();
+  state = {
+    appWidth: 0
   };
-  componentDidMount = () => {
-    Dimensions.addEventListener("change", this.handleDimChange);
+  updateAppWidth = ({
+    nativeEvent: {
+      layout: { x, y, width, height }
+    }
+  }) => {
+    this.setState({ appWidth: width });
   };
-  componentWillUnmount = () => {
-    Dimensions.removeEventListener("change", this.handleDimChange);
-  };
-
   render() {
     const cardWidth = 170;
-    const columns = Math.max(
-      1,
-      Math.floor(Dimensions.get("window").width / cardWidth)
+    const columns = Math.max(1, Math.floor(this.state.appWidth / cardWidth));
+    return (
+      <View onLayout={this.updateAppWidth}>
+        <HatGrid hats={manyHats} columns={columns} />
+      </View>
     );
-    return <HatGrid hats={manyHats} columns={columns} />;
   }
 }
 
 export default () => (
-  <SafeAreaView forceInset={{ bottom: "never" }}>
-    <App />
+  <SafeAreaView
+    forceInset={{ bottom: "never" }}
+    style={{ flexDirection: "row" }}
+  >
+    <View style={{ flex: 1 }}>
+      <App />
+    </View>
+    <View style={{ flex: 1 }}>
+      <HatDetail hat={manyHats[0]} />
+    </View>
   </SafeAreaView>
 );
