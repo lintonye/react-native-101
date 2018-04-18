@@ -7,6 +7,16 @@ import SafeAreaView from "react-native-safe-area-view";
 import { View, StyleSheet, Dimensions, LayoutAnimation } from "react-native";
 
 class App extends React.Component {
+  handleDimChange = () => {
+    this.forceUpdate();
+  };
+  componentDidMount = () => {
+    Dimensions.addEventListener("change", this.handleDimChange);
+  };
+  componentWillUnmount = () => {
+    Dimensions.removeEventListener("change", this.handleDimChange);
+  };
+
   render() {
     const cardWidth = 170;
     const columns = Math.max(

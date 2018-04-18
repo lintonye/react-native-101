@@ -115,6 +115,7 @@ export default class HatGrid extends Component {
     const { hats, columns } = this.props;
     return (
       <StyledFlatList
+        key={columns}
         data={hats}
         numColumns={columns}
         renderItem={this._renderItem}
