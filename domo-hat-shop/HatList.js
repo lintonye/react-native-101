@@ -1,9 +1,19 @@
 import React, { Component } from "react";
-import { View, Text, FlatList, TouchableHighlight, Image } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  TouchableHighlight,
+  TouchableNativeFeedback,
+  Image,
+  Platform
+} from "react-native";
 import SafeAreaView from "react-native-safe-area-view";
 import RatingBar from "./RatingBar";
 import Price from "./Price";
 import styled from "styled-components";
+
+const isAndroid = Platform.OS === "android";
 
 const StyledFlatList = styled(FlatList)`
   background-color: #eee;
@@ -14,6 +24,8 @@ const ItemContainer = styled.View`
   justify-content: space-between;
   align-items: center;
   padding: 8px 16px 8px 16px;
+  margin: ${isAndroid ? "0 8px 0 8px" : 0};
+  elevation: 2;
   background-color: white;
 `;
 
@@ -47,8 +59,10 @@ const Spacer = styled.View`
   height: ${props => props.height}px;
 `;
 
+const Touchable = isAndroid ? TouchableNativeFeedback : TouchableHighlight;
+
 const HatListItem = ({ hat, onPress }) => (
-  <TouchableHighlight onPress={onPress}>
+  <Touchable onPress={onPress}>
     <ItemContainer>
       <HatImage source={hat.image} />
       <NameContainer>
@@ -61,7 +75,7 @@ const HatListItem = ({ hat, onPress }) => (
       </NameContainer>
       <StyledPrice amount={hat.price} />
     </ItemContainer>
-  </TouchableHighlight>
+  </Touchable>
 );
 
 export default class HatList extends Component {
@@ -78,9 +92,9 @@ export default class HatList extends Component {
       <SafeAreaView forceInset={{ bottom: "never" }}>
         <StyledFlatList
           data={hats}
-          ItemSeparatorComponent={() => <Spacer height={1} />}
-          ListHeaderComponent={() => <Spacer height={1} />}
-          ListFooterComponent={() => <Spacer height={1} />}
+          ItemSeparatorComponent={() => <Spacer height={isAndroid ? 8 : 1} />}
+          ListHeaderComponent={() => <Spacer height={isAndroid ? 8 : 1} />}
+          ListFooterComponent={() => <Spacer height={isAndroid ? 8 : 1} />}
           renderItem={this._renderItem}
           keyExtractor={this._keyExtractor}
         />
