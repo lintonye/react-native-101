@@ -12,6 +12,7 @@ import SafeAreaView from "react-native-safe-area-view";
 import RatingBar from "./RatingBar";
 import Price from "./Price";
 import styled from "styled-components";
+import Touchable from "./Touchable";
 
 const isAndroid = Platform.OS === "android";
 
@@ -58,8 +59,6 @@ const StyledPrice = styled(Price)`
 const Spacer = styled.View`
   height: ${props => props.height}px;
 `;
-
-const Touchable = isAndroid ? TouchableNativeFeedback : TouchableHighlight;
 
 const HatListItem = ({ hat, onPress }) => (
   <Touchable onPress={onPress}>
