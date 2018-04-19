@@ -79,7 +79,7 @@ export default class Login extends Component {
   render() {
     return (
       <LinearGradient
-        colors={["#7eb859", "#d2efd2", "#f2fff2"]}
+        colors={["#6ea849", "#c2dfc2", "#f2fff2"]}
         style={styles.container}
       >
         <SafeAreaView>
