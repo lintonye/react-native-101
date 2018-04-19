@@ -87,9 +87,20 @@ export default class Login extends Component {
           <Domo />
           <Text style={styles.instruction}>Please login</Text>
           <Text style={styles.label}>Email</Text>
-          <TextInput placeholder="joe@email.com" style={styles.textInput} />
+          <TextInput
+            placeholder="joe@email.com"
+            keyboardType="email-address"
+            style={styles.textInput}
+            returnKeyType="next"
+            onSubmitEditing={() => this.passwdText.focus()}
+          />
           <Text style={styles.label}>Password</Text>
-          <TextInput secureTextEntry style={styles.textInput} />
+          <TextInput
+            secureTextEntry
+            style={styles.textInput}
+            returnKeyType="go"
+            ref={ref => (this.passwdText = ref)}
+          />
           <View style={styles.buttonContainer}>
             <Button title="Login" onPress={() => {}} />
           </View>
