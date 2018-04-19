@@ -49,7 +49,7 @@ const Spacer = styled.View`
 
 const HatListItem = ({ hat, onPress }) => (
   <TouchableHighlight onPress={onPress}>
-    <ItemContainer elevation={2}>
+    <ItemContainer>
       <HatImage source={hat.image} />
       <NameContainer>
         <Name>{hat.name}</Name>
