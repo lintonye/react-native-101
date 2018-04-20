@@ -7,7 +7,8 @@ import {
   SafeAreaView,
   StyleSheet,
   Button,
-  Platform
+  Platform,
+  KeyboardAvoidingView
 } from "react-native";
 import DomoImg from "./images/domo-thinker.png";
 import HatImg from "./images/hat_harry.png";
@@ -83,27 +84,29 @@ export default class Login extends Component {
         style={styles.container}
       >
         <SafeAreaView>
-          <Text style={styles.title}>Domo's Hat Shop</Text>
-          <Domo />
-          <Text style={styles.instruction}>Please login</Text>
-          <Text style={styles.label}>Email</Text>
-          <TextInput
-            placeholder="joe@email.com"
-            keyboardType="email-address"
-            style={styles.textInput}
-            returnKeyType="next"
-            onSubmitEditing={() => this.passwdText.focus()}
-          />
-          <Text style={styles.label}>Password</Text>
-          <TextInput
-            secureTextEntry
-            style={styles.textInput}
-            returnKeyType="go"
-            ref={ref => (this.passwdText = ref)}
-          />
-          <View style={styles.buttonContainer}>
-            <Button title="Login" onPress={() => {}} />
-          </View>
+          <KeyboardAvoidingView behavior="position">
+            <Text style={styles.title}>Domo's Hat Shop</Text>
+            <Domo />
+            <Text style={styles.instruction}>Please login</Text>
+            <Text style={styles.label}>Email</Text>
+            <TextInput
+              placeholder="joe@email.com"
+              keyboardType="email-address"
+              style={styles.textInput}
+              returnKeyType="next"
+              onSubmitEditing={() => this.passwdText.focus()}
+            />
+            <Text style={styles.label}>Password</Text>
+            <TextInput
+              secureTextEntry
+              style={styles.textInput}
+              returnKeyType="go"
+              ref={ref => (this.passwdText = ref)}
+            />
+            <View style={styles.buttonContainer}>
+              <Button title="Login" onPress={() => {}} />
+            </View>
+          </KeyboardAvoidingView>
         </SafeAreaView>
       </LinearGradient>
     );
