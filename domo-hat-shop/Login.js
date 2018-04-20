@@ -17,7 +17,8 @@ import { LinearGradient } from "expo";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16
+    padding: 16,
+    justifyContent: "center"
   },
   title: {
     fontSize: 30,
@@ -42,30 +43,6 @@ const styles = StyleSheet.create({
     position: "absolute",
     left: 130,
     top: -52
-  },
-  instruction: {
-    textAlign: "center",
-    fontSize: 20,
-    margin: 8
-  },
-  label: {
-    marginTop: 16,
-    marginBottom: 8
-  },
-  textInput: {
-    height: 40,
-    padding: 4,
-    ...Platform.select({
-      ios: {
-        borderWidth: 1,
-        borderColor: "#7eb859",
-        borderRadius: 4
-      }
-    })
-  },
-  buttonContainer: {
-    marginTop: 16,
-    marginBottom: 16
   }
 });
 
@@ -84,29 +61,7 @@ export default class Login extends Component {
         style={styles.container}
       >
         <SafeAreaView>
-          <KeyboardAvoidingView behavior="position">
-            <Text style={styles.title}>Domo's Hat Shop</Text>
-            <Domo />
-            <Text style={styles.instruction}>Please login</Text>
-            <Text style={styles.label}>Email</Text>
-            <TextInput
-              placeholder="joe@email.com"
-              keyboardType="email-address"
-              style={styles.textInput}
-              returnKeyType="next"
-              onSubmitEditing={() => this.passwdText.focus()}
-            />
-            <Text style={styles.label}>Password</Text>
-            <TextInput
-              secureTextEntry
-              style={styles.textInput}
-              returnKeyType="go"
-              ref={ref => (this.passwdText = ref)}
-            />
-            <View style={styles.buttonContainer}>
-              <Button title="Login" onPress={() => {}} />
-            </View>
-          </KeyboardAvoidingView>
+          <Domo />
         </SafeAreaView>
       </LinearGradient>
     );
