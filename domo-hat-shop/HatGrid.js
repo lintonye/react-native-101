@@ -5,20 +5,19 @@ import {
   FlatList,
   Dimensions,
   TouchableOpacity,
-  SafeAreaView,
   Image
 } from "react-native";
-// import SafeAreaView from "react-native-safe-area-view";
+import SafeAreaView from "react-native-safe-area-view";
 import RatingBar from "./RatingBar";
 import Price from "./Price";
 import styled from "styled-components";
-import _ from "lodash";
 import { LinearGradient } from "expo";
 
 const ItemContainer = styled.View`
   flex: 1;
-  margin: 0 8px 0 0;
+  margin: 0 8px 0 ${props => (props.leftEdge ? 8 : 0)}px;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12);
+  elevation: 2;
   background-color: white;
 `;
 
@@ -76,8 +75,8 @@ const gradients = [
   ["#ffb75e", "#ed8f03", "#ed8f03", "#2d2f03"]
 ];
 
-const HatGridItem = ({ ihat: { hat, index }, onPress }) => (
-  <ItemContainer elevation={2}>
+const HatGridItem = ({ hat, index, columns, onPress }) => (
+  <ItemContainer leftEdge={index % columns === 0}>
     <StyledTouchable onPress={onPress}>
       <CardTop colors={gradients[index % gradients.length]}>
         <HatImage source={hat.image} />
@@ -102,61 +101,29 @@ const RowContainer = styled.View`
   margin-left: 8px;
 `;
 
-const HatRow = ({ hats, onItemPress }) => (
-  <RowContainer>
-    {hats.map(ihat => (
-      <HatGridItem
-        ihat={ihat}
-        key={ihat.index}
-        onPress={() => onItemPress(ihat.index)}
-      />
-    ))}
-  </RowContainer>
-);
-
-class ListBasedHatGrid extends Component {
-  _renderRow = ({ item }) => (
-    <HatRow hats={item} onItemPress={this.props.onItemPress} />
+export default class HatGrid extends Component {
+  _renderItem = ({ item, index }) => (
+    <HatGridItem
+      hat={item}
+      index={index}
+      columns={this.props.columns}
+      onPress={() => this.props.onItemPress(item, index)}
+    />
   );
   _keyExtractor = (item, index) => index;
   render() {
     const { hats, columns } = this.props;
-    const indexedHats = hats.map((hat, index) => ({ hat, index }));
-    const hatRows = _.chunk(indexedHats, columns);
     return (
-      <SafeAreaView forceInset={{ right: "always" }}>
-        <StyledFlatList
-          data={hatRows}
-          renderItem={this._renderRow}
-          keyExtractor={this._keyExtractor}
-          ItemSeparatorComponent={() => <Spacer height={8} />}
-          ListHeaderComponent={() => <Spacer height={8} />}
-          ListFooterComponent={() => <Spacer height={8} />}
-        />
-      </SafeAreaView>
-    );
-  }
-}
-
-export default class HatGrid extends Component {
-  state = {
-    windowWidth: Dimensions.get("window").width
-  };
-  handleDimChange = ({ window, screen }) => {
-    this.setState({ windowWidth: window.width });
-  };
-  componentDidMount = () => {
-    Dimensions.addEventListener("change", this.handleDimChange);
-  };
-  componentWillUnmount = () => {
-    Dimensions.removeEventListener("change", this.handleDimChange);
-  };
-
-  render() {
-    const { hats, onItemPress } = this.props;
-    const cols = Math.floor(this.state.windowWidth / 170);
-    return (
-      <ListBasedHatGrid hats={hats} columns={cols} onItemPress={onItemPress} />
+      <StyledFlatList
+        key={columns}
+        data={hats}
+        numColumns={columns}
+        renderItem={this._renderItem}
+        keyExtractor={this._keyExtractor}
+        ItemSeparatorComponent={() => <Spacer height={8} />}
+        ListHeaderComponent={() => <Spacer height={8} />}
+        ListFooterComponent={() => <Spacer height={8} />}
+      />
     );
   }
 }
