@@ -77,6 +77,12 @@ const Domo = () => (
 );
 
 export default class Login extends Component {
+  state = {
+    email: null,
+    password: null
+  };
+  login = () =>
+    alert(`Login: email=${this.state.email} password=${this.state.password}`);
   render() {
     return (
       <LinearGradient
@@ -95,6 +101,7 @@ export default class Login extends Component {
               style={styles.textInput}
               returnKeyType="next"
               onSubmitEditing={() => this.passwdText.focus()}
+              onChangeText={text => this.setState({ email: text })}
             />
             <Text style={styles.label}>Password</Text>
             <TextInput
@@ -102,9 +109,11 @@ export default class Login extends Component {
               style={styles.textInput}
               returnKeyType="go"
               ref={ref => (this.passwdText = ref)}
+              onChangeText={text => this.setState({ password: text })}
+              onSubmitEditing={this.login}
             />
             <View style={styles.buttonContainer}>
-              <Button title="Login" onPress={() => {}} />
+              <Button title="Login" onPress={this.login} />
             </View>
           </KeyboardAvoidingView>
         </SafeAreaView>
