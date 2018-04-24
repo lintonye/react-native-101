@@ -89,10 +89,13 @@ export default class Login extends Component {
               placeholder="joe@email.com"
               keyboardType="email-address"
               returnKeyType="next"
+              autoCapitalize="none"
+              value={this.state.email}
               onSubmitEditing={() => {
                 // move the cursor to the password text input
                 this.passwordInput.focus();
               }}
+              onChangeText={text => this.setState({ email: text })}
             />
             <Text style={styles.label}>Password</Text>
             <TextInput
@@ -103,6 +106,10 @@ export default class Login extends Component {
             />
             <View style={styles.buttonContainer}>
               <Button title="Login" onPress={this.login} />
+              <Button
+                title="Reset"
+                onPress={() => this.setState({ email: "" })}
+              />
             </View>
           </KeyboardAvoidingView>
         </SafeAreaView>
