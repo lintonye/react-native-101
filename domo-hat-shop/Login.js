@@ -52,7 +52,17 @@ const styles = StyleSheet.create({
     marginTop: 16,
     marginBottom: 8
   },
-  textInput: {},
+  textInput: {
+    padding: 4,
+    height: 40,
+    ...Platform.select({
+      ios: {
+        borderWidth: 1,
+        borderColor: "#7eb859",
+        borderRadius: 4
+      }
+    })
+  },
   buttonContainer: {
     marginTop: 16,
     marginBottom: 16
@@ -96,6 +106,8 @@ export default class Login extends Component {
                 this.passwordInput.focus();
               }}
               onChangeText={text => this.setState({ email: text })}
+              style={styles.textInput}
+              underlineColorAndroid="#7eb859"
             />
             <Text style={styles.label}>Password</Text>
             <TextInput
@@ -103,6 +115,7 @@ export default class Login extends Component {
               ref={textInput => (this.passwordInput = textInput)}
               returnKeyType="go"
               onSubmitEditing={this.login}
+              style={styles.textInput}
             />
             <View style={styles.buttonContainer}>
               <Button title="Login" onPress={this.login} />
