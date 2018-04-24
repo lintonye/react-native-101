@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import {
+  TextInput,
   View,
   Text,
   Image,
   SafeAreaView,
   StyleSheet,
   Button,
-  Platform
+  Platform,
+  KeyboardAvoidingView
 } from "react-native";
 import DomoImg from "./images/domo-thinker.png";
 import HatImg from "./images/hat_harry.png";
@@ -78,14 +80,29 @@ export default class Login extends Component {
         style={styles.container}
       >
         <SafeAreaView>
-          <Text style={styles.title}>Domo's Hat Shop</Text>
-          <Domo />
-          <Text style={styles.instruction}>Please login</Text>
-          <Text style={styles.label}>Email</Text>
-          <Text style={styles.label}>Password</Text>
-          <View style={styles.buttonContainer}>
-            <Button title="Login" onPress={this.login} />
-          </View>
+          <KeyboardAvoidingView behavior="position">
+            <Text style={styles.title}>Domo's Hat Shop</Text>
+            <Domo />
+            <Text style={styles.instruction}>Please login</Text>
+            <Text style={styles.label}>Email</Text>
+            <TextInput
+              placeholder="joe@email.com"
+              keyboardType="email-address"
+              returnKeyType="next"
+              onSubmitEditing={() => {
+                // move the cursor to the password text input
+                this.passwordInput.focus();
+              }}
+            />
+            <Text style={styles.label}>Password</Text>
+            <TextInput
+              secureTextEntry
+              ref={textInput => (this.passwordInput = textInput)}
+            />
+            <View style={styles.buttonContainer}>
+              <Button title="Login" onPress={this.login} />
+            </View>
+          </KeyboardAvoidingView>
         </SafeAreaView>
       </LinearGradient>
     );
