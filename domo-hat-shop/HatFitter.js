@@ -1,5 +1,11 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Image, SafeAreaView } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Image,
+  SafeAreaView,
+  PanResponder
+} from "react-native";
 import DomoImg from "./images/domo-thinker.png";
 import { LinearGradient } from "expo";
 import { hats } from "./Data";
@@ -31,16 +37,39 @@ const styles = StyleSheet.create({
 });
 
 export default class HatFitter extends Component {
+  state = {
+    translateX: 0,
+    translateY: 0
+  };
+  panResponder = PanResponder.create({
+    onMoveShouldSetPanResponder: () => true,
+    onPanResponderMove: (_, gestureState) => {
+      // set the state according to the touch position
+      this.setState({
+        translateX: gestureState.dx,
+        translateY: gestureState.dy
+      });
+    }
+  });
   render() {
+    const dragStyle = {
+      transform: [
+        { translateX: this.state.translateX },
+        { translateY: this.state.translateY }
+      ]
+    };
     return (
       <LinearGradient
         colors={["#6ea849", "#c2dfc2", "#f2fff2"]}
         style={styles.container}
       >
         <SafeAreaView>
-          <View style={styles.domoContainer}>
+          <View style={styles.domoContainer} {...this.panResponder.panHandlers}>
             <Image source={DomoImg} style={styles.domo} />
-            <Image source={hats[0].image} style={[styles.hat, styles.hatPos]} />
+            <Image
+              source={hats[0].image}
+              style={[styles.hat, styles.hatPos, dragStyle]}
+            />
           </View>
         </SafeAreaView>
       </LinearGradient>
