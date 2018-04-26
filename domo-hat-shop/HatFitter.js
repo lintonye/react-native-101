@@ -36,35 +36,63 @@ const styles = StyleSheet.create({
   }
 });
 
+function computeDistance(touch0, touch1) {
+  const square = x => x * x;
+  return Math.sqrt(
+    square(touch0.pageX - touch1.pageX) + square(touch0.pageY - touch1.pageY)
+  );
+}
+
 export default class HatFitter extends Component {
   state = {
-    x0: 0,
-    y0: 0,
     translateX: 0,
-    translateY: 0
+    translateY: 0,
+    scale: 1
   };
   x0 = 0;
   y0 = 0;
+  lastScale = 1;
   panResponder = PanResponder.create({
     onMoveShouldSetPanResponder: () => true,
-    onPanResponderMove: (_, gestureState) => {
-      // set the state according to the touch position
-      this.setState({
-        translateX: this.x0 + gestureState.dx,
-        translateY: this.y0 + gestureState.dy
-      });
+    onStartShouldSetPanResponder: () => true,
+    onPanResponderStart: e => {
+      const { touches } = e.nativeEvent;
+      if (touches.length === 2) {
+        this.initialDistance = computeDistance(touches[0], touches[1]);
+      }
     },
-    onPanResponderEnd: () => {
-      // record the current translateX and Y
+    onPanResponderMove: (e, gestureState) => {
+      const { touches } = e.nativeEvent;
+      switch (touches.length) {
+        case 1:
+          this.setState({
+            translateX: this.x0 + gestureState.dx,
+            translateY: this.y0 + gestureState.dy
+          });
+          break;
+        case 2:
+          const newDistance = computeDistance(touches[0], touches[1]);
+          this.setState({
+            scale: Math.max(
+              0.5,
+              newDistance / this.initialDistance * this.lastScale
+            )
+          });
+          break;
+      }
+    },
+    onPanResponderEnd: e => {
       this.x0 = this.state.translateX;
       this.y0 = this.state.translateY;
+      this.lastScale = this.state.scale;
     }
   });
   render() {
     const dragStyle = {
       transform: [
         { translateX: this.state.translateX },
-        { translateY: this.state.translateY }
+        { translateY: this.state.translateY },
+        { scale: this.state.scale }
       ]
     };
     return (
