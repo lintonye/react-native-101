@@ -43,21 +43,21 @@ export default class HatFitter extends Component {
     translateX: 0,
     translateY: 0
   };
+  x0 = 0;
+  y0 = 0;
   panResponder = PanResponder.create({
     onMoveShouldSetPanResponder: () => true,
     onPanResponderMove: (_, gestureState) => {
       // set the state according to the touch position
       this.setState({
-        translateX: this.state.x0 + gestureState.dx,
-        translateY: this.state.y0 + gestureState.dy
+        translateX: this.x0 + gestureState.dx,
+        translateY: this.y0 + gestureState.dy
       });
     },
     onPanResponderEnd: () => {
       // record the current translateX and Y
-      this.setState({
-        x0: this.state.translateX,
-        y0: this.state.translateY
-      });
+      this.x0 = this.state.translateX;
+      this.y0 = this.state.translateY;
     }
   });
   render() {
