@@ -38,8 +38,6 @@ const styles = StyleSheet.create({
 
 export default class HatFitter extends Component {
   state = {
-    x0: 0,
-    y0: 0,
     translateX: 0,
     translateY: 0
   };
