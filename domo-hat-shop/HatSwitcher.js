@@ -39,11 +39,16 @@ const styles = StyleSheet.create({
 export default class HatSwitcher extends Component {
   state = {
     hatLeft: 130,
-    hatTop: 0
+    hatTop: 0,
+    hatVisible: true
   };
   changeHat = () => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     this.setState({ hatLeft: -50, hatTop: -50 });
+  };
+  toggleHat = () => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    this.setState({ hatVisible: !this.state.hatVisible });
   };
   render() {
     const { currentHat } = this.state;
@@ -59,12 +64,15 @@ export default class HatSwitcher extends Component {
         <SafeAreaView>
           <View style={styles.domoContainer}>
             <Image source={DomoImg} style={styles.domo} />
-            <Image
-              source={harryPotterHat}
-              style={[styles.hat, hatPositionStyle]}
-            />
+            {this.state.hatVisible && (
+              <Image
+                source={harryPotterHat}
+                style={[styles.hat, hatPositionStyle]}
+              />
+            )}
           </View>
           <Button title="Change Hat" onPress={this.changeHat} />
+          <Button title="Hide Hat" onPress={this.toggleHat} />
         </SafeAreaView>
       </LinearGradient>
     );
