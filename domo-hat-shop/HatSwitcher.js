@@ -1,14 +1,5 @@
 import React, { Component } from "react";
-import {
-  StyleSheet,
-  View,
-  Image,
-  SafeAreaView,
-  Button,
-  UIManager,
-  Platform,
-  LayoutAnimation
-} from "react-native";
+import { StyleSheet, View, Image, SafeAreaView, Button } from "react-native";
 import DomoImg from "./images/domo-thinker.png";
 import { LinearGradient } from "expo";
 import { hats } from "./Data";
@@ -39,36 +30,22 @@ const styles = StyleSheet.create({
   }
 });
 
-Platform.OS === "android" &&
-  UIManager.setLayoutAnimationEnabledExperimental &&
-  UIManager.setLayoutAnimationEnabledExperimental(true);
-
 export default class HatSwitcher extends Component {
   state = {
     currentHat: 0
   };
   changeHat = () => {
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
     this.setState({ currentHat: this.state.currentHat === 1 ? 0 : 1 });
   };
   render() {
     const { currentHat } = this.state;
     const hat0Style = {
-      left: currentHat === 0 ? 130 : -170,
+      left: currentHat === 0 ? 130 : -60,
       top: currentHat === 0 ? 0 : -100
-      // transform: [
-      //   { translateX: currentHat === 0 ? 0 : -200 },
-      //   { translateY: currentHat === 0 ? 0 : -100 },
-      //   { rotate: currentHat === 0 ? "0deg" : "90deg" }
-      // ]
     };
     const hat1Style = {
-      left: currentHat === 1 ? 130 : 330,
+      left: currentHat === 1 ? 130 : 300,
       top: currentHat === 1 ? 0 : -100
-      // transform: [
-      //   { translateX: !even ? 200 : 0 },
-      //   { translateY: !even ? -100 : 0 }
-      // ]
     };
     return (
       <LinearGradient
