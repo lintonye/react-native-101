@@ -1,5 +1,14 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Image, SafeAreaView, Button } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Image,
+  SafeAreaView,
+  Button,
+  LayoutAnimation,
+  Platform,
+  UIManager
+} from "react-native";
 import DomoImg from "./images/domo-thinker.png";
 import { LinearGradient } from "expo";
 import harryPotterHat from "./images/hat_harry.png";
@@ -33,6 +42,7 @@ export default class HatSwitcher extends Component {
     hatTop: 0
   };
   changeHat = () => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     this.setState({ hatLeft: -50, hatTop: -50 });
   };
   render() {
