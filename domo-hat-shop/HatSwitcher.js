@@ -43,6 +43,10 @@ export default class HatSwitcher extends Component {
       toValue: -50
     });
     animX.start();
+    const animY = Animated.timing(this.hatTop, {
+      toValue: -50
+    });
+    animY.start();
   };
   render() {
     const hatPositionStyle = {
