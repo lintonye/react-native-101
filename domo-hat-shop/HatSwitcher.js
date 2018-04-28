@@ -36,7 +36,6 @@ export default class HatSwitcher extends Component {
     this.setState({ hatLeft: -50, hatTop: -50 });
   };
   render() {
-    const { currentHat } = this.state;
     const hatPositionStyle = {
       left: this.state.hatLeft,
       top: this.state.hatTop
