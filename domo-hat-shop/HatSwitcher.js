@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Image, SafeAreaView, Button } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Image,
+  SafeAreaView,
+  Button,
+  Animated
+} from "react-native";
 import DomoImg from "./images/domo-thinker.png";
 import { LinearGradient } from "expo";
 import harryPotterHat from "./images/hat_harry.png";
@@ -28,17 +35,19 @@ const styles = StyleSheet.create({
 });
 
 export default class HatSwitcher extends Component {
-  state = {
-    hatLeft: 130,
-    hatTop: 0
-  };
+  hatLeft = new Animated.Value(130);
+  hatTop = new Animated.Value(0);
   changeHat = () => {
-    this.setState({ hatLeft: -50, hatTop: -50 });
+    // this.setState({ hatLeft: -50, hatTop: -50 });
+    const animX = Animated.timing(this.hatLeft, {
+      toValue: -50
+    });
+    animX.start();
   };
   render() {
     const hatPositionStyle = {
-      left: this.state.hatLeft,
-      top: this.state.hatTop
+      left: this.hatLeft,
+      top: this.hatTop
     };
     return (
       <LinearGradient
@@ -48,7 +57,7 @@ export default class HatSwitcher extends Component {
         <SafeAreaView>
           <View style={styles.domoContainer}>
             <Image source={DomoImg} style={styles.domo} />
-            <Image
+            <Animated.Image
               source={harryPotterHat}
               style={[styles.hat, hatPositionStyle]}
             />
