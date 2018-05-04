@@ -37,34 +37,37 @@ const styles = StyleSheet.create({
 });
 
 export default class HatSwitcher extends Component {
-  progress = new Animated.Value(0);
-  hatX = this.progress.interpolate({
+  hatIndex = new Animated.Value(0);
+  hat0X = this.hatIndex.interpolate({
     inputRange: [0, 1],
     outputRange: [0, -150]
   });
-  hatY = this.progress.interpolate({
+  hat0Y = this.hatIndex.interpolate({
     inputRange: [0, 1],
     outputRange: [0, -50]
   });
-  hatOpacity = this.progress.interpolate({
+  hat0Opacity = this.hatIndex.interpolate({
     inputRange: [0, 0.8, 1],
     outputRange: [1, 1, 0]
   });
-  hatRotate = this.progress.interpolate({
+  hat0Rotate = this.hatIndex.interpolate({
     inputRange: [0, 1],
     outputRange: ["0deg", "-360deg"]
   });
   changeHat = () => {
-    Animated.timing(this.progress, { toValue: 1 }).start();
+    Animated.timing(this.hatIndex, { toValue: 1 }).start();
   };
   render() {
-    const hatPositionStyle = {
-      opacity: this.hatOpacity,
+    const hat0PositionStyle = {
+      opacity: this.hat0Opacity,
       transform: [
-        { translateX: this.hatX },
-        { translateY: this.hatY },
-        { rotate: this.hatRotate }
+        { translateX: this.hat0X },
+        { translateY: this.hat0Y },
+        { rotate: this.hat0Rotate }
       ]
+    };
+    const hat1PositionStyle = {
+      // TODO
     };
     return (
       <LinearGradient
@@ -76,7 +79,11 @@ export default class HatSwitcher extends Component {
             <Image source={DomoImg} style={styles.domo} />
             <Animated.Image
               source={harryPotterHat}
-              style={[styles.hat, hatPositionStyle]}
+              style={[styles.hat, hat0PositionStyle]}
+            />
+            <Animated.Image
+              source={pirateHat}
+              style={[styles.hat, hat1PositionStyle]}
             />
           </View>
           <Button title="Change Hat" onPress={this.changeHat} />
