@@ -30,39 +30,32 @@ const styles = StyleSheet.create({
   hat: {
     position: "absolute",
     width: 100,
-    height: 100
+    height: 100,
+    left: 130,
+    top: 0
   }
 });
 
 export default class HatSwitcher extends Component {
-  hatLeft = new Animated.Value(130);
-  hatTop = new Animated.Value(0);
+  hatX = new Animated.Value(0);
+  hatY = new Animated.Value(0);
   hatOpacity = new Animated.Value(1);
-  hatScale = new Animated.Value(1);
   changeHat = () => {
-    // this.setState({ hatLeft: -50, hatTop: -50 });
-    const animX = Animated.spring(this.hatLeft, {
-      toValue: -50,
-      bounciness: 20
+    const animX = Animated.timing(this.hatX, {
+      toValue: -150
     });
-    const animY = Animated.spring(this.hatTop, {
-      toValue: -50,
-      bounciness: 20
+    const animY = Animated.timing(this.hatY, {
+      toValue: -100
     });
     const animOpacity = Animated.timing(this.hatOpacity, {
       toValue: 0
     });
-    const animScale = Animated.timing(this.hatScale, {
-      toValue: 2
-    });
-    Animated.parallel([animX, animY, animOpacity, animScale]).start();
+    Animated.parallel([animX, animY, animOpacity]).start();
   };
   render() {
     const hatPositionStyle = {
-      left: this.hatLeft,
-      top: this.hatTop,
-      // opacity: this.hatOpacity,
-      transform: [{ scale: this.hatScale }]
+      opacity: this.hatOpacity,
+      transform: [{ translateX: this.hatX }, { translateY: this.hatY }]
     };
     return (
       <LinearGradient
