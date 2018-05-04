@@ -40,7 +40,14 @@ export default class HatSwitcher extends Component {
   hatX = new Animated.Value(0);
   hatY = new Animated.Value(0);
   hatOpacity = new Animated.Value(1);
-  hatRotate = new Animated.Value(0);
+  hatRotate = this.hatX.interpolate({
+    inputRange: [-150, -50, 0],
+    outputRange: ["-360deg", "180deg", "0deg"]
+  });
+  hatBgColor = this.hatX.interpolate({
+    inputRange: [-150, 0],
+    outputRange: ["red", "blue"]
+  });
   changeHat = () => {
     const animX = Animated.timing(this.hatX, {
       toValue: -150
@@ -51,19 +58,17 @@ export default class HatSwitcher extends Component {
     const animOpacity = Animated.timing(this.hatOpacity, {
       toValue: 0
     });
-    const animRotate = Animated.timing(this.hatRotate, {
-      toValue: -360
-    });
-    Animated.parallel([animX, animY, animOpacity, animRotate]).start();
+    Animated.parallel([animX, animY, animOpacity]).start();
   };
   render() {
     const hatPositionStyle = {
-      opacity: this.hatOpacity,
-      transform: [
-        { translateX: this.hatX },
-        { translateY: this.hatY },
-        { rotate: this.hatRotate }
-      ]
+      // opacity: this.hatOpacity,
+      backgroundColor: this.hatBgColor
+      // transform: [
+      //   { translateX: this.hatX },
+      //   { translateY: this.hatY },
+      //   { rotate: this.hatRotate }
+      // ]
     };
     return (
       <LinearGradient
