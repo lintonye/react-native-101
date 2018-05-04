@@ -52,7 +52,7 @@ export default class HatSwitcher extends Component {
       toValue: 0
     });
     const animRotate = Animated.timing(this.hatRotate, {
-      toValue: 360
+      toValue: -360
     });
     Animated.parallel([animX, animY, animOpacity, animRotate]).start();
   };
