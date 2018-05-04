@@ -54,6 +54,22 @@ export default class HatSwitcher extends Component {
     inputRange: [0, 1],
     outputRange: ["0deg", "-360deg"]
   });
+  hat1X = this.hatIndex.interpolate({
+    inputRange: [0, 1],
+    outputRange: [150, 0]
+  });
+  hat1Y = this.hatIndex.interpolate({
+    inputRange: [0, 1],
+    outputRange: [-50, 0]
+  });
+  hat1Opacity = this.hatIndex.interpolate({
+    inputRange: [0, 0.8, 1],
+    outputRange: [0, 1, 1]
+  });
+  hat1Rotate = this.hatIndex.interpolate({
+    inputRange: [0, 1],
+    outputRange: ["0deg", "-360deg"]
+  });
   changeHat = () => {
     Animated.timing(this.hatIndex, { toValue: 1 }).start();
   };
@@ -67,7 +83,12 @@ export default class HatSwitcher extends Component {
       ]
     };
     const hat1PositionStyle = {
-      // TODO
+      opacity: this.hat1Opacity,
+      transform: [
+        { translateX: this.hat1X },
+        { translateY: this.hat1Y },
+        { rotate: this.hat1Rotate }
+      ]
     };
     return (
       <LinearGradient
