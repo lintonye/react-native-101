@@ -47,8 +47,8 @@ export default class HatSwitcher extends Component {
     outputRange: [0, -50]
   });
   hatOpacity = this.progress.interpolate({
-    inputRange: [0, 1],
-    outputRange: [1, 0.5]
+    inputRange: [0, 0.8, 1],
+    outputRange: [1, 1, 0]
   });
   hatRotate = this.progress.interpolate({
     inputRange: [0, 1],
