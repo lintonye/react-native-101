@@ -40,22 +40,30 @@ export default class HatSwitcher extends Component {
   hatX = new Animated.Value(0);
   hatY = new Animated.Value(0);
   hatOpacity = new Animated.Value(1);
+  hatRotate = new Animated.Value(0);
   changeHat = () => {
     const animX = Animated.timing(this.hatX, {
       toValue: -150
     });
     const animY = Animated.timing(this.hatY, {
-      toValue: -100
+      toValue: -60
     });
     const animOpacity = Animated.timing(this.hatOpacity, {
       toValue: 0
     });
-    Animated.parallel([animX, animY, animOpacity]).start();
+    const animRotate = Animated.timing(this.hatRotate, {
+      toValue: 360
+    });
+    Animated.parallel([animX, animY, animOpacity, animRotate]).start();
   };
   render() {
     const hatPositionStyle = {
       opacity: this.hatOpacity,
-      transform: [{ translateX: this.hatX }, { translateY: this.hatY }]
+      transform: [
+        { translateX: this.hatX },
+        { translateY: this.hatY },
+        { rotate: this.hatRotate }
+      ]
     };
     return (
       <LinearGradient
