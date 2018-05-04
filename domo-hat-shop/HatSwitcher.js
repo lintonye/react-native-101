@@ -37,24 +37,25 @@ const styles = StyleSheet.create({
 });
 
 export default class HatSwitcher extends Component {
-  hatX = new Animated.Value(0);
-  hatY = new Animated.Value(0);
-  hatOpacity = new Animated.Value(1);
-  hatRotate = this.hatX.interpolate({
-    inputRange: [-150, 0],
-    outputRange: ["-360deg", "0deg"]
+  progress = new Animated.Value(0);
+  hatX = this.progress.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, -150]
+  });
+  hatY = this.progress.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, -50]
+  });
+  hatOpacity = this.progress.interpolate({
+    inputRange: [0, 1],
+    outputRange: [1, 0.5]
+  });
+  hatRotate = this.progress.interpolate({
+    inputRange: [0, 1],
+    outputRange: ["0deg", "-360deg"]
   });
   changeHat = () => {
-    const animX = Animated.timing(this.hatX, {
-      toValue: -150
-    });
-    const animY = Animated.timing(this.hatY, {
-      toValue: -60
-    });
-    const animOpacity = Animated.timing(this.hatOpacity, {
-      toValue: 0
-    });
-    Animated.parallel([animX, animY, animOpacity]).start();
+    Animated.timing(this.progress, { toValue: 1 }).start();
   };
   render() {
     const hatPositionStyle = {
