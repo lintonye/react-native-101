@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import DomoImg from "./images/domo-thinker.png";
 import { LinearGradient } from "expo";
-import harryPotterHat from "./images/hat_harry.png";
+import ladyHat from "./images/hat_ladyFlower.png";
 import pirateHat from "./images/hat_pirate.png";
 
 const styles = StyleSheet.create({
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   domoContainer: {
-    paddingTop: 50,
+    paddingTop: 55,
     alignSelf: "center"
   },
   domo: {
@@ -37,7 +37,12 @@ const styles = StyleSheet.create({
 });
 
 export default class HatSwitcher extends Component {
-  changeHat = () => {};
+  state = {
+    lifted: false
+  };
+  toggleLiftHat = () => {
+    this.setState({ lifted: !this.state.lifted });
+  };
   render() {
     return (
       <LinearGradient
@@ -47,9 +52,12 @@ export default class HatSwitcher extends Component {
         <SafeAreaView>
           <View style={styles.domoContainer}>
             <Image source={DomoImg} style={styles.domo} />
-            <Animated.Image source={harryPotterHat} style={styles.hat} />
+            <Animated.Image source={ladyHat} style={styles.hat} />
           </View>
-          <Button title="Change Hat" onPress={this.changeHat} />
+          <Button
+            title={this.state.lifted ? "Unlift Hat" : "Lift Hat"}
+            onPress={this.toggleLiftHat}
+          />
         </SafeAreaView>
       </LinearGradient>
     );
