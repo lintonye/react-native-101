@@ -56,7 +56,11 @@ export default class HatSwitcher extends Component {
   };
   render() {
     const liftStyle = {
-      transform: [{ translateY: this.state.lifted ? -100 : 0 }]
+      transform: [
+        { translateX: this.state.lifted ? -90 : 0 },
+        { translateY: this.state.lifted ? -60 : 0 },
+        { rotate: this.state.lifted ? "90deg" : "0deg" }
+      ]
     };
     return (
       <LinearGradient
@@ -66,9 +70,13 @@ export default class HatSwitcher extends Component {
         <SafeAreaView>
           <View style={styles.domoContainer}>
             <Image source={hanger} style={styles.hanger} />
-            <Image source={DomoImg} style={styles.domo} />
+            <Animatable.Image
+              source={DomoImg}
+              style={styles.domo}
+              animation="bounceInLeft"
+            />
             <Animatable.View
-              transition="translateY"
+              transition={["translateX", "translateY", "rotate"]}
               style={[styles.hatPosition, liftStyle]}
             >
               <Animatable.Image
