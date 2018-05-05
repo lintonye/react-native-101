@@ -37,35 +37,8 @@ const styles = StyleSheet.create({
 });
 
 export default class HatSwitcher extends Component {
-  progress = new Animated.Value(0);
-  hatX = this.progress.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, -150]
-  });
-  hatY = this.progress.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, -50]
-  });
-  hatOpacity = this.progress.interpolate({
-    inputRange: [0, 0.8, 1],
-    outputRange: [1, 1, 0]
-  });
-  hatRotate = this.progress.interpolate({
-    inputRange: [0, 1],
-    outputRange: ["0deg", "-360deg"]
-  });
-  changeHat = () => {
-    Animated.timing(this.progress, { toValue: 1 }).start();
-  };
+  changeHat = () => {};
   render() {
-    const hatPositionStyle = {
-      opacity: this.hatOpacity,
-      transform: [
-        { translateX: this.hatX },
-        { translateY: this.hatY },
-        { rotate: this.hatRotate }
-      ]
-    };
     return (
       <LinearGradient
         colors={["#6ea849", "#c2dfc2", "#f2fff2"]}
@@ -74,10 +47,7 @@ export default class HatSwitcher extends Component {
         <SafeAreaView>
           <View style={styles.domoContainer}>
             <Image source={DomoImg} style={styles.domo} />
-            <Animated.Image
-              source={harryPotterHat}
-              style={[styles.hat, hatPositionStyle]}
-            />
+            <Animated.Image source={harryPotterHat} style={styles.hat} />
           </View>
           <Button title="Change Hat" onPress={this.changeHat} />
         </SafeAreaView>
