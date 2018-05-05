@@ -11,6 +11,7 @@ import DomoImg from "./images/domo-yoga.png";
 import { LinearGradient } from "expo";
 import ladyHat from "./images/hat_ladyFlower.png";
 import pirateHat from "./images/hat_pirate.png";
+import * as Animatable from "react-native-animatable";
 
 const styles = StyleSheet.create({
   container: {
@@ -28,9 +29,11 @@ const styles = StyleSheet.create({
     alignSelf: "center"
   },
   hat: {
-    position: "absolute",
     width: 100,
-    height: 100,
+    height: 100
+  },
+  hatPosition: {
+    position: "absolute",
     left: 20,
     top: 0
   }
@@ -44,6 +47,9 @@ export default class HatSwitcher extends Component {
     this.setState({ lifted: !this.state.lifted });
   };
   render() {
+    const liftStyle = {
+      transform: [{ translateY: this.state.lifted ? -100 : 0 }]
+    };
     return (
       <LinearGradient
         colors={["#6ea849", "#c2dfc2", "#f2fff2"]}
@@ -52,7 +58,26 @@ export default class HatSwitcher extends Component {
         <SafeAreaView>
           <View style={styles.domoContainer}>
             <Image source={DomoImg} style={styles.domo} />
-            <Animated.Image source={ladyHat} style={styles.hat} />
+            <Animatable.View
+              transition="translateY"
+              style={[styles.hatPosition, liftStyle]}
+            >
+              <Animatable.Image
+                animation={
+                  this.state.lifted
+                    ? {
+                        0: { rotate: "0deg" },
+                        0.3: { rotate: "10deg" },
+                        0.9: { rotate: "-10deg" },
+                        1: { rotate: "0deg" }
+                      }
+                    : ""
+                }
+                iterationCount="infinite"
+                source={ladyHat}
+                style={[styles.hat]}
+              />
+            </Animatable.View>
           </View>
           <Button
             title={this.state.lifted ? "Unlift Hat" : "Lift Hat"}
