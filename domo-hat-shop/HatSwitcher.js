@@ -7,7 +7,7 @@ import {
   Button,
   Animated
 } from "react-native";
-import DomoImg from "./images/domo-thinker.png";
+import DomoImg from "./images/domo-yoga.png";
 import { LinearGradient } from "expo";
 import ladyHat from "./images/hat_ladyFlower.png";
 import pirateHat from "./images/hat_pirate.png";
@@ -19,19 +19,19 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   domoContainer: {
-    paddingTop: 55,
+    paddingTop: 60,
     alignSelf: "center"
   },
   domo: {
-    width: 350,
-    height: 240,
+    width: 120,
+    height: 260,
     alignSelf: "center"
   },
   hat: {
     position: "absolute",
     width: 100,
     height: 100,
-    left: 130,
+    left: 20,
     top: 0
   }
 });
