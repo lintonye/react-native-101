@@ -5,7 +5,9 @@ import {
   Image,
   SafeAreaView,
   Button,
-  Animated
+  Animated,
+  PanResponder,
+  Dimensions
 } from "react-native";
 import DomoImg from "./images/domo-thinker.png";
 import { LinearGradient } from "expo";
@@ -73,6 +75,15 @@ export default class HatSwitcher extends Component {
   changeHat = () => {
     Animated.timing(this.hatIndex, { toValue: 1 }).start();
   };
+  panResponder = PanResponder.create({
+    onMoveShouldSetPanResponder: () => true,
+    onPanResponderMove: (_, gestureState) => {
+      // update hatIndex based on how far the finger has moved
+      const screenWidth = Dimensions.get("window").width;
+      const index = -gestureState.dx / screenWidth;
+      this.hatIndex.setValue(index);
+    }
+  });
   render() {
     const hat0PositionStyle = {
       opacity: this.hat0Opacity,
@@ -96,7 +107,7 @@ export default class HatSwitcher extends Component {
         style={styles.container}
       >
         <SafeAreaView>
-          <View style={styles.domoContainer}>
+          <View style={styles.domoContainer} {...this.panResponder.panHandlers}>
             <Image source={DomoImg} style={styles.domo} />
             <Animated.Image
               source={harryPotterHat}
