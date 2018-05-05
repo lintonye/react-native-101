@@ -11,6 +11,7 @@ import DomoImg from "./images/domo-yoga.png";
 import { LinearGradient } from "expo";
 import ladyHat from "./images/hat_ladyFlower.png";
 import pirateHat from "./images/hat_pirate.png";
+import hanger from "./images/hanger.png";
 import * as Animatable from "react-native-animatable";
 
 const styles = StyleSheet.create({
@@ -27,6 +28,13 @@ const styles = StyleSheet.create({
     width: 120,
     height: 260,
     alignSelf: "center"
+  },
+  hanger: {
+    position: "absolute",
+    left: -140,
+    top: -120,
+    width: 180,
+    height: 450
   },
   hat: {
     width: 100,
@@ -57,6 +65,7 @@ export default class HatSwitcher extends Component {
       >
         <SafeAreaView>
           <View style={styles.domoContainer}>
+            <Image source={hanger} style={styles.hanger} />
             <Image source={DomoImg} style={styles.domo} />
             <Animatable.View
               transition="translateY"
