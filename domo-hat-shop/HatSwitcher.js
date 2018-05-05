@@ -82,6 +82,9 @@ export default class HatSwitcher extends Component {
       const screenWidth = Dimensions.get("window").width;
       const index = -gestureState.dx / screenWidth;
       this.hatIndex.setValue(index);
+    },
+    onPanResponderEnd: () => {
+      Animated.spring(this.hatIndex, { toValue: 1 }).start();
     }
   });
   render() {
