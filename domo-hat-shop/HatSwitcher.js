@@ -5,9 +5,13 @@ import {
   Image,
   SafeAreaView,
   Button,
-  Animated
+  Animated,
+  Slider
 } from "react-native";
-import { LinearGradient } from "expo";
+import { LinearGradient, DangerZone } from "expo";
+import anim from "./images/lottie.json";
+
+const { Lottie } = DangerZone;
 
 const styles = StyleSheet.create({
   container: {
@@ -22,7 +26,7 @@ const styles = StyleSheet.create({
 
 export default class HatSwitcher extends Component {
   startAnimation = () => {
-    // TODO start the animation
+    Animated.timing(this.progress, { toValue: 1, duration: 5000 }).start();
   };
   progress = new Animated.Value(0);
   render() {
@@ -32,7 +36,18 @@ export default class HatSwitcher extends Component {
         style={styles.container}
       >
         <SafeAreaView>
-          <View style={styles.animContainer} />
+          <View style={styles.animContainer}>
+            <Lottie
+              source={anim}
+              style={{ width: 400, height: 300 }}
+              progress={this.progress}
+            />
+          </View>
+          <Slider
+            minimumValue={0}
+            maximumValue={1}
+            onValueChange={v => this.progress.setValue(v)}
+          />
           <Button title="Start" onPress={this.startAnimation} />
         </SafeAreaView>
       </LinearGradient>
