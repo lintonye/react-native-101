@@ -10,7 +10,7 @@ import {
 
 import domoImage from "./images/tree_point.png";
 import hatHarry from "./images/hat-harry.png";
-import hatPirate from "./images/hat-pirate.png";
+import hatCap from "./images/hat-cap.png";
 
 const styles = StyleSheet.create({
   container: {
@@ -31,23 +31,12 @@ const styles = StyleSheet.create({
 });
 
 class App extends React.Component {
-  state = {
-    hat: "harry"
-  };
-  changeHat = () => {
-    this.setState({ hat: this.state.hat === "harry" ? "pirate" : "harry" });
-  };
   render() {
-    const hatImg = this.state.hat === "harry" ? hatHarry : hatPirate;
     return (
       <View style={styles.container}>
         <Image source={domoImage} style={styles.domo} />
-        <Image source={hatImg} style={styles.hat} />
-        <Button
-          title="Change to pirate hat"
-          onPress={() => this.setState({ hat: "pirate" })}
-          color="purple"
-        />
+        <Image source={hatHarry} style={styles.hat} />
+        <Image source={hatCap} />
       </View>
     );
   }
