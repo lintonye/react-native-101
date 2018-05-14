@@ -27,6 +27,14 @@ const styles = StyleSheet.create({
     top: 38,
     width: 120,
     height: 120
+  },
+  cap: {
+    position: "absolute",
+    left: 52,
+    top: 278,
+    width: 120,
+    height: 120,
+    transform: [{ rotate: "-50deg" }]
   }
 });
 
@@ -34,9 +42,9 @@ class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <Image source={hatCap} style={styles.cap} />
         <Image source={domoImage} style={styles.domo} />
         <Image source={hatHarry} style={styles.hat} />
-        <Image source={hatCap} />
       </View>
     );
   }
