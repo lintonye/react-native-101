@@ -98,6 +98,8 @@ export default class Login extends Component {
             <TextInput
               secureTextEntry
               ref={textInput => (this.passwordInput = textInput)}
+              returnKeyType="go"
+              onSubmitEditing={this.login}
             />
             <View style={styles.buttonContainer}>
               <Button title="Login" onPress={this.login} />
