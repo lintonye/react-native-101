@@ -12,8 +12,8 @@ export const hats = [
   {
     name: `Harry Potter`,
     price: 15,
-    rating: 3,
-    ratingCount: 42,
+    rating: 5,
+    ratingCount: 78,
     soldCount: 42,
     image: require("./images/hat_harry.png"),
     description: hatDescription
@@ -21,7 +21,7 @@ export const hats = [
   {
     name: `Pirate`,
     price: 25,
-    rating: 4,
+    rating: 4.5,
     ratingCount: 42,
     soldCount: 42,
     image: require("./images/hat_pirate.png"),
@@ -48,8 +48,8 @@ export const hats = [
   {
     name: `Pom pom`,
     price: 45,
-    rating: 3,
-    ratingCount: 42,
+    rating: 4,
+    ratingCount: 420,
     soldCount: 42,
     image: require("./images/hat_ball.png"),
     description: hatDescription
