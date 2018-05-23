@@ -117,7 +117,7 @@ export default class HatGrid extends Component {
       <StyledFlatList
         key={columns}
         data={hats}
-        numColumns={columns}
+        numColumns={2}
         renderItem={this._renderItem}
         keyExtractor={this._keyExtractor}
         ItemSeparatorComponent={() => <Spacer height={8} />}
