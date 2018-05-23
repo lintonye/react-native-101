@@ -2,33 +2,8 @@ import React from "react";
 import HatList from "./HatList";
 import HatGrid from "./HatGrid";
 import HatDetail from "./HatDetail";
-import { manyHats, hats } from "./Data";
-import Login from "./Login";
-import { StackNavigator } from "react-navigation";
+import { manyHats } from "./Data";
 
-const HatListNav = ({ navigation }) => (
-  <HatList
-    hats={manyHats}
-    onItemPress={hat => navigation.navigate("hatDetail", { hat })}
-  />
-);
-
-const HatDetailNav = ({ navigation }) => {
-  const { params } = navigation.state;
-  const { hat } = params;
-  return <HatDetail hat={hat} />;
-};
-
-const App = StackNavigator({
-  hatList: {
-    screen: HatListNav,
-    navigationOptions: {
-      headerTitle: "Domo's Hat Shop"
-    }
-  },
-  hatDetail: {
-    screen: HatDetailNav
-  }
-});
+const App = () => <HatList hats={manyHats} />;
 
 export default App;
