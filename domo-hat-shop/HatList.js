@@ -90,16 +90,14 @@ export default class HatList extends Component {
   render() {
     const { hats } = this.props;
     return (
-      <SafeAreaView forceInset={{ bottom: "never" }}>
-        <StyledFlatList
-          data={hats}
-          ItemSeparatorComponent={() => <Spacer height={isAndroid ? 8 : 1} />}
-          ListHeaderComponent={() => <Spacer height={isAndroid ? 8 : 1} />}
-          ListFooterComponent={() => <Spacer height={isAndroid ? 8 : 1} />}
-          renderItem={this._renderItem}
-          keyExtractor={this._keyExtractor}
-        />
-      </SafeAreaView>
+      <StyledFlatList
+        data={hats}
+        ItemSeparatorComponent={() => <Spacer height={isAndroid ? 8 : 1} />}
+        ListHeaderComponent={() => <Spacer height={isAndroid ? 8 : 1} />}
+        ListFooterComponent={() => <Spacer height={isAndroid ? 8 : 1} />}
+        renderItem={this._renderItem}
+        keyExtractor={this._keyExtractor}
+      />
     );
   }
 }
