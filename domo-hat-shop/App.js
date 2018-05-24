@@ -1,6 +1,7 @@
 import React from "react";
 import HatList from "./HatList";
 import HatGrid from "./HatGrid";
+import HatSwitcher from "./HatSwitcher";
 import HatDetail from "./HatDetail";
 import { manyHats } from "./Data";
 import { createStackNavigator } from "react-navigation";
@@ -20,6 +21,8 @@ const HatDetailWithData = ({ navigation }) => {
   const hatThatWasJustPressed = navigation.state.params.hat;
   return <HatDetail hat={hatThatWasJustPressed} />;
 };
+
+const HatSwitcherWithData = () => <HatSwitcher hats={manyHats} index={0} />;
 
 const App = createStackNavigator({
   hatList: {
