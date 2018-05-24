@@ -6,7 +6,20 @@ import { manyHats } from "./Data";
 import { createStackNavigator } from "react-navigation";
 import { Button } from "react-native";
 
-const HatListWithData = () => <HatList hats={manyHats} />;
+const HatListWithData = ({ navigation }) => (
+  <HatList
+    hats={manyHats}
+    onItemPress={item => {
+      // navigate to HatDetail
+      navigation.navigate("hatDetail", { hat: item });
+    }}
+  />
+);
+
+const HatDetailWithData = ({ navigation }) => {
+  const hatThatWasJustPressed = navigation.state.params.hat;
+  return <HatDetail hat={hatThatWasJustPressed} />;
+};
 
 const App = createStackNavigator({
   hatList: {
@@ -14,6 +27,9 @@ const App = createStackNavigator({
     navigationOptions: {
       headerTitle: "Domo's Hat List"
     }
+  },
+  hatDetail: {
+    screen: HatDetailWithData
   }
 });
 
