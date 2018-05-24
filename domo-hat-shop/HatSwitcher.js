@@ -69,6 +69,10 @@ class HatSwitcher extends Component {
       }).start();
     }
   };
+  componentDidMount = () => {
+    this.position.setValue(this.state.index - 1);
+    Animated.spring(this.position, { toValue: this.state.index }).start();
+  };
   render() {
     const { hats } = this.props;
     return (
