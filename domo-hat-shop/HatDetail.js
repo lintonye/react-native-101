@@ -49,8 +49,8 @@ export default class HatDetail extends React.Component {
           <Price amount={price} style={styles.price} />
         </View>
         <Image source={image} style={styles.hat} />
-        <Button title="Try it!" onPress={onTryHat} />
         <RatingBar rating={rating} ratingCount={ratingCount} />
+        <Button title="Try it!" onPress={onTryHat} />
         <Text style={styles.description}>{description}</Text>
       </View>
     );
