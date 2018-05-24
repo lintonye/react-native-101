@@ -19,7 +19,14 @@ const HatListWithData = ({ navigation }) => (
 
 const HatDetailWithData = ({ navigation }) => {
   const hatThatWasJustPressed = navigation.state.params.hat;
-  return <HatDetail hat={hatThatWasJustPressed} />;
+  return (
+    <HatDetail
+      hat={hatThatWasJustPressed}
+      onTryHat={() => {
+        // TODO: navigate to hatSwitcher
+      }}
+    />
+  );
 };
 
 const HatSwitcherWithData = () => <HatSwitcher hats={manyHats} index={0} />;
