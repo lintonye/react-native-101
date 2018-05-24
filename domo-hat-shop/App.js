@@ -10,19 +10,26 @@ import { Button } from "react-native";
 const HatListWithData = ({ navigation }) => (
   <HatList
     hats={manyHats}
-    onItemPress={item => {
+    onItemPress={(item, index) => {
       // navigate to HatDetail
-      navigation.navigate("hatDetail", { hat: item });
+      navigation.navigate("hatDetail", { hat: item, index });
     }}
   />
 );
 
 const HatDetailWithData = ({ navigation }) => {
-  const hatThatWasJustPressed = navigation.state.params.hat;
-  return <HatDetail hat={hatThatWasJustPressed} />;
+  const { hat, index } = navigation.state.params;
+  return (
+    <HatDetail
+      hat={hat}
+      onTryHat={() => navigation.navigate("hatSwitcher", { index })}
+    />
+  );
 };
 
-const HatSwitcherWithData = () => <HatSwitcher hats={manyHats} index={0} />;
+const HatSwitcherWithData = ({ navigation }) => (
+  <HatSwitcher hats={manyHats} index={navigation.state.params.index} />
+);
 
 const App = createStackNavigator({
   hatList: {
@@ -33,6 +40,12 @@ const App = createStackNavigator({
   },
   hatDetail: {
     screen: HatDetailWithData
+  },
+  hatSwitcher: {
+    screen: HatSwitcherWithData,
+    navigationOptions: {
+      header: null
+    }
   }
 });
 
