@@ -9,17 +9,14 @@ import { Button } from "react-native";
 const HatListWithData = ({ navigation }) => (
   <HatList
     hats={manyHats}
-    onItemPress={item => {
+    onItemPress={() => {
       // navigate to HatDetail
-      navigation.navigate("hatDetail", { hat: item });
+      navigation.navigate("hatDetail");
     }}
   />
 );
 
-const HatDetailWithData = ({ navigation }) => {
-  const hatThatWasJustPressed = navigation.state.params.hat;
-  return <HatDetail hat={hatThatWasJustPressed} />;
-};
+const HatDetailWithData = () => <HatDetail hat={manyHats[0]} />;
 
 const App = createStackNavigator({
   hatList: {
