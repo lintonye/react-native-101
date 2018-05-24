@@ -1,5 +1,12 @@
 import React from "react";
-import { Image, View, ScrollView, Text, StyleSheet } from "react-native";
+import {
+  Image,
+  View,
+  ScrollView,
+  Text,
+  StyleSheet,
+  Button
+} from "react-native";
 
 import hatWinter from "./images/hat-winter.png";
 import RatingBar from "./RatingBar";
@@ -33,7 +40,7 @@ const styles = StyleSheet.create({
 
 export default class HatDetail extends React.Component {
   render() {
-    const { hat } = this.props;
+    const { hat, onTryHat } = this.props;
     const { price, rating, ratingCount, name, image, description } = hat;
     return (
       <View style={styles.container}>
@@ -42,6 +49,7 @@ export default class HatDetail extends React.Component {
           <Price amount={price} style={styles.price} />
         </View>
         <Image source={image} style={styles.hat} />
+        <Button title="Try it!" onPress={onTryHat} />
         <RatingBar rating={rating} ratingCount={ratingCount} />
         <Text style={styles.description}>{description}</Text>
       </View>
