@@ -26,9 +26,21 @@ const HatDetailWithData = ({ navigation }) => {
   return <HatDetail hat={hatThatWasJustPressed} />;
 };
 
-const Home = createBottomTabNavigator({
+const Hats = createStackNavigator({
   hatList: {
     screen: HatListWithData,
+    navigationOptions: {
+      headerTitle: "Domo's Hat Shop"
+    }
+  },
+  hatDetail: {
+    screen: HatDetailWithData
+  }
+});
+
+const App = createBottomTabNavigator({
+  hats: {
+    screen: Hats,
     navigationOptions: {
       tabBarLabel: "Hats",
       tabBarIcon: ({ focused, tintColor }) => (
@@ -52,18 +64,6 @@ const Home = createBottomTabNavigator({
         />
       )
     }
-  }
-});
-
-const App = createStackNavigator({
-  home: {
-    screen: Home,
-    navigationOptions: {
-      headerTitle: "Domo's Hat Shop"
-    }
-  },
-  hatDetail: {
-    screen: HatDetailWithData
   }
 });
 
