@@ -59,7 +59,7 @@ const App = createStackNavigator({
   home: {
     screen: Home,
     navigationOptions: {
-      headerTitle: "Domo's Hat List"
+      headerTitle: "Domo's Hat Shop"
     }
   },
   hatDetail: {
