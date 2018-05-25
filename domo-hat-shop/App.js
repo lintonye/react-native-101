@@ -5,6 +5,7 @@ import HatDetail from "./HatDetail";
 import { manyHats } from "./Data";
 import { createStackNavigator } from "react-navigation";
 import { Button } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 const HatListWithData = ({ navigation }) => (
   <HatList
