@@ -8,21 +8,16 @@ import {
   StyleSheet,
   Button,
   Platform,
-  KeyboardAvoidingView,
-  LayoutAnimation,
-  UIManager
+  KeyboardAvoidingView
 } from "react-native";
 import DomoImg from "./images/domo-thinker.png";
 import HatImg from "./images/hat_harry.png";
 import { LinearGradient } from "expo";
-import * as Animatable from "react-native-animatable";
-import { manyHats, hats } from "./Data";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
-    justifyContent: "center"
+    padding: 16
   },
   title: {
     fontSize: 30,
@@ -34,7 +29,6 @@ const styles = StyleSheet.create({
   },
   domoContainer: {
     marginLeft: 60,
-    paddingTop: 50,
     alignSelf: "center"
   },
   domo: {
@@ -44,72 +38,43 @@ const styles = StyleSheet.create({
   },
   hat: {
     width: 100,
-    height: 100
-  },
-  hatPos: {
+    height: 100,
     position: "absolute",
     left: 130,
-    top: 0
+    top: -52
   },
-  hatSwitcherContainer: {
-    flexDirection: "row"
+  instruction: {
+    textAlign: "center",
+    fontSize: 20,
+    margin: 8
+  },
+  label: {
+    marginTop: 16,
+    marginBottom: 8
+  },
+  textInput: {
+    height: 40,
+    padding: 4,
+    ...Platform.select({
+      ios: {
+        borderWidth: 1,
+        borderColor: "#7eb859",
+        borderRadius: 4
+      }
+    })
+  },
+  buttonContainer: {
+    marginTop: 16,
+    marginBottom: 16
   }
 });
 
 const Domo = () => (
   <View style={styles.domoContainer}>
     <Image source={DomoImg} style={styles.domo} />
-    <Animatable.View animation="slideOutUp" style={styles.hatPos}>
-      <Animatable.Image
-        animation={{
-          0: {
-            rotate: "10deg"
-          },
-          0.5: {
-            rotate: "-30deg"
-          },
-          1: {
-            rotate: "10deg"
-          }
-        }}
-        duration={400}
-        source={HatImg}
-        style={styles.hat}
-        iterationCount="infinite"
-      />
-    </Animatable.View>
+    <Image source={HatImg} style={styles.hat} />
   </View>
 );
-
-UIManager.setLayoutAnimationEnabledExperimental &&
-  UIManager.setLayoutAnimationEnabledExperimental(true);
-
-class HatSwitcher extends Component {
-  state = {
-    hats: hats.slice(5)
-  };
-  removeFirstHat = () => {
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
-    this.setState({ hats: this.state.hats.slice(1, this.state.hats.length) });
-  };
-  insertHat = () => {
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
-    this.setState({ hats: [hats[0], ...this.state.hats] });
-  };
-  render() {
-    return (
-      <View>
-        <View style={styles.hatSwitcherContainer}>
-          {this.state.hats.map((h, idx) => (
-            <Image source={h.image} key={idx} style={styles.hat} />
-          ))}
-        </View>
-        <Button title="Remove" onPress={this.removeFirstHat} />
-        <Button title="Add" onPress={this.insertHat} />
-      </View>
-    );
-  }
-}
 
 export default class Login extends Component {
   render() {
@@ -119,8 +84,29 @@ export default class Login extends Component {
         style={styles.container}
       >
         <SafeAreaView>
-          <Domo />
-          <HatSwitcher />
+          <KeyboardAvoidingView behavior="position">
+            <Text style={styles.title}>Domo's Hat Shop</Text>
+            <Domo />
+            <Text style={styles.instruction}>Please login</Text>
+            <Text style={styles.label}>Email</Text>
+            <TextInput
+              placeholder="joe@email.com"
+              keyboardType="email-address"
+              style={styles.textInput}
+              returnKeyType="next"
+              onSubmitEditing={() => this.passwdText.focus()}
+            />
+            <Text style={styles.label}>Password</Text>
+            <TextInput
+              secureTextEntry
+              style={styles.textInput}
+              returnKeyType="go"
+              ref={ref => (this.passwdText = ref)}
+            />
+            <View style={styles.buttonContainer}>
+              <Button title="Login" onPress={() => {}} />
+            </View>
+          </KeyboardAvoidingView>
         </SafeAreaView>
       </LinearGradient>
     );
