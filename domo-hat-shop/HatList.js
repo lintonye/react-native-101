@@ -13,6 +13,7 @@ import RatingBar from "./RatingBar";
 import Price from "./Price";
 import styled from "styled-components";
 import Touchable from "./Touchable";
+import { Transition } from "react-navigation-fluid-transitions";
 
 const isAndroid = Platform.OS === "android";
 
@@ -63,7 +64,9 @@ const Spacer = styled.View`
 const HatListItem = ({ hat, onPress }) => (
   <Touchable onPress={onPress}>
     <ItemContainer>
-      <HatImage source={hat.image} />
+      <Transition shared={"hat-" + hat.name}>
+        <HatImage source={hat.image} />
+      </Transition>
       <NameContainer>
         <Name>{hat.name}</Name>
         <RatingBar
@@ -90,14 +93,16 @@ export default class HatList extends Component {
   render() {
     const { hats } = this.props;
     return (
-      <StyledFlatList
-        data={hats}
-        ItemSeparatorComponent={() => <Spacer height={isAndroid ? 8 : 1} />}
-        ListHeaderComponent={() => <Spacer height={isAndroid ? 8 : 1} />}
-        ListFooterComponent={() => <Spacer height={isAndroid ? 8 : 1} />}
-        renderItem={this._renderItem}
-        keyExtractor={this._keyExtractor}
-      />
+      <SafeAreaView>
+        <StyledFlatList
+          data={hats}
+          ItemSeparatorComponent={() => <Spacer height={isAndroid ? 8 : 1} />}
+          ListHeaderComponent={() => <Spacer height={isAndroid ? 8 : 1} />}
+          ListFooterComponent={() => <Spacer height={isAndroid ? 8 : 1} />}
+          renderItem={this._renderItem}
+          keyExtractor={this._keyExtractor}
+        />
+      </SafeAreaView>
     );
   }
 }

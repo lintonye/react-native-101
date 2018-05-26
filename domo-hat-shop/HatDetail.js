@@ -5,12 +5,14 @@ import {
   ScrollView,
   Text,
   StyleSheet,
-  TouchableOpacity
+  TouchableOpacity,
+  SafeAreaView
 } from "react-native";
 
 import hatWinter from "./images/hat-winter.png";
 import RatingBar from "./RatingBar";
 import Price from "./Price";
+import { Transition } from "react-navigation-fluid-transitions";
 
 const styles = StyleSheet.create({
   container: {
@@ -41,17 +43,21 @@ class HatDetail extends React.Component {
     const { hat } = this.props;
     const { price, rating, ratingCount, name, image, description } = hat;
     return (
-      <View style={styles.container}>
-        <View style={styles.nameContainer}>
-          <TouchableOpacity onPress={this.props.onBack} style={{ flex: 1 }}>
-            <Text style={styles.name}>{name}</Text>
-          </TouchableOpacity>
-          <Price amount={price} style={styles.price} />
+      <SafeAreaView style={{ flex: 1 }}>
+        <View style={styles.container}>
+          <View style={styles.nameContainer}>
+            <TouchableOpacity onPress={this.props.onBack} style={{ flex: 1 }}>
+              <Text style={styles.name}>{name}</Text>
+            </TouchableOpacity>
+            <Price amount={price} style={styles.price} />
+          </View>
+          <Transition shared={"hat-" + hat.name}>
+            <Image source={image} style={styles.hat} />
+          </Transition>
+          <RatingBar rating={rating} ratingCount={ratingCount} />
+          <Text style={styles.description}>{description}</Text>
         </View>
-        <Image source={image} style={styles.hat} />
-        <RatingBar rating={rating} ratingCount={ratingCount} />
-        <Text style={styles.description}>{description}</Text>
-      </View>
+      </SafeAreaView>
     );
   }
 }

@@ -10,6 +10,7 @@ import {
 } from "react-navigation";
 import { Button, SafeAreaView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { FluidNavigator } from "react-navigation-fluid-transitions";
 
 const HatListWithData = ({ navigation }) => (
   <HatList
@@ -57,7 +58,7 @@ const Home = createBottomTabNavigator({
   }
 });
 
-const App = createStackNavigator({
+const App = FluidNavigator({
   home: {
     screen: Home,
     navigationOptions: {
