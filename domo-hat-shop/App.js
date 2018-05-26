@@ -12,7 +12,7 @@ const App = createStackNavigator({
   hatList: {
     screen: HatListWithData,
     navigationOptions: {
-      headerTitle: "Domo's Hat List"
+      headerTitle: "Domo's Hat Shop"
     }
   }
 });
