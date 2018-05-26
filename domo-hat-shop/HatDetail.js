@@ -11,7 +11,6 @@ import {
 import hatWinter from "./images/hat-winter.png";
 import RatingBar from "./RatingBar";
 import Price from "./Price";
-import { withNavigation } from "react-navigation";
 
 const styles = StyleSheet.create({
   container: {
@@ -38,14 +37,13 @@ const styles = StyleSheet.create({
 });
 
 class HatDetail extends React.Component {
-  navigateBack = () => this.props.navigation.goBack();
   render() {
     const { hat } = this.props;
     const { price, rating, ratingCount, name, image, description } = hat;
     return (
       <View style={styles.container}>
         <View style={styles.nameContainer}>
-          <TouchableOpacity onPress={this.navigateBack} style={{ flex: 1 }}>
+          <TouchableOpacity onPress={this.props.onBack} style={{ flex: 1 }}>
             <Text style={styles.name}>{name}</Text>
           </TouchableOpacity>
           <Price amount={price} style={styles.price} />
@@ -58,4 +56,4 @@ class HatDetail extends React.Component {
   }
 }
 
-export default withNavigation(HatDetail);
+export default HatDetail;
