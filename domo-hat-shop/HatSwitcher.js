@@ -84,6 +84,9 @@ export default class HatSwitcher extends Component {
       this.hatIndex.setValue(index);
     }
   });
+  state = {
+    pose: DomoImg
+  };
   render() {
     const hat0PositionStyle = {
       opacity: this.hat0Opacity,
@@ -108,7 +111,7 @@ export default class HatSwitcher extends Component {
       >
         <SafeAreaView>
           <View style={styles.domoContainer} {...this.panResponder.panHandlers}>
-            <Image source={DomoImg} style={styles.domo} />
+            <Image source={this.state.pose} style={styles.domo} />
             <Animated.Image
               source={harryPotterHat}
               style={[styles.hat, hat0PositionStyle]}
