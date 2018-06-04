@@ -4,7 +4,9 @@ import { Image, View, Text, FlatList } from "react-native";
 import { manyHats } from "./Data";
 
 function renderItem(itemInfo) {
-  return <Image source={itemInfo.item.image} />;
+  return (
+    <Image source={itemInfo.item.image} style={{ width: 120, height: 120 }} />
+  );
 }
 
 const Separator = () => (
