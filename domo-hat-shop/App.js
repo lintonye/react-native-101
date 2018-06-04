@@ -5,7 +5,17 @@ import { manyHats } from "./Data";
 
 function renderItem(itemInfo) {
   return (
-    <Image source={itemInfo.item.image} style={{ width: 120, height: 120 }} />
+    <View
+      style={{
+        flexDirection: "row",
+        alignItems: "center"
+      }}
+    >
+      <Image source={itemInfo.item.image} style={{ width: 120, height: 120 }} />
+      <Text style={{ fontSize: 20, flex: 1, textAlign: "center" }}>
+        {itemInfo.item.name}
+      </Text>
+    </View>
   );
 }
 
@@ -28,12 +38,28 @@ const Header = () => (
   </View>
 );
 
+const Footer = () => (
+  <View style={{ height: 150, backgroundColor: "#e3982b" }}>
+    <Text
+      style={{
+        fontSize: 30,
+        textAlign: "center",
+        color: "white",
+        marginTop: 60
+      }}
+    >
+      This is the footer
+    </Text>
+  </View>
+);
+
 const App = () => (
   <FlatList
     data={manyHats}
     renderItem={renderItem}
     ItemSeparatorComponent={Separator}
     ListHeaderComponent={Header}
+    ListFooterComponent={Footer}
   />
 );
 
