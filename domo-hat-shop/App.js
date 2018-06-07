@@ -2,6 +2,7 @@ import React from "react";
 import { Image, View, StyleSheet } from "react-native";
 
 import domoImage from "./images/tree_point.png";
+import domoImage2 from "./images/tree_hold.png";
 import hatHarry from "./images/hat-harry.png";
 import hatPirate from "./images/hat-pirate.png";
 
@@ -12,7 +13,8 @@ const styles = StyleSheet.create({
   domo: {
     width: 350,
     height: 350,
-    marginTop: 60
+    marginTop: 60,
+    backgroundColor: "orange"
   },
   hat: {
     width: 120,
@@ -30,19 +32,13 @@ const Hat = ({ image, style }) => (
 );
 
 class App extends React.Component {
-  state = {
-    hat: "harry"
-  };
-  changeHat = () => {
-    this.setState({ hat: this.state.hat === "harry" ? "pirate" : "harry" });
-  };
   render() {
-    const hatImg = this.state.hat === "harry" ? hatHarry : hatPirate;
     return (
       <View style={styles.container}>
         <Image source={domoImage} style={styles.domo} />
-        <Hat image={hatImg} style={styles.hatOnTree} />
-        <Hat image={hatPirate} />
+        <Hat image={hatHarry} style={styles.hatOnTree} />
+        <Image source={domoImage2} />
+        <Hat image={hatPirate} style={styles.hatOnTree} />
       </View>
     );
   }
