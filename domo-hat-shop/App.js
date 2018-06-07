@@ -13,8 +13,13 @@ const styles = StyleSheet.create({
   domo: {
     width: 350,
     height: 350,
-    marginTop: 60,
+    marginTop: 60
+  },
+  bg1: {
     backgroundColor: "orange"
+  },
+  bg2: {
+    backgroundColor: "pink"
   },
   hat: {
     width: 120,
@@ -31,14 +36,18 @@ const Hat = ({ image, style }) => (
   <Image source={image} style={[styles.hat, style]} />
 );
 
+const Domo = ({ image, style }) => (
+  <Image source={image} style={[styles.domo, style]} />
+);
+
 class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Image source={domoImage} style={styles.domo} />
+        <Domo image={domoImage} style={styles.bg1} />
         <Hat image={hatHarry} style={styles.hatOnTree} />
-        <Image source={domoImage2} />
-        <Hat image={hatPirate} style={styles.hatOnTree} />
+        <Domo image={domoImage2} style={styles.bg2} />
+        <Hat image={hatPirate} style={[styles.hatOnTree, { top: 450 }]} />
       </View>
     );
   }
