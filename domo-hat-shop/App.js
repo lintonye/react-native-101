@@ -14,6 +14,9 @@ const styles = StyleSheet.create({
   hat: {
     width: 120,
     height: 120
+  },
+  rating: {
+    color: "brown"
   }
 });
 
@@ -21,6 +24,8 @@ function renderItem(itemInfo) {
   return (
     <View style={styles.container}>
       <Image source={itemInfo.item.image} style={styles.hat} />
+      <Text style={styles.rating}>4 stars</Text>
+
       <Text style={styles.name}>{itemInfo.item.name}</Text>
       <Price amount={itemInfo.item.price} />
     </View>
