@@ -1,20 +1,15 @@
 import React from "react";
 import { Image, View, Text, FlatList } from "react-native";
+import Price from "./Price";
 
 import { manyHats } from "./Data";
 
 function renderItem(itemInfo) {
   return (
-    <View
-      style={{
-        flexDirection: "row",
-        alignItems: "center"
-      }}
-    >
+    <View>
       <Image source={itemInfo.item.image} style={{ width: 120, height: 120 }} />
-      <Text style={{ fontSize: 20, flex: 1, textAlign: "center" }}>
-        {itemInfo.item.name}
-      </Text>
+      <Text>{itemInfo.item.name}</Text>
+      <Price amount={itemInfo.item.price} />
     </View>
   );
 }

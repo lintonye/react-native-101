@@ -9,32 +9,38 @@ export const hats = [
   {
     key: "hatWinter",
     image: hatWinter,
-    name: "Winter"
+    name: "Winter",
+    price: 50
   },
   {
     key: "hatCap",
     image: hatCap,
-    name: "Cap"
+    name: "Cap",
+    price: 30
   },
   {
     key: "hatHarry",
     image: hatHarry,
-    name: "Harry Potter"
+    name: "Harry Potter",
+    price: 29
   },
   {
     key: "hatChef",
     image: hatChef,
-    name: "Chef"
+    name: "Chef",
+    price: 70
   },
   {
     key: "hatPirate",
     image: hatPirate,
-    name: "Pirate"
+    name: "Pirate",
+    price: 150
   },
   {
     key: "hatElegant",
     image: hatElegant,
-    name: "Elegant"
+    name: "Elegant",
+    price: 250
   }
 ];
 
