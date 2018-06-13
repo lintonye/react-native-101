@@ -10,6 +10,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 8
   },
+  ratingContainer: {
+    alignItems: "center"
+  },
   name: {
     flex: 1,
     fontSize: 20,
@@ -21,16 +24,18 @@ const styles = StyleSheet.create({
     height: 120
   },
   rating: {
-    color: "brown"
+    color: "brown",
+    marginTop: -20
   }
 });
 
 function renderItem(itemInfo) {
   return (
     <View style={styles.container}>
-      <Image source={itemInfo.item.image} style={styles.hat} />
-      <Text style={styles.rating}>4 stars</Text>
-
+      <View style={styles.ratingContainer}>
+        <Image source={itemInfo.item.image} style={styles.hat} />
+        <Text style={styles.rating}>4 stars</Text>
+      </View>
       <Text style={styles.name}>{itemInfo.item.name}</Text>
       <Price amount={itemInfo.item.price} />
     </View>
