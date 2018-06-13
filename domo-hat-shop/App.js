@@ -1,14 +1,27 @@
 import React from "react";
-import { Image, View, Text, FlatList } from "react-native";
+import { Image, View, Text, FlatList, StyleSheet } from "react-native";
 import Price from "./Price";
 
 import { manyHats } from "./Data";
 
+const styles = StyleSheet.create({
+  container: {
+    padding: 8
+  },
+  name: {
+    fontSize: 20
+  },
+  hat: {
+    width: 120,
+    height: 120
+  }
+});
+
 function renderItem(itemInfo) {
   return (
-    <View>
-      <Image source={itemInfo.item.image} style={{ width: 120, height: 120 }} />
-      <Text>{itemInfo.item.name}</Text>
+    <View style={styles.container}>
+      <Image source={itemInfo.item.image} style={styles.hat} />
+      <Text style={styles.name}>{itemInfo.item.name}</Text>
       <Price amount={itemInfo.item.price} />
     </View>
   );

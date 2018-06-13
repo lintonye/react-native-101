@@ -9,7 +9,7 @@ export const hats = [
   {
     key: "hatWinter",
     image: hatWinter,
-    name: "Winter",
+    name: "Winter Hat With Ear Cover",
     price: 50
   },
   {
