@@ -6,10 +6,15 @@ import { manyHats } from "./Data";
 
 const styles = StyleSheet.create({
   container: {
+    flexDirection: "row",
+    alignItems: "center",
     padding: 8
   },
   name: {
-    fontSize: 20
+    flex: 1,
+    fontSize: 20,
+    textAlign: "center",
+    margin: 8
   },
   hat: {
     width: 120,
