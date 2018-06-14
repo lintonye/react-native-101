@@ -7,16 +7,13 @@ import Price from "./Price";
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     marginTop: 40,
     padding: 16,
     alignItems: "center"
   },
-  nameContainer: {
-    alignSelf: "stretch",
-    flexDirection: "row",
-    justifyContent: "space-between"
-  },
   name: {
+    flex: 1,
     fontSize: 28
   },
   hat: {
@@ -30,10 +27,7 @@ class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.nameContainer}>
-          <Text style={styles.name}>Winter</Text>
-          <Price amount={45} />
-        </View>
+        <Text style={styles.name}>Winter</Text>
         <Image source={hatWinter} style={styles.hat} />
         <RatingBar rating={5} ratingCount={200} />
         <Text style={styles.description}>{hatDescription}</Text>
