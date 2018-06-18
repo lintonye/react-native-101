@@ -8,7 +8,8 @@ import {
   StyleSheet,
   Button,
   Platform,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  TouchableHighlight
 } from "react-native";
 import DomoImg from "./images/domo-thinker.png";
 import HatImg from "./images/hat_harry.png";
@@ -66,6 +67,18 @@ const styles = StyleSheet.create({
   buttonContainer: {
     marginTop: 16,
     marginBottom: 16
+  },
+  button: {
+    backgroundColor: "#509552",
+    padding: 16,
+    borderRadius: 4,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  buttonText: {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 18
   }
 });
 
@@ -76,6 +89,12 @@ const Domo = () => (
   </View>
 );
 
+const LoginButton = ({ title, onPress }) => (
+  <TouchableHighlight onPress={onPress} style={styles.button}>
+    <Text style={styles.buttonText}>{title}</Text>
+  </TouchableHighlight>
+);
+
 export default class Login extends Component {
   render() {
     return (
@@ -83,31 +102,29 @@ export default class Login extends Component {
         colors={["#6ea849", "#c2dfc2", "#f2fff2"]}
         style={styles.container}
       >
-        <SafeAreaView>
-          <KeyboardAvoidingView behavior="position">
-            <Text style={styles.title}>Domo's Hat Shop</Text>
-            <Domo />
-            <Text style={styles.instruction}>Please login</Text>
-            <Text style={styles.label}>Email</Text>
-            <TextInput
-              placeholder="joe@email.com"
-              keyboardType="email-address"
-              style={styles.textInput}
-              returnKeyType="next"
-              onSubmitEditing={() => this.passwdText.focus()}
-            />
-            <Text style={styles.label}>Password</Text>
-            <TextInput
-              secureTextEntry
-              style={styles.textInput}
-              returnKeyType="go"
-              ref={ref => (this.passwdText = ref)}
-            />
-            <View style={styles.buttonContainer}>
-              <Button title="Login" onPress={() => {}} />
-            </View>
-          </KeyboardAvoidingView>
-        </SafeAreaView>
+        <KeyboardAvoidingView behavior="position">
+          <Text style={styles.title}>Domo's Hat Shop</Text>
+          <Domo />
+          <Text style={styles.instruction}>Please login</Text>
+          <Text style={styles.label}>Email</Text>
+          <TextInput
+            placeholder="joe@email.com"
+            keyboardType="email-address"
+            style={styles.textInput}
+            returnKeyType="next"
+            onSubmitEditing={() => this.passwdText.focus()}
+          />
+          <Text style={styles.label}>Password</Text>
+          <TextInput
+            secureTextEntry
+            style={styles.textInput}
+            returnKeyType="go"
+            ref={ref => (this.passwdText = ref)}
+          />
+          <View style={styles.buttonContainer}>
+            <LoginButton title="Login" onPress={() => {}} />
+          </View>
+        </KeyboardAvoidingView>
       </LinearGradient>
     );
   }
