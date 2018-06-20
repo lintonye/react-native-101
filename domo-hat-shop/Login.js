@@ -10,16 +10,26 @@ import {
   Platform,
   KeyboardAvoidingView,
   TouchableHighlight,
-  TouchableNativeFeedback
+  TouchableNativeFeedback,
+  Dimensions
 } from "react-native";
 import DomoImg from "./images/domo-thinker.png";
 import HatImg from "./images/hat_harry.png";
 import { LinearGradient } from "expo";
 
+const selectByOrientation = ({ landscape, portrait }) => {
+  const height = Dimensions.get("window").height;
+  /* Here we only return the landscape style when the device is short, 
+    i.e. landscape on a phone. We consider iPad landscape mode as portrait 
+    since it has enough vertical space to display the form properly. */
+  return height < 500 ? landscape : portrait;
+};
+
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    padding: 16
+    padding: 16,
+    justifyContent: "center"
   },
   title: {
     fontSize: 30,
@@ -85,8 +95,24 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 18
   },
+  container: {
+    alignItems: "center",
+    ...selectByOrientation({
+      landscape: {
+        flexDirection: "row"
+      }
+    })
+  },
   inputPanel: {
-    maxWidth: 500
+    maxWidth: 400,
+    ...selectByOrientation({
+      portrait: {
+        width: "100%"
+      },
+      landscape: {
+        flex: 1
+      }
+    })
   }
 });
 
@@ -121,9 +147,11 @@ export default class Login extends Component {
         colors={["#6ea849", "#c2dfc2", "#f2fff2"]}
         style={styles.background}
       >
-        <SafeAreaView>
-          <Text style={styles.title}>Domo's Hat Shop</Text>
-          <Domo />
+        <SafeAreaView style={styles.container}>
+          <View>
+            <Text style={styles.title}>Domo's Hat Shop</Text>
+            <Domo />
+          </View>
           <View style={styles.inputPanel}>
             <Text style={styles.instruction}>Please login</Text>
             <Text style={styles.label}>Email</Text>
