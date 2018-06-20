@@ -16,7 +16,7 @@ import HatImg from "./images/hat_harry.png";
 import { LinearGradient } from "expo";
 
 const styles = StyleSheet.create({
-  container: {
+  background: {
     flex: 1,
     padding: 16
   },
@@ -99,7 +99,7 @@ export default class Login extends Component {
     return (
       <LinearGradient
         colors={["#6ea849", "#c2dfc2", "#f2fff2"]}
-        style={styles.container}
+        style={styles.background}
       >
         <Text style={styles.title}>Domo's Hat Shop</Text>
         <Domo />
