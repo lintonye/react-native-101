@@ -84,6 +84,9 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
     fontSize: 18
+  },
+  inputPanel: {
+    maxWidth: 500
   }
 });
 
@@ -121,24 +124,26 @@ export default class Login extends Component {
         <SafeAreaView>
           <Text style={styles.title}>Domo's Hat Shop</Text>
           <Domo />
-          <Text style={styles.instruction}>Please login</Text>
-          <Text style={styles.label}>Email</Text>
-          <TextInput
-            placeholder="joe@email.com"
-            keyboardType="email-address"
-            style={styles.textInput}
-            returnKeyType="next"
-            onSubmitEditing={() => this.passwdText.focus()}
-          />
-          <Text style={styles.label}>Password</Text>
-          <TextInput
-            secureTextEntry
-            style={styles.textInput}
-            returnKeyType="go"
-            ref={ref => (this.passwdText = ref)}
-          />
-          <View style={styles.buttonContainer}>
-            <LoginButton title="Login" onPress={() => {}} />
+          <View style={styles.inputPanel}>
+            <Text style={styles.instruction}>Please login</Text>
+            <Text style={styles.label}>Email</Text>
+            <TextInput
+              placeholder="joe@email.com"
+              keyboardType="email-address"
+              style={styles.textInput}
+              returnKeyType="next"
+              onSubmitEditing={() => this.passwdText.focus()}
+            />
+            <Text style={styles.label}>Password</Text>
+            <TextInput
+              secureTextEntry
+              style={styles.textInput}
+              returnKeyType="go"
+              ref={ref => (this.passwdText = ref)}
+            />
+            <View style={styles.buttonContainer}>
+              <LoginButton title="Login" onPress={() => {}} />
+            </View>
           </View>
         </SafeAreaView>
       </LinearGradient>
