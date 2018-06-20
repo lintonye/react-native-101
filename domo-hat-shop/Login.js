@@ -22,8 +22,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 30,
-    marginTop: 24,
-    marginBottom: 24,
+    marginBottom: 48,
     color: "white", //"#6f9400",
     textAlign: "center",
     fontWeight: "bold"
@@ -102,29 +101,27 @@ export default class Login extends Component {
         colors={["#6ea849", "#c2dfc2", "#f2fff2"]}
         style={styles.container}
       >
-        <KeyboardAvoidingView behavior="position">
-          <Text style={styles.title}>Domo's Hat Shop</Text>
-          <Domo />
-          <Text style={styles.instruction}>Please login</Text>
-          <Text style={styles.label}>Email</Text>
-          <TextInput
-            placeholder="joe@email.com"
-            keyboardType="email-address"
-            style={styles.textInput}
-            returnKeyType="next"
-            onSubmitEditing={() => this.passwdText.focus()}
-          />
-          <Text style={styles.label}>Password</Text>
-          <TextInput
-            secureTextEntry
-            style={styles.textInput}
-            returnKeyType="go"
-            ref={ref => (this.passwdText = ref)}
-          />
-          <View style={styles.buttonContainer}>
-            <LoginButton title="Login" onPress={() => {}} />
-          </View>
-        </KeyboardAvoidingView>
+        <Text style={styles.title}>Domo's Hat Shop</Text>
+        <Domo />
+        <Text style={styles.instruction}>Please login</Text>
+        <Text style={styles.label}>Email</Text>
+        <TextInput
+          placeholder="joe@email.com"
+          keyboardType="email-address"
+          style={styles.textInput}
+          returnKeyType="next"
+          onSubmitEditing={() => this.passwdText.focus()}
+        />
+        <Text style={styles.label}>Password</Text>
+        <TextInput
+          secureTextEntry
+          style={styles.textInput}
+          returnKeyType="go"
+          ref={ref => (this.passwdText = ref)}
+        />
+        <View style={styles.buttonContainer}>
+          <LoginButton title="Login" onPress={() => {}} />
+        </View>
       </LinearGradient>
     );
   }
